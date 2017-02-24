@@ -10,6 +10,7 @@ import net.kleopi.Engine.StatusManagement.StatusManager;
 public class MainServer implements TKNListenerAdapter {
 
 	private static MainServer server;
+	//a comment
 
 	public static MainServer getServer() {
 		return server;
