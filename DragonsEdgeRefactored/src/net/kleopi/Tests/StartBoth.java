@@ -15,4 +15,5 @@ public class StartBoth {
 		ClientMain.main(null);
 		MainServer.main(null);
 	}
+
 }
