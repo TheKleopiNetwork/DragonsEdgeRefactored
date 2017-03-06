@@ -18,16 +18,34 @@ public class EventManager extends Thread {
 	private Queue<Object> eventqueue = new LinkedBlockingQueue<>();
 	private List<TKNListenerAdapter> listeners = new ArrayList<>();
 
+	/**
+	 * Starts Itself!
+	 */
 	public EventManager() {
 		start();
 	}
 
+	/**
+	 * Register your Listener here
+	 *
+	 * @param listener
+	 *            - the Listener to add
+	 */
 	public void addListener(TKNListenerAdapter listener) {
 		listeners.add(listener);
 	}
 
+	/**
+	 * Tries to dispatch the event fitting to the provided Object
+	 *
+	 * @param e
+	 *            - Object to Fire //TODO: rename
+	 * @throws UnregisteredEventException
+	 *             - when Object is not a valid Object, or Event was not added
+	 *             to the Manager yet
+	 */
 	private void dispatch(Object e) throws UnregisteredEventException {
-		// TODO add rest of events
+		// TODO add rest of events + check for UpdateObject first
 		if (e instanceof TickEvent) {
 			listeners.forEach(l -> l.onTick((TickEvent) e));
 			System.out.println("Dispatched TickEvent");
@@ -58,16 +76,32 @@ public class EventManager extends Thread {
 
 	}
 
+	/**
+	 * Dispatches next queued Event
+	 *
+	 * @throws UnregisteredEventException
+	 *             -> dispatch
+	 */
 	public void dispatchNextEvent() throws UnregisteredEventException {
 		while (!eventqueue.isEmpty()) {
 			dispatch(eventqueue.remove());
 		}
 	}
 
+	/**
+	 * Enqueue provided GameEvent to fire when possible
+	 *
+	 * @param e
+	 *            - Event to enqueue
+	 */
 	public void fire(GameEvent e) {
 		queue(e);
 	}
 
+	/**
+	 *
+	 * @return List of all registered Listeners
+	 */
 	public List<TKNListenerAdapter> getListeners() {
 		return listeners;
 	}
@@ -76,10 +110,19 @@ public class EventManager extends Thread {
 		eventqueue.add(e);
 	}
 
+	/**
+	 * Unregisters provided Listener
+	 *
+	 * @param listener
+	 *            - Listener to remove
+	 */
 	public void removeListener(TKNListenerAdapter listener) {
 		listeners.remove(listener);
 	}
 
+	/**
+	 * Try to dispatch the events
+	 */
 	@Override
 	public void run() {
 		while (true) {

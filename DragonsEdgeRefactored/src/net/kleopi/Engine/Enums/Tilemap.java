@@ -7,7 +7,8 @@ public class Tilemap implements Serializable {
 	private static final long serialVersionUID = -1347725125747112647L;
 	private Tiletype data[][][];
 	private int width, height, depth;
-	private final String pri1 = "D";
+	private final String pri1 = "D"; // priority list = what should be drawn
+										// first?
 	private final String pri2 = "S";
 	private final String pri3 = "W";
 
@@ -18,6 +19,9 @@ public class Tilemap implements Serializable {
 		data = new Tiletype[width][height][depth];
 	}
 
+	/**
+	 * Updates all Edge/Corner Overlays of this Datamap. Resource intensive!
+	 */
 	public void calculateOverlays() {
 
 		// TODO: fix bugs with corners
@@ -193,10 +197,17 @@ public class Tilemap implements Serializable {
 		}
 	}
 
-	public Tiletype getData(int x, int y, int z) {
+	/**
+	 *
+	 * @param x
+	 * @param y
+	 * @param layer
+	 * @return Tiletype of Tile at given coordinates 'x','y' in layer 'layer'
+	 */
+	public Tiletype getData(int x, int y, int layer) {
 
-		if (inRange(x, y, z) && data[x][y][z] != null) {
-			return data[x][y][z];
+		if (inRange(x, y, layer) && data[x][y][layer] != null) {
+			return data[x][y][layer];
 		} else {
 			return Tiletype.ERRORTILE;
 		}
@@ -228,7 +239,7 @@ public class Tilemap implements Serializable {
 		if (inRange(x, y, z)) {
 			data[x][y][z] = s;
 			if (z == 0) {
-				// TODO: update
+				// TODO: throw update event
 				// Main.network.updateAll(Nettype.TILE_AT_POS,
 				// Nettype.String3List(Integer.toString(x), Integer.toString(y),
 				// s.getShortcut()));

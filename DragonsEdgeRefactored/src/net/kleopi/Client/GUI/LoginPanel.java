@@ -26,6 +26,9 @@ public class LoginPanel extends JPanel implements TKNListenerAdapter {
 
 	private static JFrame loginFrame;
 
+	/**
+	 * Shows Login Window
+	 */
 	private static void createAndShowGUI() {
 
 		// Create and set up the window.

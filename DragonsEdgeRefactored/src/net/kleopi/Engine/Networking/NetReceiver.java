@@ -12,6 +12,12 @@ import net.kleopi.Engine.Networking.UpdateObjects.UpdateObject;
 public class NetReceiver extends Thread {
 	private ObjectInputStream in;
 
+	/**
+	 * Starts itself
+	 *
+	 * @param s
+	 *            - Socket
+	 */
 	public NetReceiver(Socket s) {
 		try {
 			in = new ObjectInputStream(s.getInputStream());
@@ -22,7 +28,7 @@ public class NetReceiver extends Thread {
 		start();
 	}
 
-	public synchronized void receiveNext() {
+	private synchronized void receiveNext() {
 
 		try {
 			Object object = in.readObject();

@@ -7,15 +7,29 @@ import net.kleopi.Engine.EventManagement.GameEvents.StartupEvent;
 import net.kleopi.Engine.Instances.Instancemanager;
 import net.kleopi.Engine.StatusManagement.StatusManager;
 
+/**
+ * Contains the Main server architecture with all managers
+ */
+
 public class MainServer implements TKNListenerAdapter {
 
 	private static MainServer server;
-	// A comment
 
+	/**
+	 *
+	 * @return static Server Instance to adress all managers
+	 */
 	public static MainServer getServer() {
 		return server;
 	}
 
+	/**
+	 * This sets up the whole Server environment including all managers and the
+	 * static ServerInstance
+	 *
+	 * @param args
+	 *            - should be blank
+	 */
 	public static void main(String[] args) {
 		setServer(new MainServer());
 		server.setEventManager(new EventManager());
@@ -28,6 +42,12 @@ public class MainServer implements TKNListenerAdapter {
 
 	}
 
+	/**
+	 * Sets a new static ServerInstance. Only call upon startup!
+	 *
+	 * @param server
+	 *            - the new ServerInstance
+	 */
 	public static void setServer(MainServer server) {
 		MainServer.server = server;
 	}
@@ -40,27 +60,44 @@ public class MainServer implements TKNListenerAdapter {
 
 	private Instancemanager instancemanager;
 
-	public MainServer() {
-
-	}
-
+	/**
+	 *
+	 * @return EventManager Instance
+	 */
 	public EventManager getEventManager() {
 		return eventManager;
 	}
 
+	/**
+	 *
+	 * @return InstanceManager Instance
+	 */
 	public Instancemanager getInstancemanager() {
 		return instancemanager;
 	}
 
+	/**
+	 *
+	 * @return NetworkManager Instance
+	 */
 	public NetworkServer getNetwork() {
 
 		return network;
 	}
 
+	/**
+	 *
+	 * @return StatusManager Instance
+	 */
+
 	public StatusManager getStatusManager() {
 		return statusManager;
 	}
 
+	/**
+	 *
+	 * @return TileManager Instance
+	 */
 	public Tilemanager getTilemanager() {
 		return tilemanager;
 	}
@@ -68,7 +105,7 @@ public class MainServer implements TKNListenerAdapter {
 	@Override
 	public void onStartUp(StartupEvent e) {
 
-		tilemanager.setDatamap(Tilemanager.setDefaultMap());
+		tilemanager.setDatamap(Tilemanager.getDefaultMap());
 
 	}
 

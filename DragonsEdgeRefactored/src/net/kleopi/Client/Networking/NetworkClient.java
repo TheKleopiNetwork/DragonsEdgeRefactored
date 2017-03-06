@@ -31,6 +31,9 @@ public class NetworkClient implements TKNListenerAdapter {
 		ClientMain.getClient().getEventManager().addListener(this);
 	}
 
+	/**
+	 * Called whenever a disconnect happens
+	 */
 	public void disconnect() {
 		Messager.info("You have been disconnected");
 		ClientMain.getClient().getEventManager().fire(new DisconnectEvent());
@@ -66,6 +69,7 @@ public class NetworkClient implements TKNListenerAdapter {
 
 	public void sendUpdate(UpdateObject object) {
 
+		// TODO: replace by event
 		s.sendPackage(object);
 
 	}

@@ -35,6 +35,7 @@ public class GUI implements TKNListenerAdapter {
 		gui.surface.repaint();
 	}
 
+	// TODO: react to all events to draw properly
 	private void setupGameFrame() {
 
 		frame = new JFrame();

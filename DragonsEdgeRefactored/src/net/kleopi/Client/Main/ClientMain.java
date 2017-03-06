@@ -18,6 +18,12 @@ public class ClientMain implements TKNListenerAdapter {
 		return client;
 	}
 
+	/**
+	 * Set up the Client environment with all managers
+	 * 
+	 * @param args
+	 *            - Leave blank!
+	 */
 	public static void main(String[] args) {
 		setClient(new ClientMain());
 
@@ -48,9 +54,6 @@ public class ClientMain implements TKNListenerAdapter {
 	private Tilemanager tilemanager;
 
 	private Instancemanager instancemanager;
-
-	public ClientMain() {
-	}
 
 	public EventManager getEventManager() {
 		return eventManager;

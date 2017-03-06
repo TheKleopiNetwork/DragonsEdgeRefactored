@@ -12,6 +12,7 @@ public class NetSender {
 	private ObjectOutputStream out;
 	private Socket socket;
 
+	// TODO: react on Events
 	public NetSender(Socket s) {
 
 		try {

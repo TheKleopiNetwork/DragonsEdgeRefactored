@@ -38,6 +38,8 @@ public class Instancemanager {
 		// Integer.toString(c.id)));
 	}
 
+	// TODO: change to Events
+	@Deprecated
 	public void drawEvent(Graphics g) {
 
 		Graphics2D g2d = (Graphics2D) g;
@@ -96,6 +98,12 @@ public class Instancemanager {
 
 	}
 
+	/**
+	 * TODO: fix
+	 *
+	 * @param clientid
+	 * @return all Instances selected by that user
+	 */
 	public List<Instance> getSelectedInstances(int clientid) {
 
 		List<Instance> ins = new ArrayList<>();
@@ -125,6 +133,7 @@ public class Instancemanager {
 		return ins;
 	}
 
+	@Deprecated
 	public void leftclickedEvent(int x, int y) {
 
 		if (selecting == false) {
@@ -138,6 +147,7 @@ public class Instancemanager {
 		}
 	}
 
+	@Deprecated
 	public void leftreleasedEvent(int x, int y) {
 
 		selecting = false;
@@ -155,6 +165,13 @@ public class Instancemanager {
 		// rect.height).toString()));
 	}
 
+	/**
+	 * Changes Target of the selected sprites of Provided client
+	 *
+	 * @param clientid
+	 * @param x
+	 * @param y
+	 */
 	public void moveselectedsprites(int clientid, int x, int y) {
 
 		Instance target = getTargetInstanceAtPosition(x, y);
@@ -165,6 +182,7 @@ public class Instancemanager {
 
 	}
 
+	// TODO: rework
 	public boolean passable(double x, double y, Instance i) {
 
 		for (Instance ins : getInstances()) {
@@ -179,11 +197,18 @@ public class Instancemanager {
 		return true;
 	}
 
+	/**
+	 * Add an Instance to the List
+	 * 
+	 * @param ins
+	 *            -Instance to add
+	 */
 	public void registerInstance(Instance ins) {
 
 		getInstances().add(ins);
 	}
 
+	@Deprecated
 	public void rightclickedEvent(int x, int y) {
 
 		for (Instance ins : getInstances()) {
@@ -219,6 +244,7 @@ public class Instancemanager {
 		this.instances = instances;
 	}
 
+	@Deprecated
 	public void stepEvent() {
 
 		for (Instance ins : getInstances()) {

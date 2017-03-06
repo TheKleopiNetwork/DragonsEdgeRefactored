@@ -8,6 +8,7 @@ import net.kleopi.Engine.Networking.UpdateObjects.UpdateObject;
 
 public class NetWorkerClient extends Thread implements TKNListenerAdapter {
 
+	// TODO: replace with Events
 	public NetWorkerClient() {
 		start();
 		ClientMain.getClient().getEventManager().addListener(this);

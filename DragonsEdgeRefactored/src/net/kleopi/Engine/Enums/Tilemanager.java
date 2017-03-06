@@ -13,7 +13,13 @@ public class Tilemanager implements TKNListenerAdapter {
 	private static final int tileysize = 1000;
 	private static final int camspeed = 32;
 
-	public static Tilemap setDefaultMap() {
+	/**
+	 * DOES NOT SET THE MAP. ONLY RETURNS DEFAULT MAP!
+	 *
+	 * @return Default map, filled with random Tiles TODO: better generation?
+	 *         TODO: Maybe also SET the map in Tilemanager >.>
+	 */
+	public static Tilemap getDefaultMap() {
 
 		Tilemap map = new Tilemap(tilexsize, tileysize, 3);
 		// main layer
@@ -37,6 +43,13 @@ public class Tilemanager implements TKNListenerAdapter {
 	private int tilesize = 32;
 	public int viewx, viewy;
 
+	/**
+	 * TODO: change to event
+	 *
+	 * @param g
+	 *            - Graphics Object used for drawing
+	 */
+	@Deprecated
 	public void drawEvent(Graphics g) {
 
 		for (int i = 0; i < 9; i++) {
@@ -47,7 +60,7 @@ public class Tilemanager implements TKNListenerAdapter {
 
 	}
 
-	public void drawTileAtPos(double x, double y, String tileID, Graphics g) {
+	private void drawTileAtPos(double x, double y, String tileID, Graphics g) {
 
 		if (!tileID.equals("") && ClientMain.getClient().getPreloaded().getTile(tileID) != null) {
 			g.drawImage(ClientMain.getClient().getPreloaded().getTile(tileID), (int) x, (int) y, getTilesize(),
@@ -55,7 +68,7 @@ public class Tilemanager implements TKNListenerAdapter {
 		}
 	}
 
-	public void drawTiles(int layer, Graphics g) {
+	private void drawTiles(int layer, Graphics g) {
 
 		for (double i = -(viewx % getTilesize()); i <= GUI.RESOLUTION_WIDTH; i += getTilesize()) {
 			for (double j = -(viewy % getTilesize()); j <= GUI.RESOLUTION_HEIGTH; j += getTilesize()) {
@@ -73,21 +86,39 @@ public class Tilemanager implements TKNListenerAdapter {
 
 	}
 
+	/**
+	 *
+	 * @return current Datamap
+	 */
 	public Tilemap getDatamap() {
 
 		return datamap;
 	}
 
+	/**
+	 * To get the type of Tile at a specific position
+	 *
+	 * @param x
+	 *            - xCoordinate of needed tile
+	 * @param y
+	 *            - yCoordinate of needed tile
+	 * @param layer
+	 *            - layer where tile is drawn. 0 for base tile >0 for
+	 *            corner/side tile overlays
+	 * @return Tiletype at given coordinates in layer
+	 */
 	public Tiletype getTileAtPosition(double x, double y, int layer) {
 
 		return getDatamap().getData((int) (x / getTilesize()), (int) (y / getTilesize()), layer);
 	}
 
-	public int getTilesize() {
+	private int getTilesize() {
 
 		return tilesize;
 	}
 
+	// TODO: on client side use listener to move view
+	@Deprecated
 	public void moveDown() {
 
 		viewy += camspeed;
@@ -95,18 +126,21 @@ public class Tilemanager implements TKNListenerAdapter {
 
 	}
 
+	@Deprecated
 	public void moveLeft() {
 
 		viewx -= camspeed;
 		fixview();
 	}
 
+	@Deprecated
 	public void moveRight() {
 
 		viewx += camspeed;
 		fixview();
 	}
 
+	@Deprecated
 	public void moveUp() {
 
 		viewy -= camspeed;
@@ -114,9 +148,17 @@ public class Tilemanager implements TKNListenerAdapter {
 	}
 
 	public void sendMap(String id) {
+		// TODO: fix this
 		ClientMain.getClient().getEventManager().fire(new PackageSendEvent(new DataMapUpdate(datamap)));
 	}
 
+	/**
+	 * Sets a new Datamap and recalculates its overlays. Info: very
+	 * ressourceintensive. Use with caution!
+	 *
+	 * @param new_datamap
+	 *            - Tilemap to set as map
+	 */
 	public void setDatamap(Tilemap new_datamap) {
 
 		datamap = new_datamap;
@@ -124,21 +166,25 @@ public class Tilemanager implements TKNListenerAdapter {
 		hasMap = true;
 	}
 
-	public void setTilesize(int tilesize) {
+	private void setTilesize(int tilesize) {
 
 		this.tilesize = tilesize;
 	}
 
-	public void stepEvent() {
-
-	}
-
+	/**
+	 * Changes tile at a specific position. TODO: update Overlays
+	 * 
+	 * @param x
+	 * @param y
+	 * @param shortcut
+	 *            - shortcut of Tile TODO: use Tiletype enum here
+	 */
 	public void updateTile(int x, int y, String shortcut) {
 
 		getDatamap().setData(x, y, 0, Tiletype.getTiletypeOfShortcut(shortcut));
 	}
 
-	public void zoom(int movement) {
+	private void zoom(int movement) {
 
 		// TODO: fix bug: camera does not match the zoom
 		setTilesize(getTilesize() + movement);

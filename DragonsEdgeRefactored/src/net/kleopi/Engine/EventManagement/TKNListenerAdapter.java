@@ -11,6 +11,10 @@ import net.kleopi.Engine.EventManagement.GameEvents.PingEvent;
 import net.kleopi.Engine.EventManagement.GameEvents.StartupEvent;
 import net.kleopi.Engine.EventManagement.GameEvents.TickEvent;
 
+/**
+ * Interface used to Listen to some GameEvents
+ *
+ */
 public interface TKNListenerAdapter {
 
 	default void onDisconnect(DisconnectEvent e) {

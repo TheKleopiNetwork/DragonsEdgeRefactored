@@ -14,25 +14,38 @@ import net.kleopi.Engine.Networking.UpdateObjects.DataMapUpdate;
 import net.kleopi.Engine.Networking.UpdateObjects.UpdateObject;
 
 public class NetworkServer extends Thread implements TKNListenerAdapter {
-	private final static int port = 11833;
+	private final static int port = 11833; // the Port we will use
 
-	List<Player> players = new ArrayList<>();
-	private int idcounter = 1;
+	List<Player> players = new ArrayList<>(); // saving all connected players
+												// TODO: change?
+	private int idcounter = 1; // needed to give clients Ids
 
 	NetWorkerServer w;
 
 	private ArrayList<NetSender> senders = new ArrayList<>();
 
+	/**
+	 * Starts itself! Also registers itself!
+	 */
 	public NetworkServer() {
 		MainServer.getServer().getEventManager().addListener(this);
 		start();
 	}
 
+	/**
+	 * Add a Player to the list.
+	 *
+	 * @param socket
+	 *            - The socket which should be saved for that player
+	 */
+
 	public void addPlayer(Socket socket) {
 
 		Player p = new Player(getNextId());
 		players.add(p);
+		// TODO: change syso to messager
 		System.out.println("Player added [Server.addPlayer]");
+		// TODO: maybe dont send the Datapack here already?
 		sendUpdate(new DataMapUpdate(MainServer.getServer().getTilemanager().getDatamap()), socket);
 		System.out.println("Sent Datamap");
 	}
@@ -44,6 +57,12 @@ public class NetworkServer extends Thread implements TKNListenerAdapter {
 		return nid;
 	}
 
+	/**
+	 *
+	 * @param clientid
+	 *            - id to search with
+	 * @return Player with the given ID
+	 */
 	public Player getPlayerfromId(int clientid) {
 
 		for (Player p : players) {
@@ -55,6 +74,12 @@ public class NetworkServer extends Thread implements TKNListenerAdapter {
 		return null;
 	}
 
+	/**
+	 * Removes a player from the List
+	 * 
+	 * @param player
+	 *            - Player to remove
+	 */
 	public void removePlayer(Player player) {
 
 		players.remove(player);
@@ -92,9 +117,18 @@ public class NetworkServer extends Thread implements TKNListenerAdapter {
 		}
 	}
 
+	/**
+	 * Sends a datapackage to the specific client using a socket
+	 * 
+	 * @param object
+	 *            - Datapackage to send
+	 * @param socket
+	 *            - Socket to send a package to TODO: Add methods using username
+	 *            or ID; Overloading maybe?
+	 */
 	public void sendUpdate(UpdateObject object, Socket socket) {
 
-		for (NetSender s : senders = new ArrayList<>()) {
+		for (NetSender s : senders) {
 			if (s.getSocket() == socket) {
 				s.sendPackage(object);
 			}
@@ -102,6 +136,12 @@ public class NetworkServer extends Thread implements TKNListenerAdapter {
 
 	}
 
+	/**
+	 * Send a package to all connected Players
+	 * 
+	 * @param object
+	 *            - Datapackage to send
+	 */
 	public void updateAll(UpdateObject object)
 
 	{

@@ -13,6 +13,11 @@ import net.kleopi.Engine.EventManagement.TKNListenerAdapter;
 import net.kleopi.Engine.EventManagement.GameEvents.PingEvent;
 import net.kleopi.Engine.Exceptions.UnregisteredEventException;
 
+/**
+ * Several tests to test some features
+ *
+ *
+ */
 public class BasicTests {
 
 	@BeforeClass

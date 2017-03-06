@@ -22,6 +22,18 @@ public abstract class Instance {
 	private double hp;
 	private Sprite sprite;
 
+	/**
+	 *
+	 * @param posx
+	 * @param posy
+	 * @param hitboxsize
+	 * @param ndirection
+	 * @param nspeed
+	 * @param owner
+	 * @param id
+	 * @param imageid
+	 *            - Sprite for drawing TODO: rework this
+	 */
 	public Instance(double posx, double posy, double hitboxsize, double ndirection, double nspeed, Player owner, int id,
 			Sprite imageid) {
 		setCircle(new Circle(posx, posy, hitboxsize));
@@ -34,12 +46,27 @@ public abstract class Instance {
 		this.sprite = imageid;
 	}
 
+	/**
+	 * When do I die?
+	 */
 	abstract void checkDeath();
 
+	/**
+	 * When getting damage, what should happen?
+	 *
+	 * @param amount
+	 *            - damage dealt
+	 */
 	public abstract void damage(int amount);
 
+	/**
+	 * TODO: ???
+	 */
 	public abstract void damageNear();
 
+	/**
+	 * What happens when Instance gets destroyed?
+	 */
 	public abstract void destroy();
 
 	private double distanceToTarget() {
@@ -48,8 +75,14 @@ public abstract class Instance {
 				Math.sqrt(Math.pow(target_x - getCircle().getX(), 2) + Math.pow(target_y - getCircle().getY(), 2)));
 	}
 
+	@Deprecated
 	public abstract void drawEvent(Graphics2D g);
+	// TODO: change to Event
 
+	/**
+	 *
+	 * @return Hitcircle
+	 */
 	public Circle getCircle() {
 
 		return circle;
@@ -70,15 +103,29 @@ public abstract class Instance {
 		return (int) (getCircle().getY() - ClientMain.getClient().getTilemanager().viewy);
 	}
 
-	private boolean inRect(int x, int y, int width, int height) {
+	/**
+	 * Check if Sprite is within a rectangle
+	 *
+	 * @param x
+	 * @param y
+	 * @param width
+	 * @param height
+	 * @return true - when inside
+	 */
+	public boolean inRect(int x, int y, int width, int height) {
 
 		return (Utilities.between((int) getCircle().getX(), x, width)
 				&& Utilities.between((int) getCircle().getY(), y, height));
 	}
 
+	// TODO: to eventlistener
+	@Deprecated
 	public abstract void leftclickedEvent(int x, int y);
 
-	protected void move() {
+	/**
+	 * Tell the sprite to move
+	 */
+	public void move() {
 
 		path();
 		double dx = speed * Math.cos(direction / 360 * 2 * Math.PI);
@@ -128,6 +175,7 @@ public abstract class Instance {
 		}
 	}
 
+	@Deprecated
 	public abstract void rightclickedEvent(int x, int y);
 
 	public void setCircle(Circle circle) {
