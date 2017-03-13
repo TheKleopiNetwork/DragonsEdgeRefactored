@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 import net.kleopi.Client.Main.ClientMain;
 import net.kleopi.Engine.EventManagement.TKNListenerAdapter;
 import net.kleopi.Engine.EventManagement.GameEvents.DrawEvent;
+import net.kleopi.Engine.EventManagement.GameEvents.LoginEvent;
 
 public class GUI implements TKNListenerAdapter {
 	public final static int RESOLUTION_WIDTH = 1920;
@@ -33,6 +34,14 @@ public class GUI implements TKNListenerAdapter {
 	@Override
 	public void onDraw(DrawEvent e) {
 		gui.surface.repaint();
+	}
+	
+	/**
+	 *  TODO: react on Logged Event
+	 */
+	@Override
+	public void onLogin(LoginEvent e) {
+		setupGameFrame();
 	}
 
 	// TODO: react to all events to draw properly

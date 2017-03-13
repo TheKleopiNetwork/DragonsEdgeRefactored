@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Queue;
 import java.util.concurrent.LinkedBlockingQueue;
 
+import net.kleopi.Client.GUI.Messager;
 import net.kleopi.Engine.EventManagement.GameEvents.DisconnectEvent;
 import net.kleopi.Engine.EventManagement.GameEvents.DrawEvent;
 import net.kleopi.Engine.EventManagement.GameEvents.GameEvent;
@@ -44,7 +45,7 @@ public class EventManager extends Thread {
 	 *             - when Object is not a valid Object, or Event was not added
 	 *             to the Manager yet
 	 */
-	private void dispatch(Object e) throws UnregisteredEventException {
+	private void dispatch(Object e) throws UnregisteredEventException{
 		// TODO add rest of events + check for UpdateObject first
 		if (e instanceof TickEvent) {
 			listeners.forEach(l -> l.onTick((TickEvent) e));
@@ -107,6 +108,7 @@ public class EventManager extends Thread {
 	}
 
 	private void queue(GameEvent e) {
+		Messager.info("Enqueued GameEvent");
 		eventqueue.add(e);
 	}
 
