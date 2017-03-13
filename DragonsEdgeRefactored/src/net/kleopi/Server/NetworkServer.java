@@ -6,10 +6,11 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.kleopi.Client.GUI.Messager;
+import net.kleopi.Engine.Enums.Messager;
 import net.kleopi.Engine.EventManagement.TKNListenerAdapter;
 import net.kleopi.Engine.Networking.NetCommunicator;
 import net.kleopi.Engine.Networking.Player;
+import net.kleopi.Engine.Networking.UpdateObjects.DataMapUpdate;
 import net.kleopi.Engine.Networking.UpdateObjects.UpdateObject;
 
 public class NetworkServer extends Thread implements TKNListenerAdapter {
@@ -43,10 +44,9 @@ public class NetworkServer extends Thread implements TKNListenerAdapter {
 		communicators.add(new NetCommunicator(socket));
 		Messager.info("Player added [Server.addPlayer]");
 		// TODO: maybe dont send the Datapack here already?
-		// sendUpdate(new
-		// DataMapUpdate(MainServer.getServer().getTilemanager().getDatamap()),
-		// socket);
-		// Messager.info("Sent Datamap");
+		Messager.info("Packing TileMap for new Client");
+		sendUpdate(new DataMapUpdate(MainServer.getServer().getTilemanager().getDatamap()), socket);
+		Messager.info("Sent Tilemap");
 	}
 
 	private int getNextId() {

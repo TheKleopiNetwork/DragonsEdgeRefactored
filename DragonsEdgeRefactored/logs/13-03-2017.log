@@ -1,0 +1,155 @@
+-----------------------------------------
+Startup
+[INFO]:  Enqueued GameEvent
+[INFO]:  Enqueued GameEvent
+[INFO]:  Enqueued GameEvent
+[INFO]:  Trying to connect to server...
+[INFO]:  Client connected from /127.0.0.1:62740[Server.run(workloop)]
+[INFO]:  Connected to the Masterserver
+[INFO]:  Enqueued GameEvent
+[INFO]:  Dispatched LoggedEvent
+-----------------------------------------
+Startup
+[INFO]:  Enqueued GameEvent
+[INFO]:  Enqueued GameEvent
+[INFO]:  Enqueued GameEvent
+[INFO]:  Trying to connect to server...
+[INFO]:  Client connected from /127.0.0.1:62741[Server.run(workloop)]
+[INFO]:  Connected to the Masterserver
+
+[INFO]:  Enqueued GameEvent
+[INFO]:  Dispatched LoggedEvent
+-----------------------------------------
+Startup
+[INFO]:  Enqueued GameEvent
+[INFO]:  Enqueued GameEvent
+[INFO]:  Enqueued GameEvent
+[INFO]:  Trying to connect to server...
+[INFO]:  Client connected from /127.0.0.1:62742[Server.run(workloop)]
+[INFO]:  Player added [Server.addPlayer]
+[INFO]:  Enqueued GameEvent
+[INFO]:  Dispatched LoggedEvent
+-----------------------------------------
+Startup
+[INFO]:  Enqueued GameEvent
+[INFO]:  Enqueued GameEvent
+[INFO]:  Enqueued GameEvent
+[INFO]:  Trying to connect to server...
+[INFO]:  Client connected from /127.0.0.1:62746[Server.run(workloop)]
+[INFO]:  Player added [Server.addPlayer]
+[INFO]:  Connected to the Masterserver
+[INFO]:  Enqueued GameEvent
+[INFO]:  Dispatched LoggedEvent
+-----------------------------------------
+Startup
+[INFO]:  Enqueued GameEvent
+[INFO]:  Enqueued GameEvent
+-----------------------------------------
+Startup
+[INFO]:  PreLoading Sprites
+[INFO]:  Sprites had been successfully loaded
+[INFO]:  Enqueued GameEvent
+[INFO]:  Enqueued GameEvent
+-----------------------------------------
+Startup
+[INFO]:  PreLoading Sprites
+[INFO]:  Sprites had been successfully loaded
+[INFO]:  Enqueued GameEvent
+[INFO]:  Enqueued GameEvent
+-----------------------------------------
+Startup
+[INFO]:  PreLoading Sprites
+[INFO]:  Sprites had been successfully loaded
+[INFO]:  Enqueued GameEvent
+[INFO]:  Enqueued GameEvent
+[INFO]:  Enqueued GameEvent
+[INFO]:  Trying to connect to server...
+[INFO]:  Client connected from /127.0.0.1:62779[Server.run(workloop)]
+[INFO]:  Connected to the Masterserver
+
+[INFO]:  Enqueued GameEvent
+[INFO]:  Dispatched LoggedEvent
+-----------------------------------------
+Startup
+[INFO]:  PreLoading Sprites
+[ERROR]: File is null. This might be a bug
+[INFO]:  Sprites had been successfully loaded
+[INFO]:  Enqueued GameEvent
+[INFO]:  Enqueued GameEvent
+[INFO]:  Enqueued GameEvent
+[INFO]:  Trying to connect to server...
+[INFO]:  Client connected from /127.0.0.1:62781[Server.run(workloop)]
+[INFO]:  Connected to the Masterserver
+
+[INFO]:  Enqueued GameEvent
+[INFO]:  Dispatched LoggedEvent
+-----------------------------------------
+Startup
+[INFO]:  PreLoading Sprites
+[ERROR]: File is null. This might be a bug
+[INFO]:  Sprites had been successfully loaded
+[INFO]:  Enqueued GameEvent
+[INFO]:  Enqueued GameEvent
+[INFO]:  Enqueued GameEvent
+[INFO]:  Trying to connect to server...
+[INFO]:  Client connected from /127.0.0.1:62782[Server.run(workloop)]
+[INFO]:  Player added [Server.addPlayer]
+[INFO]:  Enqueued GameEvent
+[INFO]:  Dispatched LoggedEvent
+-----------------------------------------
+Startup
+[INFO]:  PreLoading Sprites
+[ERROR]: File is null. This might be a bug
+[INFO]:  Sprites had been successfully loaded
+[INFO]:  Enqueued GameEvent
+[INFO]:  Enqueued GameEvent
+[INFO]:  Enqueued GameEvent
+[INFO]:  Trying to connect to server...
+[INFO]:  Client connected from /127.0.0.1:62784[Server.run(workloop)]
+[INFO]:  Connected to the Masterserver
+
+[INFO]:  Enqueued GameEvent
+new Client
+[INFO]:  Dispatched LoggedEvent
+-----------------------------------------
+Startup
+[INFO]:  PreLoading Sprites
+[ERROR]: File is null. This might be a bug
+[INFO]:  Sprites had been successfully loaded
+[INFO]:  Enqueued GameEvent
+[INFO]:  Enqueued GameEvent
+[INFO]:  Enqueued GameEvent
+[INFO]:  Trying to connect to server...
+[INFO]:  Client connected from /127.0.0.1:61541[Server.run(workloop)]
+[INFO]:  Connected to the Masterserver
+
+[INFO]:  Packing TileMap for new Client
+[INFO]:  Dispatched LoggedEvent
+-----------------------------------------
+Startup
+[INFO]:  PreLoading Sprites
+[ERROR]: File is null. This might be a bug
+[INFO]:  Sprites had been successfully loaded
+[INFO]:  Enqueued GameEvent
+[INFO]:  Enqueued GameEvent
+[INFO]:  Enqueued GameEvent
+[INFO]:  Trying to connect to server...
+[INFO]:  Client connected from /127.0.0.1:59157[Server.run(workloop)]
+[INFO]:  Player added [Server.addPlayer]
+[INFO]:  Packing TileMap for new Client
+[INFO]:  Dispatched LoggedEvent
+-----------------------------------------
+Startup
+[INFO]:  PreLoading Sprites
+[ERROR]: File is null. This might be a bug
+[INFO]:  Sprites had been successfully loaded
+[INFO]:  Enqueued GameEvent
+[INFO]:  Enqueued GameEvent
+[INFO]:  Enqueued GameEvent
+[INFO]:  Trying to connect to server...
+[INFO]:  Client connected from /127.0.0.1:50823[Server.run(workloop)]
+[INFO]:  Connected to the Masterserver
+
+[INFO]:  Enqueued GameEvent
+new Client
+[INFO]:  Dispatched LoggedEvent

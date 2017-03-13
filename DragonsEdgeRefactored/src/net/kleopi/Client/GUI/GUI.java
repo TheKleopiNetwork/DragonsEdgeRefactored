@@ -6,9 +6,12 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import net.kleopi.Client.Main.ClientMain;
+import net.kleopi.Engine.Enums.Messager;
 import net.kleopi.Engine.EventManagement.TKNListenerAdapter;
 import net.kleopi.Engine.EventManagement.GameEvents.DrawEvent;
 import net.kleopi.Engine.EventManagement.GameEvents.LoginEvent;
+import net.kleopi.Engine.EventManagement.GameEvents.PackageReceivedEvent;
+import net.kleopi.Engine.Networking.UpdateObjects.DataMapUpdate;
 
 public class GUI implements TKNListenerAdapter {
 	public final static int RESOLUTION_WIDTH = 1920;
@@ -35,13 +38,22 @@ public class GUI implements TKNListenerAdapter {
 	public void onDraw(DrawEvent e) {
 		gui.surface.repaint();
 	}
-	
+
 	/**
-	 *  TODO: react on Logged Event
+	 * TODO: react on Logged Event
 	 */
 	@Override
 	public void onLogin(LoginEvent e) {
 		setupGameFrame();
+	}
+
+	@Override
+	public void onPackageReceived(PackageReceivedEvent e) {
+		if (e.getUpdateObject() instanceof DataMapUpdate) {
+			Messager.info("Sucessfully downloaded the Map...");
+			ClientMain.getClient().getTilemanager().setDatamap(((DataMapUpdate) e.getUpdateObject()).getDatamap());
+		} else {
+		}
 	}
 
 	// TODO: react to all events to draw properly

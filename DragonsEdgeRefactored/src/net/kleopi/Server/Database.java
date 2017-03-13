@@ -11,7 +11,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.kleopi.Client.GUI.Messager;
+import net.kleopi.Engine.Enums.Messager;
 
 /**
  * Database to save User data. TODO: change encryption(!)

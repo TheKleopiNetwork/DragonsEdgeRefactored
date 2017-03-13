@@ -3,8 +3,8 @@ package net.kleopi.Client.Networking;
 import java.io.IOException;
 import java.net.Socket;
 
-import net.kleopi.Client.GUI.Messager;
 import net.kleopi.Client.Main.ClientMain;
+import net.kleopi.Engine.Enums.Messager;
 import net.kleopi.Engine.EventManagement.TKNListenerAdapter;
 import net.kleopi.Engine.EventManagement.GameEvents.DisconnectEvent;
 import net.kleopi.Engine.EventManagement.GameEvents.LoggedEvent;

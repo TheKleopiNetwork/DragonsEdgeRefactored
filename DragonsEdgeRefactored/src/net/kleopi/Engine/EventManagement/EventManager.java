@@ -5,12 +5,13 @@ import java.util.List;
 import java.util.Queue;
 import java.util.concurrent.LinkedBlockingQueue;
 
-import net.kleopi.Client.GUI.Messager;
+import net.kleopi.Engine.Enums.Messager;
 import net.kleopi.Engine.EventManagement.GameEvents.DisconnectEvent;
 import net.kleopi.Engine.EventManagement.GameEvents.DrawEvent;
 import net.kleopi.Engine.EventManagement.GameEvents.GameEvent;
 import net.kleopi.Engine.EventManagement.GameEvents.LoggedEvent;
 import net.kleopi.Engine.EventManagement.GameEvents.LoginEvent;
+import net.kleopi.Engine.EventManagement.GameEvents.PackageReceivedEvent;
 import net.kleopi.Engine.EventManagement.GameEvents.PingEvent;
 import net.kleopi.Engine.EventManagement.GameEvents.StartupEvent;
 import net.kleopi.Engine.EventManagement.GameEvents.TickEvent;
@@ -48,35 +49,42 @@ public class EventManager extends Thread {
 	 */
 	private void dispatch(Object object) throws UnregisteredEventException {
 		// TODO add rest of events + check for UpdateObject first
-		if (object instanceof TickEvent) {
-			listeners.forEach(l -> l.onTick((TickEvent) object));
-			System.out.println("Dispatched TickEvent");
-		}
+		if (object instanceof GameEvent) {
+			if (object instanceof TickEvent) {
+				listeners.forEach(l -> l.onTick((TickEvent) object));
+				System.out.println("Dispatched TickEvent");
+			}
 
-		else if (object instanceof PingEvent) {
-			listeners.forEach(l -> l.onPing((PingEvent) object));
-			System.out.println("Dispatched PingEvent");
-		} else if (object instanceof StartupEvent) {
-			listeners.forEach(l -> l.onStartUp((StartupEvent) object));
-			System.out.println("Dispatched StartupEvent");
-		} else if (object instanceof LoginEvent) {
-			listeners.forEach(l -> l.onLogin((LoginEvent) object));
-			System.out.println("Dispatched LoginEvent");
-		} else if (object instanceof TickEvent) {
-			listeners.forEach(l -> l.onTick((TickEvent) object));
-			System.out.println("Dispatched TickEvent");
-		} else if (object instanceof DrawEvent) {
-			listeners.forEach(l -> l.onDraw((DrawEvent) object));
-			System.out.println("Dispatched DrawEvent");
-		} else if (object instanceof DisconnectEvent) {
-			listeners.forEach(l -> l.onDisconnect((DisconnectEvent) object));
-			Messager.info("Dispatched DisconnectEvent");
-		} else if (object instanceof LoggedEvent) {
-			listeners.forEach(l -> l.onSuccessfulLoginReturn((LoggedEvent) object));
-			Messager.info("Dispatched LoggedEvent");
+			else if (object instanceof PingEvent) {
+				listeners.forEach(l -> l.onPing((PingEvent) object));
+				System.out.println("Dispatched PingEvent");
+			} else if (object instanceof StartupEvent) {
+				listeners.forEach(l -> l.onStartUp((StartupEvent) object));
+				System.out.println("Dispatched StartupEvent");
+			} else if (object instanceof LoginEvent) {
+				listeners.forEach(l -> l.onLogin((LoginEvent) object));
+				System.out.println("Dispatched LoginEvent");
+			} else if (object instanceof TickEvent) {
+				listeners.forEach(l -> l.onTick((TickEvent) object));
+				System.out.println("Dispatched TickEvent");
+			} else if (object instanceof DrawEvent) {
+				listeners.forEach(l -> l.onDraw((DrawEvent) object));
+				System.out.println("Dispatched DrawEvent");
+			} else if (object instanceof DisconnectEvent) {
+				listeners.forEach(l -> l.onDisconnect((DisconnectEvent) object));
+				Messager.info("Dispatched DisconnectEvent");
+			} else if (object instanceof LoggedEvent) {
+				listeners.forEach(l -> l.onSuccessfulLoginReturn((LoggedEvent) object));
+				Messager.info("Dispatched LoggedEvent");
+			} else if (object instanceof PackageReceivedEvent) {
+				listeners.forEach(l -> l.onPackageReceived((PackageReceivedEvent) object));
+				Messager.info("Dispatched PackageReceivedEvent");
+			} else {
+				Messager.error("Received an Unknown Event - Not added to the EventManager?");
+				throw new UnregisteredEventException();
+			}
 		} else {
-			Messager.error("Received an Unknown Event - Not added to the EventManager?");
-			throw new UnregisteredEventException();
+			Messager.error("Received an Object wihich could not be identified as GameEvent.");
 		}
 
 	}

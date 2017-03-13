@@ -33,8 +33,7 @@ public enum Tiletype {
 				return t;
 			}
 		}
-		// TODO: remove/replace by Messager
-		System.out.println("Unknown Shortcut: " + shortcut);
+		Messager.error("Unknown Shortcut: " + shortcut);
 		return ERRORTILE;
 	}
 

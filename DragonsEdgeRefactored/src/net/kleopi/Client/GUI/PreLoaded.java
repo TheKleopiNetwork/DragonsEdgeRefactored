@@ -7,15 +7,19 @@ import java.util.Hashtable;
 
 import javax.imageio.ImageIO;
 
+import net.kleopi.Engine.Enums.Messager;
+
 public class PreLoaded {
 	private Hashtable<String, BufferedImage> tiles = new Hashtable<>();
 	private Hashtable<String, BufferedImage> characters = new Hashtable<>();
 	private Hashtable<String, BufferedImage> othersprites = new Hashtable<>();
 
 	public PreLoaded() {
+		Messager.info("PreLoading Sprites");
 		load_folder("tiles", tiles, "sprites\\tiles\\");
 		load_folder("characters", characters, "sprites\\characters\\");
 		load_folder("other", othersprites, "sprites\\other\\");
+		Messager.info("Sprites had been successfully loaded");
 	}
 
 	public BufferedImage getCharacter(String filename) {
@@ -47,8 +51,11 @@ public class PreLoaded {
 						hashtable.put(key, ImageIO.read(file));
 					}
 				} catch (IOException e) {
+					Messager.error(e.toString());
 				}
 			}
+		} else {
+			Messager.error("File is null. This might be a bug");
 		}
 	}
 }

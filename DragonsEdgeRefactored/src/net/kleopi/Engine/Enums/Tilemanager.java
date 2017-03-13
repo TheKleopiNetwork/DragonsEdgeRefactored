@@ -5,8 +5,6 @@ import java.awt.Graphics;
 import net.kleopi.Client.GUI.GUI;
 import net.kleopi.Client.Main.ClientMain;
 import net.kleopi.Engine.EventManagement.TKNListenerAdapter;
-import net.kleopi.Engine.EventManagement.GameEvents.PackageSendEvent;
-import net.kleopi.Engine.Networking.UpdateObjects.DataMapUpdate;
 
 public class Tilemanager implements TKNListenerAdapter {
 	private static final int tilexsize = 1000;
@@ -147,11 +145,6 @@ public class Tilemanager implements TKNListenerAdapter {
 		fixview();
 	}
 
-	public void sendMap(String id) {
-		// TODO: fix this
-		ClientMain.getClient().getEventManager().fire(new PackageSendEvent(new DataMapUpdate(datamap)));
-	}
-
 	/**
 	 * Sets a new Datamap and recalculates its overlays. Info: very
 	 * ressourceintensive. Use with caution!
@@ -173,7 +166,7 @@ public class Tilemanager implements TKNListenerAdapter {
 
 	/**
 	 * Changes tile at a specific position. TODO: update Overlays
-	 * 
+	 *
 	 * @param x
 	 * @param y
 	 * @param shortcut

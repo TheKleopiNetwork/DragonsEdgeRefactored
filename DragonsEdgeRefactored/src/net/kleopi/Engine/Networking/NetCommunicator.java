@@ -5,8 +5,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
-import net.kleopi.Client.GUI.Messager;
 import net.kleopi.Client.Main.ClientMain;
+import net.kleopi.Engine.Enums.Messager;
 import net.kleopi.Engine.EventManagement.GameEvents.PackageReceivedEvent;
 import net.kleopi.Engine.Networking.UpdateObjects.UpdateObject;
 
