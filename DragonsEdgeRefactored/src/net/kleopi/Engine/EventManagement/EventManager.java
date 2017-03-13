@@ -39,39 +39,39 @@ public class EventManager extends Thread {
 	/**
 	 * Tries to dispatch the event fitting to the provided Object
 	 *
-	 * @param e
-	 *            - Object to Fire //TODO: rename
+	 * @param object
+	 *            - Object to Fire
 	 * @throws UnregisteredEventException
 	 *             - when Object is not a valid Object, or Event was not added
 	 *             to the Manager yet
 	 */
-	private void dispatch(Object e) throws UnregisteredEventException{
+	private void dispatch(Object object) throws UnregisteredEventException{
 		// TODO add rest of events + check for UpdateObject first
-		if (e instanceof TickEvent) {
-			listeners.forEach(l -> l.onTick((TickEvent) e));
+		if (object instanceof TickEvent) {
+			listeners.forEach(l -> l.onTick((TickEvent) object));
 			System.out.println("Dispatched TickEvent");
 		}
 
-		else if (e instanceof PingEvent) {
-			listeners.forEach(l -> l.onPing((PingEvent) e));
+		else if (object instanceof PingEvent) {
+			listeners.forEach(l -> l.onPing((PingEvent) object));
 			System.out.println("Dispatched PingEvent");
-		} else if (e instanceof StartupEvent) {
-			listeners.forEach(l -> l.onStartUp((StartupEvent) e));
+		} else if (object instanceof StartupEvent) {
+			listeners.forEach(l -> l.onStartUp((StartupEvent) object));
 			System.out.println("Dispatched StartupEvent");
-		} else if (e instanceof LoginEvent) {
-			listeners.forEach(l -> l.onLogin((LoginEvent) e));
+		} else if (object instanceof LoginEvent) {
+			listeners.forEach(l -> l.onLogin((LoginEvent) object));
 			System.out.println("Dispatched LoginEvent");
-		} else if (e instanceof TickEvent) {
-			listeners.forEach(l -> l.onTick((TickEvent) e));
+		} else if (object instanceof TickEvent) {
+			listeners.forEach(l -> l.onTick((TickEvent) object));
 			System.out.println("Dispatched TickEvent");
-		} else if (e instanceof DrawEvent) {
-			listeners.forEach(l -> l.onDraw((DrawEvent) e));
+		} else if (object instanceof DrawEvent) {
+			listeners.forEach(l -> l.onDraw((DrawEvent) object));
 			System.out.println("Dispatched DrawEvent");
-		} else if (e instanceof DisconnectEvent) {
-			listeners.forEach(l -> l.onDisconnect((DisconnectEvent) e));
-			System.out.println("Dispatched DisconnectEvent");
+		} else if (object instanceof DisconnectEvent) {
+			listeners.forEach(l -> l.onDisconnect((DisconnectEvent) object));
+			Messager.info("Dispatched DisconnectEvent");
 		} else {
-			System.err.println("Received an Unknown Event - Not added to the EventManager?");
+			Messager.error("Received an Unknown Event - Not added to the EventManager?");
 			throw new UnregisteredEventException();
 		}
 
@@ -134,7 +134,7 @@ public class EventManager extends Thread {
 				e1.printStackTrace();
 			}
 			try {
-				Thread.sleep(100);
+				sleep(100);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}

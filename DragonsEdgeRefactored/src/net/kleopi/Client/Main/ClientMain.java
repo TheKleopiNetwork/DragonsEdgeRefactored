@@ -10,7 +10,7 @@ import net.kleopi.Engine.EventManagement.GameEvents.StartupEvent;
 import net.kleopi.Engine.Instances.Instancemanager;
 import net.kleopi.Engine.StatusManagement.StatusManager;
 
-public class ClientMain implements TKNListenerAdapter {
+public class ClientMain {
 
 	private static ClientMain client;
 
@@ -28,7 +28,6 @@ public class ClientMain implements TKNListenerAdapter {
 		setClient(new ClientMain());
 
 		client.setEventManager(new EventManager());
-		client.getEventManager().addListener(client);
 		client.setStatusManager(new StatusManager());
 		client.setNetwork(new NetworkClient());
 		client.setPreloaded(new PreLoaded());
