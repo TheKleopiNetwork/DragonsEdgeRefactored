@@ -9,6 +9,7 @@ import net.kleopi.Client.GUI.Messager;
 import net.kleopi.Engine.EventManagement.GameEvents.DisconnectEvent;
 import net.kleopi.Engine.EventManagement.GameEvents.DrawEvent;
 import net.kleopi.Engine.EventManagement.GameEvents.GameEvent;
+import net.kleopi.Engine.EventManagement.GameEvents.LoggedEvent;
 import net.kleopi.Engine.EventManagement.GameEvents.LoginEvent;
 import net.kleopi.Engine.EventManagement.GameEvents.PingEvent;
 import net.kleopi.Engine.EventManagement.GameEvents.StartupEvent;
@@ -45,7 +46,7 @@ public class EventManager extends Thread {
 	 *             - when Object is not a valid Object, or Event was not added
 	 *             to the Manager yet
 	 */
-	private void dispatch(Object object) throws UnregisteredEventException{
+	private void dispatch(Object object) throws UnregisteredEventException {
 		// TODO add rest of events + check for UpdateObject first
 		if (object instanceof TickEvent) {
 			listeners.forEach(l -> l.onTick((TickEvent) object));
@@ -70,6 +71,9 @@ public class EventManager extends Thread {
 		} else if (object instanceof DisconnectEvent) {
 			listeners.forEach(l -> l.onDisconnect((DisconnectEvent) object));
 			Messager.info("Dispatched DisconnectEvent");
+		} else if (object instanceof LoggedEvent) {
+			listeners.forEach(l -> l.onSuccessfulLoginReturn((LoggedEvent) object));
+			Messager.info("Dispatched LoggedEvent");
 		} else {
 			Messager.error("Received an Unknown Event - Not added to the EventManager?");
 			throw new UnregisteredEventException();

@@ -5,6 +5,7 @@ import java.awt.event.MouseEvent;
 
 import net.kleopi.Engine.EventManagement.GameEvents.DisconnectEvent;
 import net.kleopi.Engine.EventManagement.GameEvents.DrawEvent;
+import net.kleopi.Engine.EventManagement.GameEvents.LoggedEvent;
 import net.kleopi.Engine.EventManagement.GameEvents.LoginEvent;
 import net.kleopi.Engine.EventManagement.GameEvents.PackageReceivedEvent;
 import net.kleopi.Engine.EventManagement.GameEvents.PingEvent;
@@ -39,6 +40,9 @@ public interface TKNListenerAdapter {
 	}
 
 	default void onStartUp(StartupEvent e) {
+	}
+
+	default void onSuccessfulLoginReturn(LoggedEvent object) {
 	}
 
 	default void onTick(TickEvent e) {

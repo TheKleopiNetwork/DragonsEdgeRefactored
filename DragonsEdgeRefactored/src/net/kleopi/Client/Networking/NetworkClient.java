@@ -9,8 +9,7 @@ import net.kleopi.Engine.EventManagement.TKNListenerAdapter;
 import net.kleopi.Engine.EventManagement.GameEvents.DisconnectEvent;
 import net.kleopi.Engine.EventManagement.GameEvents.LoggedEvent;
 import net.kleopi.Engine.EventManagement.GameEvents.LoginEvent;
-import net.kleopi.Engine.Networking.NetReceiver;
-import net.kleopi.Engine.Networking.NetSender;
+import net.kleopi.Engine.Networking.NetCommunicator;
 import net.kleopi.Engine.Networking.Player;
 import net.kleopi.Engine.Networking.UpdateObjects.UpdateObject;
 import net.kleopi.Engine.StatusManagement.Status.NetworkStatus;
@@ -22,10 +21,8 @@ public class NetworkClient implements TKNListenerAdapter {
 														// is the IP of the
 														// current Masterserver
 	private Socket socket;
-	private NetWorkerClient w;
-	private NetSender s;
-	private NetReceiver r;
 	private Player player;
+	private NetCommunicator netcommunicator;
 
 	public NetworkClient() {
 		ClientMain.getClient().getEventManager().addListener(this);
@@ -50,10 +47,9 @@ public class NetworkClient implements TKNListenerAdapter {
 		{
 			try {
 
+				Messager.info("Trying to connect to server...");
 				socket = new Socket(serverName, port);
-				w = new NetWorkerClient();
-				s = new NetSender(socket);
-				r = new NetReceiver(socket);
+				netcommunicator = new NetCommunicator(socket);
 
 				Messager.info("Connected to the Masterserver");
 				// TODO send Login PKG
@@ -70,7 +66,7 @@ public class NetworkClient implements TKNListenerAdapter {
 	public void sendUpdate(UpdateObject object) {
 
 		// TODO: replace by event
-		s.sendPackage(object);
+		netcommunicator.sendPackage(object);
 
 	}
 }

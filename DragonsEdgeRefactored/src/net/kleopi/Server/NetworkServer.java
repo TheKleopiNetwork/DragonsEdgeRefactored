@@ -3,14 +3,13 @@ package net.kleopi.Server;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.net.SocketTimeoutException;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.kleopi.Client.GUI.Messager;
 import net.kleopi.Engine.EventManagement.TKNListenerAdapter;
-import net.kleopi.Engine.Networking.NetSender;
+import net.kleopi.Engine.Networking.NetCommunicator;
 import net.kleopi.Engine.Networking.Player;
-import net.kleopi.Engine.Networking.UpdateObjects.DataMapUpdate;
 import net.kleopi.Engine.Networking.UpdateObjects.UpdateObject;
 
 public class NetworkServer extends Thread implements TKNListenerAdapter {
@@ -20,9 +19,7 @@ public class NetworkServer extends Thread implements TKNListenerAdapter {
 												// TODO: change?
 	private int idcounter = 1; // needed to give clients Ids
 
-	NetWorkerServer w;
-
-	private ArrayList<NetSender> senders = new ArrayList<>();
+	private ArrayList<NetCommunicator> communicators = new ArrayList<>();
 
 	/**
 	 * Starts itself! Also registers itself!
@@ -43,11 +40,13 @@ public class NetworkServer extends Thread implements TKNListenerAdapter {
 
 		Player p = new Player(getNextId());
 		players.add(p);
-		// TODO: change syso to messager
-		System.out.println("Player added [Server.addPlayer]");
+		communicators.add(new NetCommunicator(socket));
+		Messager.info("Player added [Server.addPlayer]");
 		// TODO: maybe dont send the Datapack here already?
-		sendUpdate(new DataMapUpdate(MainServer.getServer().getTilemanager().getDatamap()), socket);
-		System.out.println("Sent Datamap");
+		// sendUpdate(new
+		// DataMapUpdate(MainServer.getServer().getTilemanager().getDatamap()),
+		// socket);
+		// Messager.info("Sent Datamap");
 	}
 
 	private int getNextId() {
@@ -76,7 +75,7 @@ public class NetworkServer extends Thread implements TKNListenerAdapter {
 
 	/**
 	 * Removes a player from the List
-	 * 
+	 *
 	 * @param player
 	 *            - Player to remove
 	 */
@@ -89,6 +88,7 @@ public class NetworkServer extends Thread implements TKNListenerAdapter {
 	@Override
 	public void run() {
 
+		// Preparations
 		ServerSocket serverSocket;
 		try {
 			serverSocket = new ServerSocket(port);
@@ -96,17 +96,13 @@ public class NetworkServer extends Thread implements TKNListenerAdapter {
 			e.printStackTrace();
 			return;
 		}
-		NetWorkerServer w = new NetWorkerServer();
 		// workloop
 		while (true) {
 			try {
-				Socket client = serverSocket.accept();
-				System.out
-						.println("Client connected from " + client.getRemoteSocketAddress() + "[Server.run(workloop)]");
-				addPlayer(client);
-			} catch (SocketTimeoutException s) {
-				System.out.println("Socket timed out! [Server.run(workloop)]");
-
+				Socket clientSocket = serverSocket.accept();
+				Messager.info(
+						"Client connected from " + clientSocket.getRemoteSocketAddress() + "[Server.run(workloop)]");
+				addPlayer(clientSocket);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -119,7 +115,7 @@ public class NetworkServer extends Thread implements TKNListenerAdapter {
 
 	/**
 	 * Sends a datapackage to the specific client using a socket
-	 * 
+	 *
 	 * @param object
 	 *            - Datapackage to send
 	 * @param socket
@@ -128,7 +124,7 @@ public class NetworkServer extends Thread implements TKNListenerAdapter {
 	 */
 	public void sendUpdate(UpdateObject object, Socket socket) {
 
-		for (NetSender s : senders) {
+		for (NetCommunicator s : communicators) {
 			if (s.getSocket() == socket) {
 				s.sendPackage(object);
 			}
@@ -138,7 +134,7 @@ public class NetworkServer extends Thread implements TKNListenerAdapter {
 
 	/**
 	 * Send a package to all connected Players
-	 * 
+	 *
 	 * @param object
 	 *            - Datapackage to send
 	 */
