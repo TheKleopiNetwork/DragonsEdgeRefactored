@@ -3,6 +3,11 @@ package net.kleopi.Client.Networking;
 import java.io.IOException;
 import java.net.Socket;
 
+import com.esotericsoftware.kryo.Kryo;
+import com.esotericsoftware.kryonet.Client;
+import com.esotericsoftware.kryonet.Connection;
+import com.esotericsoftware.kryonet.Listener;
+
 import net.kleopi.Client.Main.ClientMain;
 import net.kleopi.Engine.Enums.Messager;
 import net.kleopi.Engine.EventManagement.TKNListenerAdapter;
@@ -11,6 +16,8 @@ import net.kleopi.Engine.EventManagement.GameEvents.LoggedEvent;
 import net.kleopi.Engine.EventManagement.GameEvents.LoginEvent;
 import net.kleopi.Engine.Networking.NetCommunicator;
 import net.kleopi.Engine.Networking.Player;
+import net.kleopi.Engine.Networking.UpdateObjects.DataMapUpdate;
+import net.kleopi.Engine.Networking.UpdateObjects.LoginUpdate;
 import net.kleopi.Engine.Networking.UpdateObjects.UpdateObject;
 import net.kleopi.Engine.StatusManagement.Status.NetworkStatus;
 
@@ -47,6 +54,28 @@ public class NetworkClient implements TKNListenerAdapter {
 		{
 			try {
 
+				Client client = new Client();
+				client.start();
+				try {
+					client.connect(5000, "localhost", 11833, 11880);
+				} catch (IOException g) {
+					g.printStackTrace();
+				}
+				Kryo kryo = client.getKryo();
+				kryo.register(LoginUpdate.class);
+				kryo.register(DataMapUpdate.class);
+				client.addListener(new Listener() {
+					@Override
+					public void received(Connection connection, Object object) {
+						if (object instanceof UpdateObject) {
+							System.out.println("Also received Object");
+						}
+					}
+				});
+
+				// old Code
+
+				client.sendTCP(new LoginUpdate("zero", "fucks given"));
 				Messager.info("Trying to connect to server...");
 				socket = new Socket(serverName, port);
 				netcommunicator = new NetCommunicator(socket);

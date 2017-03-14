@@ -6,11 +6,17 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.esotericsoftware.kryo.Kryo;
+import com.esotericsoftware.kryonet.Connection;
+import com.esotericsoftware.kryonet.Listener;
+import com.esotericsoftware.kryonet.Server;
+
 import net.kleopi.Engine.Enums.Messager;
 import net.kleopi.Engine.EventManagement.TKNListenerAdapter;
 import net.kleopi.Engine.Networking.NetCommunicator;
 import net.kleopi.Engine.Networking.Player;
 import net.kleopi.Engine.Networking.UpdateObjects.DataMapUpdate;
+import net.kleopi.Engine.Networking.UpdateObjects.LoginUpdate;
 import net.kleopi.Engine.Networking.UpdateObjects.UpdateObject;
 
 public class NetworkServer extends Thread implements TKNListenerAdapter {
@@ -21,6 +27,8 @@ public class NetworkServer extends Thread implements TKNListenerAdapter {
 	private int idcounter = 1; // needed to give clients Ids
 
 	private ArrayList<NetCommunicator> communicators = new ArrayList<>();
+
+	private int udpport = 11880;
 
 	/**
 	 * Starts itself! Also registers itself!
@@ -87,6 +95,29 @@ public class NetworkServer extends Thread implements TKNListenerAdapter {
 	@SuppressWarnings("resource")
 	@Override
 	public void run() {
+
+		// Updated Code:
+
+		Server server = new Server();
+
+		Kryo kryo = server.getKryo();
+		kryo.register(LoginUpdate.class);
+		kryo.register(DataMapUpdate.class);
+		server.addListener(new Listener() {
+			@Override
+			public void received(Connection connection, Object object) {
+				if (object instanceof UpdateObject) {
+					System.out.println("received object");
+					DataMapUpdate dmu = new DataMapUpdate(MainServer.getServer().getTilemanager().getDatamap());
+					connection.sendTCP(dmu);
+				}
+			}
+		});
+		server.start();
+		try {
+			server.bind(port, udpport);
+		} catch (IOException e1) {
+		}
 
 		// Preparations
 		ServerSocket serverSocket;

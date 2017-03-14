@@ -5,7 +5,6 @@ import net.kleopi.Client.GUI.PreLoaded;
 import net.kleopi.Client.Networking.NetworkClient;
 import net.kleopi.Engine.Enums.Tilemanager;
 import net.kleopi.Engine.EventManagement.EventManager;
-import net.kleopi.Engine.EventManagement.TKNListenerAdapter;
 import net.kleopi.Engine.EventManagement.GameEvents.StartupEvent;
 import net.kleopi.Engine.Instances.Instancemanager;
 import net.kleopi.Engine.StatusManagement.StatusManager;
@@ -20,7 +19,7 @@ public class ClientMain {
 
 	/**
 	 * Set up the Client environment with all managers
-	 * 
+	 *
 	 * @param args
 	 *            - Leave blank!
 	 */
