@@ -1,0 +1,32 @@
+-----------------------------------------
+Startup
+[INFO]:  PreLoading Sprites
+-----------------------------------------
+Startup
+[INFO]:  PreLoading Sprites
+-----------------------------------------
+Startup
+[INFO]:  PreLoading Sprites
+-----------------------------------------
+Startup
+[INFO]:  PreLoading Sprites
+-----------------------------------------
+Startup
+[INFO]:  PreLoading Sprites
+-----------------------------------------
+Startup
+[INFO]:  PreLoading Sprites
+-----------------------------------------
+Startup
+[INFO]:  PreLoading Sprites
+[ERROR]: File is null. This might be a bug
+[INFO]:  Sprites had been successfully loaded
+[INFO]:  Enqueued GameEvent
+[INFO]:  Enqueued GameEvent
+[INFO]:  Enqueued GameEvent
+[INFO]:  Trying to connect to server...
+[INFO]:  Client connected from /127.0.0.1:49330[Server.run(workloop)]
+[INFO]:  Player added [Server.addPlayer]
+[INFO]:  Enqueued GameEvent
+new Client
+[INFO]:  Dispatched LoggedEvent
