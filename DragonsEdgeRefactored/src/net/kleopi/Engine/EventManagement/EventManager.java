@@ -48,14 +48,11 @@ public class EventManager extends Thread {
 	 *             to the Manager yet
 	 */
 	private void dispatch(Object object) throws UnregisteredEventException {
-		// TODO add rest of events + check for UpdateObject first
 		if (object instanceof GameEvent) {
 			if (object instanceof TickEvent) {
 				listeners.forEach(l -> l.onTick((TickEvent) object));
 				Messager.info("Dispatched TickEvent");
-			}
-
-			else if (object instanceof PingEvent) {
+			} else if (object instanceof PingEvent) {
 				listeners.forEach(l -> l.onPing((PingEvent) object));
 				Messager.info("Dispatched PingEvent");
 			} else if (object instanceof StartupEvent) {

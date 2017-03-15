@@ -1,5 +1,6 @@
 package net.kleopi.Client.GUI;
 
+import java.awt.Color;
 import java.awt.Point;
 
 import javax.swing.JFrame;
@@ -13,20 +14,14 @@ import net.kleopi.Engine.EventManagement.GameEvents.LoginEvent;
 import net.kleopi.Engine.EventManagement.GameEvents.PackageReceivedEvent;
 import net.kleopi.Engine.Networking.UpdateObjects.TileMapUpdate;
 
-public class GUI implements TKNListenerAdapter {
+public class GUI extends Thread implements TKNListenerAdapter {
 	public final static int RESOLUTION_WIDTH = 1920;
 	public final static int RESOLUTION_HEIGTH = 1080;
-	public static GUI gui;
-
-	public static Point getMousePoint() {
-
-		return (gui.surface.getMousePosition());
-	}
 
 	private JPanel surface;
-	private final LoginPanel loginpanel;
 
 	private JFrame frame;
+	private LoginPanel loginpanel;
 
 	public GUI() {
 		loginpanel = new LoginPanel(frame);
@@ -34,9 +29,20 @@ public class GUI implements TKNListenerAdapter {
 
 	}
 
+	public Point getMousePoint() {
+
+		return (surface.getMousePosition());
+	}
+
 	@Override
 	public void onDraw(DrawEvent e) {
-		gui.surface.repaint();
+		// surface.repaint();
+		// TODO: for debug
+		int x = (int) (Math.random() * 255);
+		int y = (int) (Math.random() * 255);
+		int z = (int) (Math.random() * 255);
+		e.getGraphics().setColor(new Color(x, y, z));
+		e.getGraphics().fillRect(0, 0, 100, 100);
 	}
 
 	/**
@@ -51,8 +57,23 @@ public class GUI implements TKNListenerAdapter {
 	public void onPackageReceived(PackageReceivedEvent e) {
 		if (e.getUpdateObject() instanceof TileMapUpdate) {
 			Messager.info("Sucessfully downloaded the Map...");
-			ClientMain.getClient().getTilemanager().setCompressedDatamap(((TileMapUpdate) e.getUpdateObject()).getCompressedTilemap());
+			ClientMain.getClient().getTilemanager()
+					.setCompressedDatamap(((TileMapUpdate) e.getUpdateObject()).getCompressedTilemap());
 		} else {
+		}
+	}
+
+	/**
+	 * Redraws every few milliseconds
+	 */
+	@Override
+	public void run() {
+		while (true) {
+			ClientMain.getClient().getEventManager().fire(new DrawEvent(surface.getGraphics()));
+			try {
+				sleep(30);
+			} catch (InterruptedException e) {
+			}
 		}
 	}
 
@@ -68,6 +89,7 @@ public class GUI implements TKNListenerAdapter {
 		frame.setLayout(null);
 		frame.setFocusable(true);
 		frame.setResizable(false);
+		start();
 	}
 
 }

@@ -1,13 +1,9 @@
 package net.kleopi.Engine.Instances;
 
-import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.kleopi.Client.GUI.GUI;
 import net.kleopi.Client.GUI.Sprite;
 import net.kleopi.Client.Main.ClientMain;
 import net.kleopi.Engine.Enums.Utilities;
@@ -41,38 +37,19 @@ public class Instancemanager {
 	// TODO: change to Events
 	@Deprecated
 	public void drawEvent(Graphics g) {
-
-		Graphics2D g2d = (Graphics2D) g;
-		if (!getInstances().isEmpty()) {
-			for (Instance c : getInstances()) {
-				c.drawEvent(g2d);
-			}
-		}
-
-		// TODO: fix selectionbug
-		if (selecting) {
-			int x, y, width, height;
-			Point p = GUI.getMousePoint();
-			if (p != null) {
-				if (select_x < p.x) {
-					x = select_x;
-					width = p.x - select_x;
-				} else {
-					x = p.x;
-					width = select_x - p.x;
-				}
-				if (select_y < p.y) {
-					y = select_y;
-					height = p.y - select_y;
-				} else {
-					y = p.y;
-					height = select_y - p.y;
-				}
-				g2d.setPaint(Color.green);
-				g2d.drawRect(x, y, width, height);
-			}
-		}
 	}
+
+	/*
+	 * Graphics2D g2d = (Graphics2D) g; if (!getInstances().isEmpty()) { for
+	 * (Instance c : getInstances()) { c.drawEvent(g2d); } }
+	 *
+	 * // TODO: fix selectionbug if (selecting) { int x, y, width, height; Point
+	 * p = GUI.getMousePoint(); if (p != null) { if (select_x < p.x) { x =
+	 * select_x; width = p.x - select_x; } else { x = p.x; width = select_x -
+	 * p.x; } if (select_y < p.y) { y = select_y; height = p.y - select_y; }
+	 * else { y = p.y; height = select_y - p.y; } g2d.setPaint(Color.green);
+	 * g2d.drawRect(x, y, width, height); } } }
+	 */
 
 	public List<Instance> getInstances() {
 
@@ -199,7 +176,7 @@ public class Instancemanager {
 
 	/**
 	 * Add an Instance to the List
-	 * 
+	 *
 	 * @param ins
 	 *            -Instance to add
 	 */
