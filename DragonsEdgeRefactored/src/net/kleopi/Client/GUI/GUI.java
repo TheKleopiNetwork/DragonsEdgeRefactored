@@ -11,7 +11,7 @@ import net.kleopi.Engine.EventManagement.TKNListenerAdapter;
 import net.kleopi.Engine.EventManagement.GameEvents.DrawEvent;
 import net.kleopi.Engine.EventManagement.GameEvents.LoginEvent;
 import net.kleopi.Engine.EventManagement.GameEvents.PackageReceivedEvent;
-import net.kleopi.Engine.Networking.UpdateObjects.DataMapUpdate;
+import net.kleopi.Engine.Networking.UpdateObjects.TileMapUpdate;
 
 public class GUI implements TKNListenerAdapter {
 	public final static int RESOLUTION_WIDTH = 1920;
@@ -49,9 +49,9 @@ public class GUI implements TKNListenerAdapter {
 
 	@Override
 	public void onPackageReceived(PackageReceivedEvent e) {
-		if (e.getUpdateObject() instanceof DataMapUpdate) {
+		if (e.getUpdateObject() instanceof TileMapUpdate) {
 			Messager.info("Sucessfully downloaded the Map...");
-			ClientMain.getClient().getTilemanager().setDatamap(((DataMapUpdate) e.getUpdateObject()).getDatamap());
+			ClientMain.getClient().getTilemanager().setCompressedDatamap(((TileMapUpdate) e.getUpdateObject()).getCompressedTilemap());
 		} else {
 		}
 	}

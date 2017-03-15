@@ -10,6 +10,7 @@ public class Tilemanager implements TKNListenerAdapter {
 	private static final int tilexsize = 1000;
 	private static final int tileysize = 1000;
 	private static final int camspeed = 32;
+	private static final int overlaydepth = 10;
 
 	/**
 	 * DOES NOT SET THE MAP. ONLY RETURNS DEFAULT MAP!
@@ -32,7 +33,6 @@ public class Tilemanager implements TKNListenerAdapter {
 				}
 			}
 		}
-		System.out.println("Initialized blank map");
 		return map;
 	}
 
@@ -186,7 +186,26 @@ public class Tilemanager implements TKNListenerAdapter {
 		} else if (getTilesize() < 16) {
 			setTilesize(16);
 		}
-		System.out.println("New Tilesize: " + getTilesize());
+	}
+
+	public char[][] getCompressedDataMap() {
+		char[][] compressedMap=new char[tilexsize][tileysize];
+		//TODO: fill Array
+		for (int i = 0; i < tilexsize; i++) {
+			for (int j = 0; j < tileysize; j++) {
+				compressedMap[i][j]=getTileAtPosition(i, j, 0).getShortcut().charAt(0);
+			}
+		}
+		return compressedMap;
+	}
+
+	public void setCompressedDatamap(char[][] compressedTilemap) {
+		Tilemap newmap = new Tilemap(tilexsize, tileysize, overlaydepth);
+		for (int i = 0; i < tilexsize; i++) {
+			for (int j = 0; j < tileysize; j++) {
+				newmap.setData(i, j, 0,Tiletype.getTiletypeOfShortcut(""+compressedTilemap[i][j] ));
+			}
+		}
 	}
 
 }

@@ -8,22 +8,28 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
-public class Messager {
+import com.esotericsoftware.minlog.Log.Logger;
+
+public class Messager extends Logger{
 	private static boolean isChecked = false;
 
 	// TODO: properly output it?
 	public static void error(String string) {
-		System.err.println(string);
+		System.err.println("[ERROR]: "+string);
 		System.err.flush();
 		log("[ERROR]: " + string);
 
 	}
 
 	public static void info(String string) {
-		System.out.println(string);
+		System.out.println("[INFO]:  " +string);
 		System.out.flush();
 		log("[INFO]:  " + string);
 
+	}
+	@Override
+	protected void print(String s) {
+		info(s);
 	}
 
 	public static void log(String string) {
@@ -55,7 +61,6 @@ public class Messager {
 		} catch (IOException e) {
 		}
 		log("-----------------------------------------");
-		log("Startup");
 	}
 
 }

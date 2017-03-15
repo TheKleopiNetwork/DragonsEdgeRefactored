@@ -11,4 +11,5 @@ public class LoginUpdate extends UpdateObject
 		this.username = username;
 		this.password = password;
 	}
+	public LoginUpdate(){}
 }

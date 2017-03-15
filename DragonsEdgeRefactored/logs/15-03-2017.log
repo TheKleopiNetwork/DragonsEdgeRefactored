@@ -1,0 +1,217 @@
+-----------------------------------------
+Startup
+[INFO]:  PreLoading Sprites
+[ERROR]: File is null. This might be a bug
+[INFO]:  Sprites had been successfully loaded
+[INFO]:  Enqueued GameEvent
+[INFO]:  Enqueued GameEvent
+[INFO]:  Enqueued GameEvent
+[INFO]:  Trying to connect to server...
+[ERROR]: Could not set up I/O Streams
+[INFO]:  Connected to the Masterserver
+[INFO]:  Enqueued GameEvent
+[INFO]:  Dispatched LoggedEvent
+-----------------------------------------
+Startup
+[INFO]:  PreLoading Sprites
+[ERROR]: File is null. This might be a bug
+[INFO]:  Sprites had been successfully loaded
+[INFO]:  Enqueued GameEvent
+[INFO]:  Enqueued GameEvent
+[INFO]:  Enqueued GameEvent
+-----------------------------------------
+Startup
+[INFO]:  PreLoading Sprites
+[ERROR]: File is null. This might be a bug
+[INFO]:  Sprites had been successfully loaded
+[INFO]:  Enqueued GameEvent
+[INFO]:  Enqueued GameEvent
+[INFO]:  Enqueued GameEvent
+-----------------------------------------
+Startup
+[INFO]:  PreLoading Sprites
+[ERROR]: File is null. This might be a bug
+[INFO]:  Sprites had been successfully loaded
+[INFO]:  Enqueued GameEvent
+[INFO]:  Enqueued GameEvent
+[ERROR]: IOException has occuredjava.net.BindException: Address already in use: bind
+-----------------------------------------
+Startup
+[INFO]:  PreLoading Sprites
+[ERROR]: File is null. This might be a bug
+[INFO]:  Sprites had been successfully loaded
+[INFO]:  Enqueued GameEvent
+[INFO]:  Enqueued GameEvent
+[INFO]:  Enqueued GameEvent
+-----------------------------------------
+Startup
+[INFO]:  PreLoading Sprites
+[ERROR]: File is null. This might be a bug
+[INFO]:  Sprites had been successfully loaded
+[INFO]:  Enqueued GameEvent
+[INFO]:  Enqueued GameEvent
+[ERROR]: IOException has occuredjava.net.BindException: Address already in use: bind
+-----------------------------------------
+Startup
+[INFO]:  PreLoading Sprites
+[ERROR]: File is null. This might be a bug
+[INFO]:  Sprites had been successfully loaded
+[INFO]:  Enqueued GameEvent
+[INFO]:  Enqueued GameEvent
+[INFO]:  Enqueued GameEvent
+-----------------------------------------
+Startup
+[INFO]:  PreLoading Sprites
+[ERROR]: File is null. This might be a bug
+[INFO]:  Sprites had been successfully loaded
+[INFO]:  Enqueued GameEvent
+[INFO]:  Enqueued GameEvent
+[INFO]:  Enqueued GameEvent
+-----------------------------------------
+Startup
+[INFO]:  PreLoading Sprites
+[ERROR]: File is null. This might be a bug
+[INFO]:  Sprites had been successfully loaded
+[INFO]:  Enqueued GameEvent
+[INFO]:  Enqueued GameEvent
+[INFO]:  Enqueued GameEvent
+-----------------------------------------
+Startup
+[INFO]:  PreLoading Sprites
+[ERROR]: File is null. This might be a bug
+[INFO]:  Sprites had been successfully loaded
+[INFO]:  Enqueued GameEvent
+[INFO]:  Enqueued GameEvent
+[INFO]:  Enqueued GameEvent
+[INFO]:  Player added [Server.addPlayer]
+[INFO]:  Packing TileMap for new Client
+-----------------------------------------
+Startup
+[INFO]:  PreLoading Sprites
+[ERROR]: File is null. This might be a bug
+[INFO]:  Sprites had been successfully loaded
+[INFO]:  Enqueued GameEvent
+[INFO]:  Enqueued GameEvent
+[INFO]:  Enqueued GameEvent
+[INFO]:  Player added [Server.addPlayer]
+[INFO]:  Packing TileMap for new Client
+-----------------------------------------
+Startup
+[INFO]:  PreLoading Sprites
+[ERROR]: File is null. This might be a bug
+[INFO]:  Sprites had been successfully loaded
+[INFO]:  Enqueued GameEvent
+[INFO]:  Enqueued GameEvent
+[ERROR]: IOException has occuredjava.net.BindException: Address already in use: bind
+-----------------------------------------
+Startup
+[INFO]:  PreLoading Sprites
+[ERROR]: File is null. This might be a bug
+[INFO]:  Sprites had been successfully loaded
+[INFO]:  Enqueued GameEvent
+[INFO]:  Enqueued GameEvent
+[INFO]:  Enqueued GameEvent
+[INFO]:  Player added [Server.addPlayer]
+[INFO]:  Packing TileMap for new Client
+-----------------------------------------
+Startup
+[INFO]:  PreLoading Sprites
+[ERROR]: File is null. This might be a bug
+[INFO]:  Sprites had been successfully loaded
+[INFO]:  Enqueued GameEvent
+[INFO]:  Enqueued GameEvent
+[INFO]:  Enqueued GameEvent
+[INFO]:  Player added [Server.addPlayer]
+[INFO]:  Packing TileMap for new Client
+-----------------------------------------
+Startup
+[INFO]:  PreLoading Sprites
+[ERROR]: File is null. This might be a bug
+[INFO]:  Sprites had been successfully loaded
+[INFO]:  Enqueued GameEvent
+[INFO]:  Enqueued GameEvent
+[INFO]:  Enqueued GameEvent
+[INFO]:  Player added [Server.addPlayer]
+[INFO]:  Packing TileMap for new Client
+[INFO]:  Sent Tilemap
+-----------------------------------------
+Startup
+[INFO]:  PreLoading Sprites
+[ERROR]: File is null. This might be a bug
+[INFO]:  Sprites had been successfully loaded
+[INFO]:  Enqueued GameEvent
+[INFO]:  Enqueued GameEvent
+[INFO]:  Enqueued GameEvent
+[INFO]:  Player added [Server.addPlayer]
+[INFO]:  Packing TileMap for new Client
+-----------------------------------------
+Startup
+[INFO]:  PreLoading Sprites
+[ERROR]: File is null. This might be a bug
+[INFO]:  Sprites had been successfully loaded
+[INFO]:  Enqueued GameEvent
+[INFO]:  Enqueued GameEvent
+[INFO]:  Enqueued GameEvent
+[INFO]:  Player added [Server.addPlayer]
+[INFO]:  Packing TileMap for new Client
+[INFO]:  Sent Tilemap
+-----------------------------------------
+Startup
+[INFO]:  Enqueued GameEvent
+[INFO]:  [S] Ping was received
+[INFO]:  Dispatched PingEvent
+-----------------------------------------
+Startup
+[INFO]:  BUILD STARTED - Testing Server and Client:
+[INFO]:  PreLoading Sprites
+[ERROR]: File is null. This might be a bug
+[INFO]:  Sprites had been successfully loaded
+[INFO]:  Enqueued GameEvent
+[INFO]:  Enqueued GameEvent
+[INFO]:  Dispatched StartupEvent
+[INFO]:  Dispatched StartupEvent
+-----------------------------------------
+Startup
+[INFO]:  BUILD STARTED - Testing Server and Client:
+[INFO]:  PreLoading Sprites
+[ERROR]: File is null. This might be a bug
+[INFO]:  Sprites had been successfully loaded
+[INFO]:  Enqueued GameEvent
+[INFO]:  Enqueued GameEvent
+[INFO]:  Dispatched StartupEvent
+[ERROR]: IOException has occuredjava.net.BindException: Address already in use: bind
+[INFO]:  Dispatched StartupEvent
+-----------------------------------------
+[INFO]:  BUILD STARTED - Testing Server and Client:
+[INFO]:  PreLoading Sprites
+[ERROR]: File is null. This might be a bug
+[INFO]:  Sprites had been successfully loaded
+[INFO]:  Enqueued GameEvent
+[INFO]:  Enqueued GameEvent
+[INFO]:  Dispatched StartupEvent
+[INFO]:  Dispatched StartupEvent
+[INFO]:  Enqueued GameEvent
+[INFO]:  Player added [Server.addPlayer]
+[INFO]:  Packing TileMap for new Client
+[INFO]:  Dispatched LoginEvent
+[INFO]:  Sent Tilemap
+[INFO]:  received object
+-----------------------------------------
+[INFO]:  BUILD STARTED - Testing Server and Client:
+[INFO]:  PreLoading Sprites
+[ERROR]: File is null. This might be a bug
+[INFO]:  Sprites had been successfully loaded
+[INFO]:  Enqueued GameEvent
+[INFO]:  Enqueued GameEvent
+[INFO]:  Dispatched StartupEvent
+[INFO]:  00:01  INFO: [kryonet] Server opened.
+[INFO]:  Dispatched StartupEvent
+[INFO]:  Enqueued GameEvent
+[INFO]:  00:18  INFO: Connecting: localhost/127.0.0.1:11833/11880
+[INFO]:  00:18  INFO: [kryonet] Connection 1 connected: /127.0.0.1
+7.0.0.1
+[INFO]:  Player added [Server.addPlayer]
+[INFO]:  Packing TileMap for new Client
+[INFO]:  Dispatched LoginEvent
+[INFO]:  Sent Tilemap
+[INFO]:  received object

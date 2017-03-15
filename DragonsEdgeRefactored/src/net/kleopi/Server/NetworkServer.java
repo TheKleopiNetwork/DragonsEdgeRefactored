@@ -1,8 +1,6 @@
 package net.kleopi.Server;
 
 import java.io.IOException;
-import java.net.ServerSocket;
-import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,22 +11,17 @@ import com.esotericsoftware.kryonet.Server;
 
 import net.kleopi.Engine.Enums.Messager;
 import net.kleopi.Engine.EventManagement.TKNListenerAdapter;
-import net.kleopi.Engine.Networking.NetCommunicator;
 import net.kleopi.Engine.Networking.Player;
-import net.kleopi.Engine.Networking.UpdateObjects.DataMapUpdate;
+import net.kleopi.Engine.Networking.UpdateObjects.TileMapUpdate;
 import net.kleopi.Engine.Networking.UpdateObjects.LoginUpdate;
 import net.kleopi.Engine.Networking.UpdateObjects.UpdateObject;
 
 public class NetworkServer extends Thread implements TKNListenerAdapter {
 	private final static int port = 11833; // the Port we will use
-
+	private final static int udpport = 11880;
+	private static final int buffersize = 1024*1024*16;
 	List<Player> players = new ArrayList<>(); // saving all connected players
-												// TODO: change?
-	private int idcounter = 1; // needed to give clients Ids
-
-	private ArrayList<NetCommunicator> communicators = new ArrayList<>();
-
-	private int udpport = 11880;
+	
 
 	/**
 	 * Starts itself! Also registers itself!
@@ -45,42 +38,17 @@ public class NetworkServer extends Thread implements TKNListenerAdapter {
 	 *            - The socket which should be saved for that player
 	 */
 
-	public void addPlayer(Socket socket) {
+	public void addPlayer(String username,Connection c) {
 
-		Player p = new Player(getNextId());
+		Player p = new Player(c);
 		players.add(p);
-		communicators.add(new NetCommunicator(socket));
 		Messager.info("Player added [Server.addPlayer]");
 		// TODO: maybe dont send the Datapack here already?
 		Messager.info("Packing TileMap for new Client");
-		sendUpdate(new DataMapUpdate(MainServer.getServer().getTilemanager().getDatamap()), socket);
+		TileMapUpdate tmu=new TileMapUpdate().withCompressedTilemap(MainServer.getServer().getTilemanager().getCompressedDataMap());
+		sendUpdate(p,tmu);
 		Messager.info("Sent Tilemap");
 	}
-
-	private int getNextId() {
-
-		int nid = idcounter;
-		idcounter++;
-		return nid;
-	}
-
-	/**
-	 *
-	 * @param clientid
-	 *            - id to search with
-	 * @return Player with the given ID
-	 */
-	public Player getPlayerfromId(int clientid) {
-
-		for (Player p : players) {
-			if (p.id == clientid) {
-				return p;
-			}
-		}
-		System.out.println("Player does not exist!");
-		return null;
-	}
-
 	/**
 	 * Removes a player from the List
 	 *
@@ -92,24 +60,25 @@ public class NetworkServer extends Thread implements TKNListenerAdapter {
 		players.remove(player);
 	}
 
-	@SuppressWarnings("resource")
 	@Override
 	public void run() {
 
 		// Updated Code:
 
-		Server server = new Server();
+		Server server = new Server(buffersize,buffersize);
 
 		Kryo kryo = server.getKryo();
 		kryo.register(LoginUpdate.class);
-		kryo.register(DataMapUpdate.class);
+		kryo.register(TileMapUpdate.class);
+		kryo.register(char[][].class);
+		kryo.register(char[].class);
 		server.addListener(new Listener() {
 			@Override
 			public void received(Connection connection, Object object) {
-				if (object instanceof UpdateObject) {
-					System.out.println("received object");
-					DataMapUpdate dmu = new DataMapUpdate(MainServer.getServer().getTilemanager().getDatamap());
-					connection.sendTCP(dmu);
+				if (object instanceof LoginUpdate) {
+					addPlayer(((LoginUpdate) object).username,connection);
+					Messager.info("received object");
+					
 				}
 			}
 		});
@@ -117,30 +86,7 @@ public class NetworkServer extends Thread implements TKNListenerAdapter {
 		try {
 			server.bind(port, udpport);
 		} catch (IOException e1) {
-		}
-
-		// Preparations
-		ServerSocket serverSocket;
-		try {
-			serverSocket = new ServerSocket(port);
-		} catch (IOException e) {
-			e.printStackTrace();
-			return;
-		}
-		// workloop
-		while (true) {
-			try {
-				Socket clientSocket = serverSocket.accept();
-				Messager.info(
-						"Client connected from " + clientSocket.getRemoteSocketAddress() + "[Server.run(workloop)]");
-				addPlayer(clientSocket);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			try {
-				sleep(100);
-			} catch (InterruptedException e) {
-			}
+			Messager.error("IOException has occured"+e1);
 		}
 	}
 
@@ -149,17 +95,12 @@ public class NetworkServer extends Thread implements TKNListenerAdapter {
 	 *
 	 * @param object
 	 *            - Datapackage to send
-	 * @param socket
-	 *            - Socket to send a package to TODO: Add methods using username
-	 *            or ID; Overloading maybe?
+	 * @param player - The Player-Object which should be adressed
+	 *       
 	 */
-	public void sendUpdate(UpdateObject object, Socket socket) {
+	public void sendUpdate(Player player,UpdateObject object) {
 
-		for (NetCommunicator s : communicators) {
-			if (s.getSocket() == socket) {
-				s.sendPackage(object);
-			}
-		}
+		player.getConnection().sendTCP(object);
 
 	}
 

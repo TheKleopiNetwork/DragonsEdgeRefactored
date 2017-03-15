@@ -52,24 +52,24 @@ public class EventManager extends Thread {
 		if (object instanceof GameEvent) {
 			if (object instanceof TickEvent) {
 				listeners.forEach(l -> l.onTick((TickEvent) object));
-				System.out.println("Dispatched TickEvent");
+				Messager.info("Dispatched TickEvent");
 			}
 
 			else if (object instanceof PingEvent) {
 				listeners.forEach(l -> l.onPing((PingEvent) object));
-				System.out.println("Dispatched PingEvent");
+				Messager.info("Dispatched PingEvent");
 			} else if (object instanceof StartupEvent) {
 				listeners.forEach(l -> l.onStartUp((StartupEvent) object));
-				System.out.println("Dispatched StartupEvent");
+				Messager.info("Dispatched StartupEvent");
 			} else if (object instanceof LoginEvent) {
 				listeners.forEach(l -> l.onLogin((LoginEvent) object));
-				System.out.println("Dispatched LoginEvent");
+				Messager.info("Dispatched LoginEvent");
 			} else if (object instanceof TickEvent) {
 				listeners.forEach(l -> l.onTick((TickEvent) object));
-				System.out.println("Dispatched TickEvent");
+				Messager.info("Dispatched TickEvent");
 			} else if (object instanceof DrawEvent) {
 				listeners.forEach(l -> l.onDraw((DrawEvent) object));
-				System.out.println("Dispatched DrawEvent");
+				Messager.info("Dispatched DrawEvent");
 			} else if (object instanceof DisconnectEvent) {
 				listeners.forEach(l -> l.onDisconnect((DisconnectEvent) object));
 				Messager.info("Dispatched DisconnectEvent");

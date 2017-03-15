@@ -1,10 +1,7 @@
 package net.kleopi.Engine.Enums;
 
-import java.io.Serializable;
+public class Tilemap{
 
-public class Tilemap implements Serializable {
-
-	private static final long serialVersionUID = -1347725125747112647L;
 	private Tiletype data[][][];
 	private int width, height, depth;
 	private final String pri1 = "D"; // priority list = what should be drawn

@@ -2,12 +2,19 @@ package net.kleopi.Engine.Networking;
 
 import java.io.Serializable;
 
+import com.esotericsoftware.kryonet.Connection;
+
 @SuppressWarnings("serial")
 public class Player implements Serializable {
 
-	public int id;
+	private Connection connection;
 
-	public Player(int id) {
-		this.id = id;
+	public Player(Connection c) {
+		this.connection = c;
+	}
+
+	public Connection getConnection() {
+		return connection;
+		
 	}
 }

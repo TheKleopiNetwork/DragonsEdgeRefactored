@@ -165,9 +165,6 @@ public class Database {
 	 */
 
 	public static boolean tryLogin(String username, String password) {
-
-		System.out.println(username);
-		System.out.println(password);
 		if ((getValue(username, "password").equals(password)) && (password != "null")) {
 			Messager.info("User: " + username + " could be verified");
 			return true;

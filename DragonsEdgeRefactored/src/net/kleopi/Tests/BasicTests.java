@@ -8,6 +8,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import net.kleopi.Engine.Enums.Messager;
 import net.kleopi.Engine.EventManagement.EventManager;
 import net.kleopi.Engine.EventManagement.TKNListenerAdapter;
 import net.kleopi.Engine.EventManagement.GameEvents.PingEvent;
@@ -55,7 +56,7 @@ public class BasicTests {
 		TKNListenerAdapter lis = new TKNListenerAdapter() {
 			@Override
 			public void onPing(PingEvent e) {
-				System.out.println("[S] Ping was received");
+				Messager.info("[S] Ping was received");
 				assertTrue(1 == 1);
 				return;
 			}
