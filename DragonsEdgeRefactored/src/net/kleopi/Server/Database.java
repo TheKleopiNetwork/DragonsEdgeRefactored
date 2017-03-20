@@ -79,8 +79,7 @@ public class Database {
 				return "error";
 			}
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Messager.error(e.toString());
 		}
 		return null;
 
@@ -117,8 +116,7 @@ public class Database {
 			try {
 				file.createNewFile();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				Messager.error(e.toString());
 			}
 		}
 		boolean replaced = false;
@@ -139,8 +137,7 @@ public class Database {
 			}
 			Files.write(path, fileContent);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Messager.error(e.toString());
 		}
 	}
 

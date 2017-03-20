@@ -58,17 +58,7 @@ public class Character extends Instance {
 
 	@Override
 	public void stepEvent() {
-
-		testchangevelo();
 		move();
-	}
-
-	public void testchangevelo() {
-
-		// TODO: remove l8r
-		if (Math.random() > 0.98) {
-			direction += (int) (Math.random() * 90.0 - 45.0);
-		}
 	}
 
 	@Override

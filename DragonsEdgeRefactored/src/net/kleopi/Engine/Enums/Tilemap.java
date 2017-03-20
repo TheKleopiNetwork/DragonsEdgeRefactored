@@ -203,7 +203,7 @@ public class Tilemap{
 	 */
 	public Tiletype getData(int x, int y, int layer) {
 
-		if (inRange(x, y, layer) && data[x][y][layer] != null) {
+		if (isInRange(x, y, layer) && data[x][y][layer] != null) {
 			return data[x][y][layer];
 		} else {
 			return Tiletype.ERRORTILE;
@@ -225,7 +225,7 @@ public class Tilemap{
 		return width;
 	}
 
-	private boolean inRange(int x, int y, int z) {
+	private boolean isInRange(int x, int y, int z) {
 
 		return (Utilities.between(x, 0, width - 1) && Utilities.between(y, 0, height - 1)
 				&& Utilities.between(z, 0, depth - 1));
@@ -233,7 +233,7 @@ public class Tilemap{
 
 	public void setData(int x, int y, int z, Tiletype s) {
 
-		if (inRange(x, y, z)) {
+		if (isInRange(x, y, z)) {
 			data[x][y][z] = s;
 			if (z == 0) {
 				// TODO: throw update event
