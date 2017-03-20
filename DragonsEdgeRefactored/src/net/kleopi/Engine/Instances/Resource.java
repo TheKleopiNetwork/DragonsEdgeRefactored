@@ -1,8 +1,7 @@
 package net.kleopi.Engine.Instances;
 
-import java.awt.Graphics2D;
-
 import net.kleopi.Client.GUI.Sprite;
+import net.kleopi.Engine.EventManagement.GameEvents.DrawEvent;
 import net.kleopi.Engine.Networking.Player;
 
 public class Resource extends Instance {
@@ -41,12 +40,6 @@ public class Resource extends Instance {
 
 	}
 
-	@Override
-	public void drawEvent(Graphics2D g) {
-
-		// TODO Auto-generated method stub
-
-	}
 
 	public void gather() {
 		// TODO: implement
@@ -72,6 +65,12 @@ public class Resource extends Instance {
 		// doesnt move
 		// TODO implement
 
+	}
+
+	@Override
+	public void onDraw(DrawEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

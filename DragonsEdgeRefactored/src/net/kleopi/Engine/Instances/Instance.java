@@ -1,13 +1,14 @@
 package net.kleopi.Engine.Instances;
 
-import java.awt.Graphics2D;
-
 import net.kleopi.Client.GUI.Sprite;
 import net.kleopi.Client.Main.ClientMain;
 import net.kleopi.Engine.Enums.Utilities;
+import net.kleopi.Engine.EventManagement.TKNListenerAdapter;
+import net.kleopi.Engine.EventManagement.GameEvents.DrawEvent;
 import net.kleopi.Engine.Networking.Player;
+import net.kleopi.Server.MainServer;
 
-public abstract class Instance {
+public abstract class Instance implements TKNListenerAdapter{
 
 	private Player owner;
 	private Circle circle;
@@ -36,6 +37,9 @@ public abstract class Instance {
 	 */
 	public Instance(double posx, double posy, double hitboxsize, double ndirection, double nspeed, Player owner, int id,
 			Sprite imageid) {
+		//TODO: Code depending on Server/Client
+		ClientMain.getClient().getEventManager().addListener(this);
+		MainServer.getServer().getEventManager().addListener(this);
 		setCircle(new Circle(posx, posy, hitboxsize));
 		direction = ndirection;
 		speed = nspeed;
@@ -46,6 +50,8 @@ public abstract class Instance {
 		this.sprite = imageid;
 	}
 
+	@Override
+	public abstract void onDraw(DrawEvent e);
 	/**
 	 * When do I die?
 	 */
@@ -75,14 +81,6 @@ public abstract class Instance {
 				Math.sqrt(Math.pow(target_x - getCircle().getX(), 2) + Math.pow(target_y - getCircle().getY(), 2)));
 	}
 
-	@Deprecated
-	public abstract void drawEvent(Graphics2D g);
-	// TODO: change to Event
-
-	/**
-	 *
-	 * @return Hitcircle
-	 */
 	public Circle getCircle() {
 
 		return circle;

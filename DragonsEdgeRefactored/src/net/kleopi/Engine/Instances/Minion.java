@@ -1,8 +1,7 @@
 package net.kleopi.Engine.Instances;
 
-import java.awt.Graphics2D;
-
 import net.kleopi.Client.GUI.Sprite;
+import net.kleopi.Engine.EventManagement.GameEvents.DrawEvent;
 import net.kleopi.Engine.Networking.Player;
 
 public class Minion extends Instance {
@@ -39,13 +38,7 @@ public class Minion extends Instance {
 		// TODO Auto-generated method stub
 
 	}
-
-	@Override
-	public void drawEvent(Graphics2D g) {
-
-		// TODO Auto-generated method stub
-
-	}
+		
 
 	@Override
 	public void leftclickedEvent(int x, int y) {
@@ -72,6 +65,12 @@ public class Minion extends Instance {
 
 	private void targetOwner() {
 		// TODO implement
+	}
+
+	@Override
+	public void onDraw(DrawEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

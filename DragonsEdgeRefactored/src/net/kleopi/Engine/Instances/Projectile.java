@@ -1,8 +1,7 @@
 package net.kleopi.Engine.Instances;
 
-import java.awt.Graphics2D;
-
 import net.kleopi.Client.GUI.Sprite;
+import net.kleopi.Engine.EventManagement.GameEvents.DrawEvent;
 import net.kleopi.Engine.Networking.Player;
 
 public class Projectile extends Instance {
@@ -42,12 +41,6 @@ public class Projectile extends Instance {
 
 	}
 
-	@Override
-	public void drawEvent(Graphics2D g) {
-
-		// TODO Auto-generated method stub
-
-	}
 
 	@Override
 	public void leftclickedEvent(int x, int y) {
@@ -70,6 +63,12 @@ public class Projectile extends Instance {
 		move();
 		// TODO implement
 
+	}
+
+	@Override
+	public void onDraw(DrawEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

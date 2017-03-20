@@ -1,6 +1,6 @@
 package net.kleopi.Client.GUI;
 
-import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.Point;
 
 import javax.swing.JFrame;
@@ -36,13 +36,6 @@ public class GUI extends Thread implements TKNListenerAdapter {
 
 	@Override
 	public void onDraw(DrawEvent e) {
-		// surface.repaint();
-		// TODO: for debug
-		int x = (int) (Math.random() * 255);
-		int y = (int) (Math.random() * 255);
-		int z = (int) (Math.random() * 255);
-		e.getGraphics().setColor(new Color(x, y, z));
-		e.getGraphics().fillRect(0, 0, 100, 100);
 	}
 
 	/**
@@ -69,12 +62,17 @@ public class GUI extends Thread implements TKNListenerAdapter {
 	@Override
 	public void run() {
 		while (true) {
+			preDraw(surface.getGraphics());
 			ClientMain.getClient().getEventManager().fire(new DrawEvent(surface.getGraphics()));
 			try {
 				sleep(30);
 			} catch (InterruptedException e) {
 			}
 		}
+	}
+
+	private void preDraw(Graphics graphics) {
+		//graphics.clearRect(0, 0, RESOLUTION_WIDTH, RESOLUTION_HEIGTH);		
 	}
 
 	// TODO: react to all events to draw properly

@@ -1,17 +1,36 @@
 package net.kleopi.Engine.Enums;
 
 import java.awt.Graphics;
+import java.awt.image.BufferedImage;
 
 import net.kleopi.Client.GUI.GUI;
 import net.kleopi.Client.Main.ClientMain;
 import net.kleopi.Engine.EventManagement.TKNListenerAdapter;
+import net.kleopi.Engine.EventManagement.GameEvents.DrawEvent;
+import net.kleopi.Server.MainServer;
 
 public class Tilemanager implements TKNListenerAdapter {
 	private static final int tilexsize = 1000;
 	private static final int tileysize = 1000;
-	private static final int camspeed = 32;
+	private static final int camspeed = 8;
 	private static final int overlaydepth = 10;
+	private BufferedImage tileCacheImage = new BufferedImage(GUI.RESOLUTION_WIDTH, GUI.RESOLUTION_HEIGTH, 1);
+	private boolean tilesChanged = true;
 
+	
+	public Tilemanager() {
+		
+		try {
+			ClientMain.getClient().getEventManager().addListener(this);
+		} catch (NullPointerException e) {
+		}
+		try {
+			MainServer.getServer().getEventManager().addListener(this);
+		}catch (NullPointerException e) {
+		}
+
+	}
+	//TODO: add Events and register the Listener!
 	/**
 	 * DOES NOT SET THE MAP. ONLY RETURNS DEFAULT MAP!
 	 *
@@ -41,23 +60,32 @@ public class Tilemanager implements TKNListenerAdapter {
 	private int tilesize = 32;
 	public int viewx, viewy;
 
-	/**
-	 * TODO: change to event
-	 *
-	 * @param g
-	 *            - Graphics Object used for drawing
-	 */
-	@Deprecated
-	public void drawEvent(Graphics g) {
-
-		for (int i = 0; i < 9; i++) {
-			if (hasMap) {
-				drawTiles(i, g);
-			}
+	@Override
+	public void onDraw(DrawEvent e) {
+		if (hasMap){
+			if (tilesChanged)
+				{
+					cacheMap();
+					tilesChanged=false;
+				}
+			drawCache(e.getGraphics());
 		}
-
+		//TODO: cameraTest only remove when test-build done
+		moveRight();
+		moveDown();
+		zoom(-1);
 	}
 
+	private void drawCache(Graphics g) {
+		g.drawImage(tileCacheImage, 1, 1, null);
+	}
+	private void cacheMap() {
+		tileCacheImage.getGraphics().clearRect(0, 0, GUI.RESOLUTION_WIDTH, GUI.RESOLUTION_HEIGTH);
+		for (int i = 0; i < 9; i++) {
+			drawCacheTileLayer(i, tileCacheImage.getGraphics());
+	}
+		
+	}
 	private void drawTileAtPos(double x, double y, String tileID, Graphics g) {
 
 		if (!tileID.equals("") && ClientMain.getClient().getPreloaded().getTile(tileID) != null) {
@@ -66,13 +94,13 @@ public class Tilemanager implements TKNListenerAdapter {
 		}
 	}
 
-	private void drawTiles(int layer, Graphics g) {
-
+	private void drawCacheTileLayer(int layer, Graphics g) {
 		for (double i = -(viewx % getTilesize()); i <= GUI.RESOLUTION_WIDTH; i += getTilesize()) {
 			for (double j = -(viewy % getTilesize()); j <= GUI.RESOLUTION_HEIGTH; j += getTilesize()) {
 				drawTileAtPos(i, j, getTileAtPosition(i + viewx, j + viewy, layer).getPath(), g);
 			}
 		}
+		
 	}
 
 	private void fixview() {
@@ -81,6 +109,7 @@ public class Tilemanager implements TKNListenerAdapter {
 		viewy = Math.min((tilexsize - 1) * (getTilesize()) - GUI.RESOLUTION_HEIGTH, viewy);
 		viewx = Math.max(0, viewx);
 		viewy = Math.max(0, viewy);
+		tilesChanged=true;
 
 	}
 

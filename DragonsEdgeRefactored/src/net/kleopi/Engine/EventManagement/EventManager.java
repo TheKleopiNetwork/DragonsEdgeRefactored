@@ -17,7 +17,7 @@ import net.kleopi.Engine.EventManagement.GameEvents.StartupEvent;
 import net.kleopi.Engine.EventManagement.GameEvents.TickEvent;
 import net.kleopi.Engine.Exceptions.UnregisteredEventException;
 
-public class EventManager extends Thread {
+public class EventManager extends Thread{
 	private Queue<Object> eventqueue = new LinkedBlockingQueue<>();
 	private List<TKNListenerAdapter> listeners = new ArrayList<>();
 

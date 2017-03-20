@@ -1,8 +1,7 @@
 package net.kleopi.Engine.Instances;
 
-import java.awt.Graphics2D;
-
 import net.kleopi.Client.GUI.Sprite;
+import net.kleopi.Engine.EventManagement.GameEvents.DrawEvent;
 import net.kleopi.Engine.Networking.Player;
 
 public class Structure extends Instance {
@@ -40,12 +39,6 @@ public class Structure extends Instance {
 
 	}
 
-	@Override
-	public void drawEvent(Graphics2D g) {
-
-		// TODO Auto-generated method stub
-
-	}
 
 	@Override
 	public void leftclickedEvent(int x, int y) {
@@ -65,6 +58,12 @@ public class Structure extends Instance {
 	public void stepEvent() {
 		// usually doesnt move :P
 		// TODO implement
+	}
+
+	@Override
+	public void onDraw(DrawEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
