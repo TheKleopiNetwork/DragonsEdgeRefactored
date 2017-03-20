@@ -52,10 +52,12 @@ public class Messager extends Logger{
 	public static void prepareFile() {
 		isChecked = true;
 		System.out.println("More Information about this Test can be found in the Logs folder!");
+		
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 		LocalDate localDate = LocalDate.now();
 		String dateString = (dtf.format(localDate));
 		try {
+			Files.createDirectory(Paths.get("logs"));
 			Path path = Paths.get("logs\\" + dateString + ".log");
 			Files.createFile(path);
 		} catch (IOException e) {
