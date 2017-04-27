@@ -23,7 +23,7 @@ import net.kleopi.Engine.Networking.UpdateObjects.TileMapUpdate;
 public class GUI extends Thread implements TKNListenerAdapter {
 	public final static int RESOLUTION_WIDTH = 1920;
 	public final static int RESOLUTION_HEIGTH = 1080;
-	private static final int numBuffers = 16;
+	private static final int numBuffers = 4;
 
 	private static DisplayMode[] BEST_DISPLAY_MODES = new DisplayMode[] { new DisplayMode(1920, 1080, 32, 0),
 			new DisplayMode(1920, 1080, 16, 0), new DisplayMode(1920, 1080, 8, 0), new DisplayMode(640, 480, 32, 0),
@@ -37,13 +37,12 @@ public class GUI extends Thread implements TKNListenerAdapter {
 	}
 
 	private static DisplayMode getBestDisplayMode(GraphicsDevice device) {
-		for (int x = 0; x < BEST_DISPLAY_MODES.length; x++) {
+		for (DisplayMode element : BEST_DISPLAY_MODES) {
 			DisplayMode[] modes = device.getDisplayModes();
-			for (int i = 0; i < modes.length; i++) {
-				if (modes[i].getWidth() == BEST_DISPLAY_MODES[x].getWidth()
-						&& modes[i].getHeight() == BEST_DISPLAY_MODES[x].getHeight()
-						&& modes[i].getBitDepth() == BEST_DISPLAY_MODES[x].getBitDepth()) {
-					return BEST_DISPLAY_MODES[x];
+			for (DisplayMode mode : modes) {
+				if (mode.getWidth() == element.getWidth() && mode.getHeight() == element.getHeight()
+						&& mode.getBitDepth() == element.getBitDepth()) {
+					return element;
 				}
 			}
 		}
@@ -100,6 +99,10 @@ public class GUI extends Thread implements TKNListenerAdapter {
 		fpsct = 0;
 	}
 
+	private void preDraw(Graphics graphics) {
+		// graphics.clearRect(0, 0, RESOLUTION_WIDTH, RESOLUTION_HEIGTH);
+	};
+
 	/**
 	 * Redraws every few milliseconds
 	 */
@@ -117,10 +120,6 @@ public class GUI extends Thread implements TKNListenerAdapter {
 				fpsct += 1;
 			}
 		}
-	};
-
-	private void preDraw(Graphics graphics) {
-		// graphics.clearRect(0, 0, RESOLUTION_WIDTH, RESOLUTION_HEIGTH);
 	}
 
 	// TODO: react to all events to draw properly
