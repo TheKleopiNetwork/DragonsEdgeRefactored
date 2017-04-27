@@ -1,9 +1,10 @@
 package net.kleopi.Client.Main;
 
+import net.kleopi.Api.PluginManager;
 import net.kleopi.Client.GUI.GUI;
 import net.kleopi.Client.GUI.PreLoaded;
+import net.kleopi.Client.GUI.TileManagerClient;
 import net.kleopi.Client.Networking.NetworkClient;
-import net.kleopi.Engine.Enums.Tilemanager;
 import net.kleopi.Engine.EventManagement.EventManager;
 import net.kleopi.Engine.EventManagement.GameEvents.StartupEvent;
 import net.kleopi.Engine.Instances.Instancemanager;
@@ -30,10 +31,11 @@ public class ClientMain {
 		client.setStatusManager(new StatusManager());
 		client.setNetwork(new NetworkClient());
 		client.setPreloaded(new PreLoaded());
-		client.setTilemanager(new Tilemanager());
+		client.setTilemanager(new TileManagerClient());
 		client.setInstancemanager(new Instancemanager());
 		client.setGui(new GUI());
 		client.getEventManager().fire(new StartupEvent());
+		client.setPluginmanager(new PluginManager());
 
 	}
 
@@ -49,9 +51,11 @@ public class ClientMain {
 	private EventManager eventManager;
 	private PreLoaded preloaded;
 
-	private Tilemanager tilemanager;
+	private TileManagerClient tilemanager;
 
 	private Instancemanager instancemanager;
+
+	private PluginManager pluginmanager;
 
 	public EventManager getEventManager() {
 		return eventManager;
@@ -69,6 +73,10 @@ public class ClientMain {
 		return network;
 	}
 
+	public PluginManager getPluginmanager() {
+		return pluginmanager;
+	}
+
 	public PreLoaded getPreloaded() {
 		return preloaded;
 	}
@@ -77,7 +85,7 @@ public class ClientMain {
 		return statusManager;
 	}
 
-	public Tilemanager getTilemanager() {
+	public TileManagerClient getTilemanager() {
 		return tilemanager;
 	}
 
@@ -97,6 +105,10 @@ public class ClientMain {
 		this.network = network;
 	}
 
+	public void setPluginmanager(PluginManager pluginmanager) {
+		this.pluginmanager = pluginmanager;
+	}
+
 	public void setPreloaded(PreLoaded preloaded) {
 		this.preloaded = preloaded;
 	}
@@ -105,7 +117,7 @@ public class ClientMain {
 		this.statusManager = statusManager;
 	}
 
-	public void setTilemanager(Tilemanager tilemanager) {
+	public void setTilemanager(TileManagerClient tilemanager) {
 		this.tilemanager = tilemanager;
 	}
 

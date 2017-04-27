@@ -12,16 +12,15 @@ import com.esotericsoftware.kryonet.Server;
 import net.kleopi.Engine.Enums.Messager;
 import net.kleopi.Engine.EventManagement.TKNListenerAdapter;
 import net.kleopi.Engine.Networking.Player;
-import net.kleopi.Engine.Networking.UpdateObjects.TileMapUpdate;
 import net.kleopi.Engine.Networking.UpdateObjects.LoginUpdate;
+import net.kleopi.Engine.Networking.UpdateObjects.TileMapUpdate;
 import net.kleopi.Engine.Networking.UpdateObjects.UpdateObject;
 
 public class NetworkServer extends Thread implements TKNListenerAdapter {
 	private final static int port = 11833; // the Port we will use
 	private final static int udpport = 11880;
-	private static final int buffersize = 1024*1024*16;
+	private static final int buffersize = 1024 * 1024 * 16;
 	List<Player> players = new ArrayList<>(); // saving all connected players
-	
 
 	/**
 	 * Starts itself! Also registers itself!
@@ -38,17 +37,19 @@ public class NetworkServer extends Thread implements TKNListenerAdapter {
 	 *            - The socket which should be saved for that player
 	 */
 
-	public void addPlayer(String username,Connection c) {
+	public void addPlayer(String username, Connection c) {
 
 		Player p = new Player(c);
 		players.add(p);
 		Messager.info("Player added [Server.addPlayer]");
 		// TODO: maybe dont send the Datapack here already?
 		Messager.info("Packing TileMap for new Client");
-		TileMapUpdate tmu=new TileMapUpdate().withCompressedTilemap(MainServer.getServer().getTilemanager().getCompressedDataMap());
-		sendUpdate(p,tmu);
+		TileMapUpdate tmu = new TileMapUpdate()
+				.withCompressedTilemap(MainServer.getServer().getTilemanager().getCompressedDataMap());
+		sendUpdate(p, tmu);
 		Messager.info("Sent Tilemap");
 	}
+
 	/**
 	 * Removes a player from the List
 	 *
@@ -64,8 +65,16 @@ public class NetworkServer extends Thread implements TKNListenerAdapter {
 	public void run() {
 
 		// Updated Code:
+		System.out.println("Waiting for Map to finish generating...");
+		while (!MainServer.getServer().getTilemanager().hasMap) {
+			try {
+				sleep(100);
+			} catch (InterruptedException e) {
+			}
+		}
+		System.out.println("Map retrieved");
 
-		Server server = new Server(buffersize,buffersize);
+		Server server = new Server(buffersize, buffersize);
 
 		Kryo kryo = server.getKryo();
 		kryo.register(LoginUpdate.class);
@@ -76,9 +85,9 @@ public class NetworkServer extends Thread implements TKNListenerAdapter {
 			@Override
 			public void received(Connection connection, Object object) {
 				if (object instanceof LoginUpdate) {
-					addPlayer(((LoginUpdate) object).username,connection);
+					addPlayer(((LoginUpdate) object).username, connection);
 					Messager.info("received object");
-					
+
 				}
 			}
 		});
@@ -86,7 +95,7 @@ public class NetworkServer extends Thread implements TKNListenerAdapter {
 		try {
 			server.bind(port, udpport);
 		} catch (IOException e1) {
-			Messager.error("IOException has occured"+e1);
+			Messager.error("IOException has occured" + e1);
 		}
 	}
 
@@ -95,10 +104,11 @@ public class NetworkServer extends Thread implements TKNListenerAdapter {
 	 *
 	 * @param object
 	 *            - Datapackage to send
-	 * @param player - The Player-Object which should be adressed
-	 *       
+	 * @param player
+	 *            - The Player-Object which should be adressed
+	 * 
 	 */
-	public void sendUpdate(Player player,UpdateObject object) {
+	public void sendUpdate(Player player, UpdateObject object) {
 
 		player.getConnection().sendTCP(object);
 

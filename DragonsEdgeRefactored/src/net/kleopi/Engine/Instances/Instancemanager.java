@@ -7,7 +7,6 @@ import net.kleopi.Client.GUI.Sprite;
 import net.kleopi.Client.Main.ClientMain;
 import net.kleopi.Engine.Enums.Utilities;
 import net.kleopi.Engine.Networking.Player;
-import net.kleopi.Server.MainServer;
 
 public class Instancemanager {
 	private List<Instance> instances = new ArrayList<>();

@@ -10,9 +10,9 @@ import javax.imageio.ImageIO;
 import net.kleopi.Engine.Enums.Messager;
 
 public class PreLoaded {
-	private Hashtable<String, BufferedImage> tiles = new Hashtable<>();
-	private Hashtable<String, BufferedImage> characters = new Hashtable<>();
-	private Hashtable<String, BufferedImage> othersprites = new Hashtable<>();
+	private final Hashtable<String, BufferedImage> tiles = new Hashtable<>();
+	private final Hashtable<String, BufferedImage> characters = new Hashtable<>();
+	private final Hashtable<String, BufferedImage> othersprites = new Hashtable<>();
 
 	public PreLoaded() {
 		Messager.info("PreLoading Sprites");
@@ -46,9 +46,14 @@ public class PreLoaded {
 					if (file.isDirectory()) {
 						load_folder(folder_path + "\\" + file.getName(), hashtable, skey);
 					} else {
-						String key = file.getPath();
-						key = key.replace(skey, "");
-						hashtable.put(key, ImageIO.read(file));
+						if (file.getName().endsWith(".png") || file.getName().endsWith(".jpg")) {
+							String key = file.getPath();
+							key = key.replace(skey, "");
+							hashtable.put(key, ImageIO.read(file));
+						} else {
+							Messager.error("Found an unusual data in the sprite folder: " + file.getName()
+									+ " could not be loaded!");
+						}
 					}
 				} catch (IOException e) {
 					Messager.error(e.toString());

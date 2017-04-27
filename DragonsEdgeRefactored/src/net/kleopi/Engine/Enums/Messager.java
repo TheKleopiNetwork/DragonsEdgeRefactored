@@ -10,26 +10,22 @@ import java.util.List;
 
 import com.esotericsoftware.minlog.Log.Logger;
 
-public class Messager extends Logger{
+public class Messager extends Logger {
 	private static boolean isChecked = false;
 
 	// TODO: properly output it?
 	public static void error(String string) {
-		System.err.println("[ERROR]: "+string);
+		System.err.println("[ERROR]: " + string);
 		System.err.flush();
 		log("[ERROR]: " + string);
 
 	}
 
 	public static void info(String string) {
-		System.out.println("[INFO]:  " +string);
+		System.out.println("[INFO]:  " + string);
 		System.out.flush();
 		log("[INFO]:  " + string);
 
-	}
-	@Override
-	protected void print(String s) {
-		info(s);
 	}
 
 	public static void log(String string) {
@@ -52,17 +48,26 @@ public class Messager extends Logger{
 	public static void prepareFile() {
 		isChecked = true;
 		System.out.println("More Information about this Test can be found in the Logs folder!");
-		
+
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 		LocalDate localDate = LocalDate.now();
 		String dateString = (dtf.format(localDate));
 		try {
 			Files.createDirectory(Paths.get("logs"));
-			Path path = Paths.get("logs\\" + dateString + ".log");
+
+		} catch (IOException e) {
+		}
+		Path path = Paths.get("logs\\" + dateString + ".log");
+		try {
 			Files.createFile(path);
 		} catch (IOException e) {
 		}
 		log("-----------------------------------------");
+	}
+
+	@Override
+	protected void print(String s) {
+		info(s);
 	}
 
 }

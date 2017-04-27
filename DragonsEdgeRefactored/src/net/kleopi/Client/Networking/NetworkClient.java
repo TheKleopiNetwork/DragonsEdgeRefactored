@@ -1,6 +1,7 @@
 package net.kleopi.Client.Networking;
 
 import java.io.IOException;
+
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
@@ -11,17 +12,19 @@ import net.kleopi.Engine.Enums.Messager;
 import net.kleopi.Engine.EventManagement.TKNListenerAdapter;
 import net.kleopi.Engine.EventManagement.GameEvents.DisconnectEvent;
 import net.kleopi.Engine.EventManagement.GameEvents.LoginEvent;
-import net.kleopi.Engine.Networking.UpdateObjects.TileMapUpdate;
+import net.kleopi.Engine.EventManagement.GameEvents.PackageReceivedEvent;
 import net.kleopi.Engine.Networking.UpdateObjects.LoginUpdate;
+import net.kleopi.Engine.Networking.UpdateObjects.TileMapUpdate;
 import net.kleopi.Engine.Networking.UpdateObjects.UpdateObject;
 import net.kleopi.Engine.StatusManagement.Status.NetworkStatus;
 
 public class NetworkClient implements TKNListenerAdapter {
 
-	private static final int buffersize = 1024*1024*16;
+	private static final int buffersize = 1024 * 1024 * 16;
 	protected final int port = 11833;
 	protected final String serverName = "localhost"; // "178.27.72.46"; //This
-														public NetworkClient() {
+
+	public NetworkClient() {
 		ClientMain.getClient().getEventManager().addListener(this);
 	}
 
@@ -42,7 +45,7 @@ public class NetworkClient implements TKNListenerAdapter {
 	public void onLogin(LoginEvent e) {
 
 		{
-			Client client = new Client(buffersize,buffersize);
+			Client client = new Client(buffersize, buffersize);
 			client.start();
 			try {
 				client.connect(5000, "localhost", 11833, 11880);
@@ -58,15 +61,17 @@ public class NetworkClient implements TKNListenerAdapter {
 				@Override
 				public void received(Connection connection, Object object) {
 					if (object instanceof UpdateObject) {
+						System.out.println("Received Package from Server");
+						ClientMain.getClient().getEventManager().fire(new PackageReceivedEvent(object));
 					}
 				}
 			});
 			client.sendTCP(new LoginUpdate("zero", "fucks given"));
-			}
+		}
 
 	}
 
 	public void sendUpdateToServer(UpdateObject object) {
-		//TODO: send Object
+		// TODO: send Object
 	}
 }

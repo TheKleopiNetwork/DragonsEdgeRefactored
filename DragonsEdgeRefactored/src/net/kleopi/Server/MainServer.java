@@ -1,6 +1,5 @@
 package net.kleopi.Server;
 
-import net.kleopi.Engine.Enums.Tilemanager;
 import net.kleopi.Engine.EventManagement.EventManager;
 import net.kleopi.Engine.EventManagement.TKNListenerAdapter;
 import net.kleopi.Engine.EventManagement.GameEvents.StartupEvent;
@@ -34,12 +33,12 @@ public class MainServer implements TKNListenerAdapter {
 		setServer(new MainServer());
 		server.setEventManager(new EventManager());
 		server.getEventManager().addListener(server);
-		server.setNetwork(new NetworkServer());
+
 		server.setStatusManager(new StatusManager());
-		server.setTilemanager(new Tilemanager());
+		server.setTilemanager(new TileManagerServer());
 		server.setInstancemanager(new Instancemanager());
 		server.getEventManager().fire(new StartupEvent());
-
+		server.setNetwork(new NetworkServer());
 	}
 
 	/**
@@ -56,7 +55,7 @@ public class MainServer implements TKNListenerAdapter {
 	private NetworkServer network;
 
 	private EventManager eventManager;
-	private Tilemanager tilemanager;
+	private TileManagerServer tilemanager;
 
 	private Instancemanager instancemanager;
 
@@ -98,14 +97,14 @@ public class MainServer implements TKNListenerAdapter {
 	 *
 	 * @return TileManager Instance
 	 */
-	public Tilemanager getTilemanager() {
+	public TileManagerServer getTilemanager() {
 		return tilemanager;
 	}
 
 	@Override
 	public void onStartUp(StartupEvent e) {
 
-		tilemanager.setDatamap(Tilemanager.getDefaultMap());
+		tilemanager.setDatamap(TileManagerServer.getDefaultMap());
 
 	}
 
@@ -125,7 +124,7 @@ public class MainServer implements TKNListenerAdapter {
 		this.statusManager = statusManager;
 	}
 
-	public void setTilemanager(Tilemanager tilemanager) {
+	public void setTilemanager(TileManagerServer tilemanager) {
 		this.tilemanager = tilemanager;
 	}
 
