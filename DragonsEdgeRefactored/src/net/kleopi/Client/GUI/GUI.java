@@ -11,11 +11,12 @@ import java.awt.image.BufferStrategy;
 
 import javax.swing.JFrame;
 
+import net.kleopi.Client.Input.InputReceiver;
 import net.kleopi.Client.Main.ClientMain;
 import net.kleopi.Engine.Enums.Messager;
 import net.kleopi.Engine.EventManagement.TKNListenerAdapter;
 import net.kleopi.Engine.EventManagement.GameEvents.DrawEvent;
-import net.kleopi.Engine.EventManagement.GameEvents.LoginEvent;
+import net.kleopi.Engine.EventManagement.GameEvents.LoggedEvent;
 import net.kleopi.Engine.EventManagement.GameEvents.PackageReceivedEvent;
 import net.kleopi.Engine.EventManagement.GameEvents.TickEvent;
 import net.kleopi.Engine.Networking.UpdateObjects.TileMapUpdate;
@@ -74,23 +75,21 @@ public class GUI extends Thread implements TKNListenerAdapter {
 		return (frame.getMousePosition());
 	}
 
-	/**
-	 * TODO: react on Logged Event
-	 */
-	@Override
-	public void onLogin(LoginEvent e) {
-		setupGameFrame();
-	}
-
 	@Override
 	public void onPackageReceived(PackageReceivedEvent e) {
 		if (e.getUpdateObject() instanceof TileMapUpdate) {
 			Messager.info("Sucessfully downloaded the Map...");
 			ClientMain.getClient().getTilemanager()
 					.setCompressedDatamap(((TileMapUpdate) e.getUpdateObject()).getCompressedTilemap());
-		} else {
-			System.out.println("Object wurde nicht als Map erkannt");
 		}
+	}
+
+	/**
+	 * TODO: react on Logged Event
+	 */
+	@Override
+	public void onSuccessfulLoginReturn(LoggedEvent e) {
+		setupGameFrame();
 	}
 
 	@Override
@@ -113,9 +112,9 @@ public class GUI extends Thread implements TKNListenerAdapter {
 			Graphics g = bufferStrategy.getDrawGraphics();
 			if (!bufferStrategy.contentsLost()) {
 				preDraw(g);
-				ClientMain.getClient().getEventManager().getListeners().forEach(e -> e.onDraw(new DrawEvent(g)));
+				ClientMain.getClient().getEventManager().fire(new DrawEvent(g));
 				g.setColor(Color.BLACK);
-				g.drawString(String.valueOf(fps), 20, 20);
+				g.drawString(String.valueOf((int) fps), 20, 20);
 				bufferStrategy.show();
 				fpsct += 1;
 			}
@@ -127,10 +126,14 @@ public class GUI extends Thread implements TKNListenerAdapter {
 
 		try {
 			GraphicsConfiguration gc = device.getDefaultConfiguration();
-
+			InputReceiver input = new InputReceiver();
 			frame = new JFrame(gc);
 			frame.setUndecorated(true);
 			frame.setIgnoreRepaint(true);
+
+			frame.addMouseListener(input);
+			frame.addKeyListener(input);
+			frame.addMouseWheelListener(input);
 			device.setFullScreenWindow(frame);
 			if (device.isDisplayChangeSupported()) {
 				chooseBestDisplayMode(device);
