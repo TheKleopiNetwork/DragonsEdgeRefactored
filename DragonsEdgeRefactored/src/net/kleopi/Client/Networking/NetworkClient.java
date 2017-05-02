@@ -11,12 +11,13 @@ import net.kleopi.Client.Main.ClientMain;
 import net.kleopi.Engine.Enums.Messager;
 import net.kleopi.Engine.EventManagement.TKNListenerAdapter;
 import net.kleopi.Engine.EventManagement.GameEvents.DisconnectEvent;
+import net.kleopi.Engine.EventManagement.GameEvents.LoggedEvent;
 import net.kleopi.Engine.EventManagement.GameEvents.LoginEvent;
 import net.kleopi.Engine.EventManagement.GameEvents.PackageReceivedEvent;
+import net.kleopi.Engine.Networking.KryoRegisterer;
 import net.kleopi.Engine.Networking.UpdateObjects.LoginUpdate;
 import net.kleopi.Engine.Networking.UpdateObjects.TileMapUpdate;
 import net.kleopi.Engine.Networking.UpdateObjects.UpdateObject;
-import net.kleopi.Engine.StatusManagement.Status.NetworkStatus;
 
 public class NetworkClient implements TKNListenerAdapter {
 
@@ -38,7 +39,6 @@ public class NetworkClient implements TKNListenerAdapter {
 
 	@Override
 	public void onDisconnect(DisconnectEvent e) {
-		ClientMain.getClient().getStatusManager().getStatus().setNetStat(NetworkStatus.DISCONNECTED);
 	}
 
 	@Override
@@ -50,18 +50,18 @@ public class NetworkClient implements TKNListenerAdapter {
 			try {
 				client.connect(5000, "localhost", 11833, 11880);
 			} catch (IOException g) {
-				g.printStackTrace();
+				Messager.error("Server not up yet. Trying again...");
+				client.close();
+				client.stop();
+				ClientMain.getClient().getEventManager().fire(e);
+				return;
 			}
 			Kryo kryo = client.getKryo();
-			kryo.register(LoginUpdate.class);
-			kryo.register(TileMapUpdate.class);
-			kryo.register(char[][].class);
-			kryo.register(char[].class);
+			KryoRegisterer.registerClasses(kryo);
 			client.addListener(new Listener() {
 				@Override
 				public void received(Connection connection, Object object) {
 					if (object instanceof UpdateObject) {
-						System.out.println("Received Package from Server");
 						ClientMain.getClient().getEventManager().fire(new PackageReceivedEvent(object));
 					}
 				}
@@ -69,6 +69,20 @@ public class NetworkClient implements TKNListenerAdapter {
 			client.sendTCP(new LoginUpdate("zero", "fucks given"));
 		}
 
+	}
+
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see
+	 * net.kleopi.Engine.EventManagement.TKNListenerAdapter#onPackageReceived(
+	 * net.kleopi.Engine.EventManagement.GameEvents.PackageReceivedEvent)
+	 */
+	@Override
+	public void onPackageReceived(PackageReceivedEvent e) {
+		if (e.getUpdateObject() instanceof TileMapUpdate) {
+			ClientMain.getClient().getEventManager().fire(new LoggedEvent());
+		}
 	}
 
 	public void sendUpdateToServer(UpdateObject object) {

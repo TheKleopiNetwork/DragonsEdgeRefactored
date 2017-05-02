@@ -1,22 +1,14 @@
 package net.kleopi.Engine.Instances;
 
-import net.kleopi.Client.GUI.Sprite;
+import java.awt.event.MouseEvent;
+
 import net.kleopi.Engine.EventManagement.GameEvents.DrawEvent;
-import net.kleopi.Engine.Networking.Player;
+import net.kleopi.Engine.EventManagement.GameEvents.TickEvent;
 
 public class Projectile extends Instance {
 
-	public Projectile(double posx, double posy, double hitboxsize, double ndirection, double nspeed, Player owner,
-			int id, Sprite imageid) {
-
-		super(posx, posy, hitboxsize, ndirection, nspeed, owner, id, imageid);
-	}
-
-	@Override
-	void checkDeath() {
-
-		// TODO Auto-generated method stub
-
+	public Projectile() {
+		super();
 	}
 
 	@Override
@@ -41,23 +33,26 @@ public class Projectile extends Instance {
 
 	}
 
-
 	@Override
-	public void leftclickedEvent(int x, int y) {
+	public void onDraw(DrawEvent e) {
+		// TODO Auto-generated method stub
 
+	}
+
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see net.kleopi.Engine.Instances.Instance#onMouseAction(java.awt.event.
+	 * MouseEvent)
+	 */
+	@Override
+	public void onMouseClick(MouseEvent e) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void rightclickedEvent(int x, int y) {
-
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void stepEvent() {
+	public void onTick(TickEvent e) {
 
 		damageNear();
 		move();
@@ -66,9 +61,10 @@ public class Projectile extends Instance {
 	}
 
 	@Override
-	public void onDraw(DrawEvent e) {
+	void checkDeath() {
+
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

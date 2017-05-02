@@ -1,14 +1,26 @@
 package net.kleopi.Engine.Networking.UpdateObjects;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import net.kleopi.Engine.Instances.Instance;
 
 @SuppressWarnings("serial")
 public class InstanceListUpdate extends UpdateObject {
-	public List<Instance> instancelist;
+	public ArrayList<Instance> instancelist;
 
-	public InstanceListUpdate(List<Instance> instances) {
+	public InstanceListUpdate() {
+	}
+
+	public InstanceListUpdate(ArrayList<Instance> instances) {
 		instancelist = instances;
+	}
+
+	/**
+	 * @param instances
+	 * @return
+	 */
+	public InstanceListUpdate withInstanceList(ArrayList<Instance> instances) {
+		instancelist = instances;
+		return this;
 	}
 }

@@ -1,14 +1,17 @@
 package net.kleopi.Engine.Instances;
 
+import java.awt.event.MouseEvent;
+
 import net.kleopi.Client.GUI.Sprite;
 import net.kleopi.Client.Main.ClientMain;
 import net.kleopi.Engine.Enums.Utilities;
 import net.kleopi.Engine.EventManagement.TKNListenerAdapter;
 import net.kleopi.Engine.EventManagement.GameEvents.DrawEvent;
+import net.kleopi.Engine.EventManagement.GameEvents.TickEvent;
 import net.kleopi.Engine.Networking.Player;
-import net.kleopi.Server.MainServer;
+import net.kleopi.Server.ServerMain;
 
-public abstract class Instance implements TKNListenerAdapter{
+public abstract class Instance implements TKNListenerAdapter {
 
 	private Player owner;
 	private Circle circle;
@@ -35,27 +38,15 @@ public abstract class Instance implements TKNListenerAdapter{
 	 * @param imageid
 	 *            - Sprite for drawing TODO: rework this
 	 */
-	public Instance(double posx, double posy, double hitboxsize, double ndirection, double nspeed, Player owner, int id,
-			Sprite imageid) {
-		//TODO: Code depending on Server/Client
-		ClientMain.getClient().getEventManager().addListener(this);
-		MainServer.getServer().getEventManager().addListener(this);
-		setCircle(new Circle(posx, posy, hitboxsize));
-		direction = ndirection;
-		speed = nspeed;
+	public Instance() {
+		setCircle(new Circle());
+		owner = new Player(null);
 		target_x = 0;
 		target_y = 0;
-		this.owner = owner;
-		this.setId(id);
-		this.sprite = imageid;
-	}
+		ClientMain.getClient().getEventManager().addListener(this);
+		ServerMain.getServer().getEventManager().addListener(this);
 
-	@Override
-	public abstract void onDraw(DrawEvent e);
-	/**
-	 * When do I die?
-	 */
-	abstract void checkDeath();
+	}
 
 	/**
 	 * When getting damage, what should happen?
@@ -71,15 +62,9 @@ public abstract class Instance implements TKNListenerAdapter{
 	public abstract void damageNear();
 
 	/**
-	 * What happens when Instance gets destroyed?
+	 * What happens when Instance gets destroyed? TODO: also throw event
 	 */
 	public abstract void destroy();
-
-	private double distanceToTarget() {
-
-		return Math.abs(
-				Math.sqrt(Math.pow(target_x - getCircle().getX(), 2) + Math.pow(target_y - getCircle().getY(), 2)));
-	}
 
 	public Circle getCircle() {
 
@@ -116,10 +101,6 @@ public abstract class Instance implements TKNListenerAdapter{
 				&& Utilities.between((int) getCircle().getY(), y, height));
 	}
 
-	// TODO: to eventlistener
-	@Deprecated
-	public abstract void leftclickedEvent(int x, int y);
-
 	/**
 	 * Tell the sprite to move
 	 */
@@ -141,49 +122,47 @@ public abstract class Instance implements TKNListenerAdapter{
 		}
 	}
 
-	private void path() {
+	@Override
+	public abstract void onDraw(DrawEvent e);
 
-		// TODO implement pathfinding system
-		if (targetting) {
-			if (getCircle().getX() != target_x && getCircle().getY() != target_y) {
-				double angle = Math.atan2(target_y - getCircle().getY(), target_x - getCircle().getX());
-				if (distanceToTarget() > speed) {
-					double new_x = getCircle().getX() + speed * Math.cos(angle);
-					double new_y = getCircle().getY() + speed * Math.sin(angle);
-					if (ClientMain.getClient().getInstancemanager().passable(new_x, new_y, this)) {
-						getCircle().setX(new_x);
-						getCircle().setY(new_y);
-					} else {
-						targetting = false;
-						target_x = getCircle().getX();
-						target_y = getCircle().getY();
-					}
-				} else {
-					if (ClientMain.getClient().getInstancemanager().passable(target_x, target_x, this)) {
-						getCircle().setX(target_x);
-						getCircle().setY(target_y);
-					} else {
-						targetting = false;
-						target_x = getCircle().getX();
-						target_y = getCircle().getY();
-					}
-				}
-				direction = angle;
-			}
-		}
-	}
+	// TODO: to eventlistener
+	@Override
+	public abstract void onMouseClick(MouseEvent e);
 
-	@Deprecated
-	public abstract void rightclickedEvent(int x, int y);
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see
+	 * net.kleopi.Engine.EventManagement.TKNListenerAdapter#onTick(net.kleopi.
+	 * Engine.EventManagement.GameEvents.TickEvent)
+	 */
+	@Override
+	public abstract void onTick(TickEvent e);
 
 	public void setCircle(Circle circle) {
 
 		this.circle = circle;
 	}
 
+	/**
+	 * @param i
+	 */
+	public void setHitboxSize(int i) {
+		getCircle().setR(i);
+
+	}
+
 	public void setId(int id) {
 
 		this.id = id;
+	}
+
+	/**
+	 * @param owner2
+	 */
+	public void setOwner(Player owner) {
+		this.owner = owner;
+
 	}
 
 	public void setPosition(int nx, int ny) {
@@ -192,6 +171,14 @@ public abstract class Instance implements TKNListenerAdapter{
 		getCircle().setY(ny);
 		target_x = nx;
 		target_y = ny;
+	}
+
+	/**
+	 * @param sprite2
+	 */
+	public void setSprite(Sprite sprite2) {
+		this.sprite = sprite2;
+
 	}
 
 	public void setTarget(Instance i) {
@@ -209,5 +196,58 @@ public abstract class Instance implements TKNListenerAdapter{
 
 	}
 
-	public abstract void stepEvent();
+	public Instance withData(int posx, int posy, double ndirection, double nspeed, Player owner, int id,
+			Sprite sprite) {
+
+		setPosition(posx, posy);
+		setHitboxSize(48);
+		setVelocity(ndirection, nspeed);
+		setOwner(owner);
+		setId(id);
+		setSprite(sprite);
+		return this;
+	}
+
+	/**
+	 * When do I die?
+	 */
+	abstract void checkDeath();
+
+	private double distanceToTarget() {
+
+		return Math.abs(
+				Math.sqrt(Math.pow(target_x - getCircle().getX(), 2) + Math.pow(target_y - getCircle().getY(), 2)));
+	}
+
+	private void path() {
+
+		// TODO implement pathfinding system
+		if (targetting) {
+			if (getCircle().getX() != target_x && getCircle().getY() != target_y) {
+				double angle = Math.atan2(target_y - getCircle().getY(), target_x - getCircle().getX());
+				if (distanceToTarget() > speed) {
+					double new_x = getCircle().getX() + speed * Math.cos(angle);
+					double new_y = getCircle().getY() + speed * Math.sin(angle);
+					if (ClientMain.getClient().getInstancemanager().isPassable(new_x, new_y, this)) {
+						getCircle().setX(new_x);
+						getCircle().setY(new_y);
+					} else {
+						targetting = false;
+						target_x = getCircle().getX();
+						target_y = getCircle().getY();
+					}
+				} else {
+					if (ClientMain.getClient().getInstancemanager().isPassable(target_x, target_x, this)) {
+						getCircle().setX(target_x);
+						getCircle().setY(target_y);
+					} else {
+						targetting = false;
+						target_x = getCircle().getX();
+						target_y = getCircle().getY();
+					}
+				}
+				direction = angle;
+			}
+		}
+	}
 }

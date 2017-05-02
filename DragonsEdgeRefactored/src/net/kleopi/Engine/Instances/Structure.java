@@ -1,21 +1,17 @@
 package net.kleopi.Engine.Instances;
 
-import net.kleopi.Client.GUI.Sprite;
+import java.awt.event.MouseEvent;
+
 import net.kleopi.Engine.EventManagement.GameEvents.DrawEvent;
-import net.kleopi.Engine.Networking.Player;
+import net.kleopi.Engine.EventManagement.GameEvents.TickEvent;
 
 public class Structure extends Instance {
 
-	public Structure(double posx, double posy, double hitboxsize, double ndirection, double nspeed, Player owner,
-			int id, Sprite imageid) {
-		super(posx, posy, hitboxsize, ndirection, nspeed, owner, id, imageid);
-	}
-
-	@Override
-	void checkDeath() {
-
-		// TODO Auto-generated method stub
-
+	/**
+	 *
+	 */
+	public Structure() {
+		super();
 	}
 
 	@Override
@@ -39,31 +35,41 @@ public class Structure extends Instance {
 
 	}
 
-
-	@Override
-	public void leftclickedEvent(int x, int y) {
-
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void rightclickedEvent(int x, int y) {
-
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void stepEvent() {
-		// usually doesnt move :P
-		// TODO implement
-	}
-
 	@Override
 	public void onDraw(DrawEvent e) {
 		// TODO Auto-generated method stub
-		
+
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see net.kleopi.Engine.Instances.Instance#onMouseClick(java.awt.event.
+	 * MouseEvent)
+	 */
+	@Override
+	public void onMouseClick(MouseEvent e) {
+		// TODO Auto-generated method stub
+
+	}
+
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see net.kleopi.Engine.Instances.Instance#onTick(net.kleopi.Engine.
+	 * EventManagement.GameEvents.TickEvent)
+	 */
+	@Override
+	public void onTick(TickEvent e) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	void checkDeath() {
+
+		// TODO Auto-generated method stub
+
 	}
 
 }

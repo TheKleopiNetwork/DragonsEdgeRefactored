@@ -92,7 +92,7 @@ public class TileManagerServer implements TKNListenerAdapter {
 		} catch (NullPointerException e) {
 		}
 		try {
-			MainServer.getServer().getEventManager().addListener(this);
+			ServerMain.getServer().getEventManager().addListener(this);
 		} catch (NullPointerException e) {
 		}
 		setDatamap(getDefaultMap());

@@ -32,6 +32,22 @@ public class PreLoaded {
 		return othersprites.get(filename);
 	}
 
+	/**
+	 * @param sprite
+	 * @return
+	 */
+	public BufferedImage getSprite(Sprite sprite) {
+		BufferedImage image = characters.get(sprite.getPath());
+		if (image == null) {
+			image = othersprites.get(sprite.getPath());
+		}
+		if (image == null) {
+			Messager.error("Sprite not found: " + sprite.getPath());
+		}
+		return image;
+
+	}
+
 	public BufferedImage getTile(String filename) {
 
 		return tiles.get(filename);

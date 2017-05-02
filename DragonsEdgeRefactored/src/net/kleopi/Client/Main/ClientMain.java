@@ -8,7 +8,6 @@ import net.kleopi.Client.Networking.NetworkClient;
 import net.kleopi.Engine.EventManagement.EventManager;
 import net.kleopi.Engine.EventManagement.GameEvents.StartupEvent;
 import net.kleopi.Engine.Instances.Instancemanager;
-import net.kleopi.Engine.StatusManagement.StatusManager;
 
 public class ClientMain {
 
@@ -28,15 +27,13 @@ public class ClientMain {
 		setClient(new ClientMain());
 
 		client.setEventManager(new EventManager());
-		client.setStatusManager(new StatusManager());
 		client.setNetwork(new NetworkClient());
 		client.setPreloaded(new PreLoaded());
 		client.setTilemanager(new TileManagerClient());
-		client.setInstancemanager(new Instancemanager());
 		client.setGui(new GUI());
 		client.getEventManager().fire(new StartupEvent());
+		client.setInstancemanager(new Instancemanager());
 		client.setPluginmanager(new PluginManager());
-
 	}
 
 	public static void setClient(ClientMain client) {
@@ -45,7 +42,6 @@ public class ClientMain {
 
 	private GUI gui;
 
-	private StatusManager statusManager;
 	private NetworkClient network;
 
 	private EventManager eventManager;
@@ -81,10 +77,6 @@ public class ClientMain {
 		return preloaded;
 	}
 
-	public StatusManager getStatusManager() {
-		return statusManager;
-	}
-
 	public TileManagerClient getTilemanager() {
 		return tilemanager;
 	}
@@ -111,10 +103,6 @@ public class ClientMain {
 
 	public void setPreloaded(PreLoaded preloaded) {
 		this.preloaded = preloaded;
-	}
-
-	public void setStatusManager(StatusManager statusManager) {
-		this.statusManager = statusManager;
 	}
 
 	public void setTilemanager(TileManagerClient tilemanager) {

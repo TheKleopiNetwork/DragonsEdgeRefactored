@@ -4,21 +4,20 @@ import net.kleopi.Engine.EventManagement.EventManager;
 import net.kleopi.Engine.EventManagement.TKNListenerAdapter;
 import net.kleopi.Engine.EventManagement.GameEvents.StartupEvent;
 import net.kleopi.Engine.Instances.Instancemanager;
-import net.kleopi.Engine.StatusManagement.StatusManager;
 
 /**
  * Contains the Main server architecture with all managers
  */
 
-public class MainServer implements TKNListenerAdapter {
+public class ServerMain implements TKNListenerAdapter {
 
-	private static MainServer server;
+	private static ServerMain server;
 
 	/**
 	 *
 	 * @return static Server Instance to adress all managers
 	 */
-	public static MainServer getServer() {
+	public static ServerMain getServer() {
 		return server;
 	}
 
@@ -30,11 +29,9 @@ public class MainServer implements TKNListenerAdapter {
 	 *            - should be blank
 	 */
 	public static void main(String[] args) {
-		setServer(new MainServer());
+		setServer(new ServerMain());
 		server.setEventManager(new EventManager());
 		server.getEventManager().addListener(server);
-
-		server.setStatusManager(new StatusManager());
 		server.setTilemanager(new TileManagerServer());
 		server.setInstancemanager(new Instancemanager());
 		server.getEventManager().fire(new StartupEvent());
@@ -47,11 +44,10 @@ public class MainServer implements TKNListenerAdapter {
 	 * @param server
 	 *            - the new ServerInstance
 	 */
-	public static void setServer(MainServer server) {
-		MainServer.server = server;
+	public static void setServer(ServerMain server) {
+		ServerMain.server = server;
 	}
 
-	private StatusManager statusManager;
 	private NetworkServer network;
 
 	private EventManager eventManager;
@@ -86,15 +82,6 @@ public class MainServer implements TKNListenerAdapter {
 
 	/**
 	 *
-	 * @return StatusManager Instance
-	 */
-
-	public StatusManager getStatusManager() {
-		return statusManager;
-	}
-
-	/**
-	 *
 	 * @return TileManager Instance
 	 */
 	public TileManagerServer getTilemanager() {
@@ -118,10 +105,6 @@ public class MainServer implements TKNListenerAdapter {
 
 	public void setNetwork(NetworkServer network) {
 		this.network = network;
-	}
-
-	public void setStatusManager(StatusManager statusManager) {
-		this.statusManager = statusManager;
 	}
 
 	public void setTilemanager(TileManagerServer tilemanager) {

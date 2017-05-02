@@ -5,16 +5,7 @@ import net.kleopi.Engine.Enums.Utilities;
 public class Circle {
 	private double x, y, r;
 
-	public Circle(Circle c) {
-		setX(c.getX());
-		setY(c.getY());
-		setR(c.getR());
-	}
-
-	public Circle(double x, double y, double r) {
-		this.setX(x);
-		this.setY(y);
-		this.setR(r);
+	public Circle() {
 	}
 
 	public boolean collision(Circle c) {
@@ -50,5 +41,19 @@ public class Circle {
 	public void setY(double y) {
 
 		this.y = y;
+	}
+
+	public Circle withData(Circle c) {
+		setX(c.getX());
+		setY(c.getY());
+		setR(c.getR());
+		return this;
+	}
+
+	public Circle withData(double x, double y, double r) {
+		this.setX(x);
+		this.setY(y);
+		this.setR(r);
+		return this;
 	}
 }

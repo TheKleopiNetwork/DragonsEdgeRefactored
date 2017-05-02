@@ -1,18 +1,17 @@
 package net.kleopi.Engine.Instances;
 
 import java.awt.Color;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 
-import net.kleopi.Client.GUI.Sprite;
 import net.kleopi.Client.Main.ClientMain;
-import net.kleopi.Engine.Enums.Utilities;
 import net.kleopi.Engine.EventManagement.GameEvents.DrawEvent;
-import net.kleopi.Engine.Networking.Player;
+import net.kleopi.Engine.EventManagement.GameEvents.TickEvent;
 
 public class Character extends Instance {
 
-	public Character(double posx, double posy, double ndirection, double nspeed, Player owner, int id, Sprite sprite) {
-		super(posx, posy, 48, ndirection, nspeed, owner, id, sprite);
+	public Character() {
+		super();
 	}
 
 	@Override
@@ -38,12 +37,6 @@ public class Character extends Instance {
 	}
 
 	@Override
-	public void leftclickedEvent(int x, int y) {
-
-		selected = (Utilities.distance(x, y, getScreenX(), getScreenY() - getCircle().getR()) <= getCircle().getR());
-	}
-
-	@Override
 	public void onDraw(DrawEvent e) {
 		// TODO: Draw the right sprite + Fix Bug
 		BufferedImage sprite;
@@ -60,12 +53,20 @@ public class Character extends Instance {
 
 	}
 
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see net.kleopi.Engine.Instances.Instance#onMouseAction(java.awt.event.
+	 * MouseEvent)
+	 */
 	@Override
-	public void rightclickedEvent(int x, int y) {
+	public void onMouseClick(MouseEvent e) {
+		// TODO Auto-generated method stub
+
 	}
 
 	@Override
-	public void stepEvent() {
+	public void onTick(TickEvent e) {
 		move();
 	}
 

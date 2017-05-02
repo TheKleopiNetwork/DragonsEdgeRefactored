@@ -1,6 +1,8 @@
 package net.kleopi.Client.GUI;
 
 import java.awt.Graphics;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseWheelEvent;
 import java.awt.image.BufferedImage;
 
 import net.kleopi.Client.Main.ClientMain;
@@ -8,21 +10,21 @@ import net.kleopi.Engine.Enums.Tilemap;
 import net.kleopi.Engine.Enums.Tiletype;
 import net.kleopi.Engine.EventManagement.TKNListenerAdapter;
 import net.kleopi.Engine.EventManagement.GameEvents.DrawEvent;
-import net.kleopi.Engine.EventManagement.GameEvents.TickEvent;
 
 public class TileManagerClient implements TKNListenerAdapter {
 	private static final int tilexsize = 1000;
 	private static final int tileysize = 1000;
 	private static final int overlaydepth = 10;
 
-	private final BufferedImage tileCacheImage = new BufferedImage(GUI.RESOLUTION_WIDTH, GUI.RESOLUTION_HEIGTH, 1);
+	private final BufferedImage tileCacheImage = new BufferedImage(GUI.RESOLUTION_WIDTH, GUI.RESOLUTION_HEIGTH,
+			BufferedImage.TYPE_3BYTE_BGR);
 
 	private boolean tilesChanged = true;
 	public boolean hasMap = false;
 
 	private Tilemap datamap;
 	private int tilesize = 32;
-	public int viewx, viewy;
+	public int viewx = 0, viewy = 0;
 	private int viewxsnap;
 	private int viewysnap;
 
@@ -107,9 +109,31 @@ public class TileManagerClient implements TKNListenerAdapter {
 	}
 
 	@Override
-	public void onTick(TickEvent e) {
-		moveView(1, 1);
-		zoom(1);
+	public void onKeyPressed(KeyEvent e) {
+		if (e.getKeyCode() == KeyEvent.VK_A) {
+			moveView(-16, 0);
+		}
+		if (e.getKeyCode() == KeyEvent.VK_W) {
+			moveView(0, -16);
+		}
+		if (e.getKeyCode() == KeyEvent.VK_S) {
+			moveView(0, 16);
+		}
+		if (e.getKeyCode() == KeyEvent.VK_D) {
+			moveView(16, 0);
+		}
+	}
+
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see
+	 * net.kleopi.Engine.EventManagement.TKNListenerAdapter#onMouseAction(java.
+	 * awt.event.MouseEvent)
+	 */
+	@Override
+	public void onMouseWheelAction(MouseWheelEvent e) {
+		zoom((int) -e.getPreciseWheelRotation());
 	}
 
 	public void setCompressedDatamap(char[][] compressedTilemap) {
@@ -151,8 +175,11 @@ public class TileManagerClient implements TKNListenerAdapter {
 
 	private void cacheMap() {
 		tileCacheImage.getGraphics().clearRect(0, 0, GUI.RESOLUTION_WIDTH, GUI.RESOLUTION_HEIGTH);
-		for (int i = 0; i < 9; i++) {
-			drawCacheTileLayer(i, tileCacheImage.getGraphics());
+		drawCacheTileLayer(0, tileCacheImage.getGraphics());
+		if (tilesize > 16) {
+			for (int i = 1; i < 9; i++) {
+				drawCacheTileLayer(i, tileCacheImage.getGraphics());
+			}
 		}
 
 	}
@@ -195,13 +222,15 @@ public class TileManagerClient implements TKNListenerAdapter {
 		setTilesize(getTilesize() + movement);
 		if (getTilesize() > 128) {
 			setTilesize(128);
-		} else if (getTilesize() < 8) {
-			setTilesize(8);
+		} else if (getTilesize() < 6) {
+			setTilesize(6);
 		}
 		if (ptilesize == getTilesize()) {
 
 		} else {
 			tilesChanged = true;
+			viewx = viewx * getTilesize() / ptilesize;
+			viewy = viewy * getTilesize() / ptilesize;
 		}
 
 	}

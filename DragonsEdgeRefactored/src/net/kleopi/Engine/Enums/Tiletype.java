@@ -8,7 +8,10 @@ public enum Tiletype {
 							"rockoverlay\\sides\\u.png", "S1"), STONE3("rockoverlay\\sides\\l.png", "S3"), STONE4(
 									"rockoverlay\\sides\\r.png", "S4"), STONE6("rockoverlay\\sides\\d.png", "S6")
 
-	, DIRT0("dirtoverlay\\corners\\lu.png", "D0"), DIRT2("dirtoverlay\\corners\\ru.png", "D2"), DIRT5("dirtoverlay\\corners\\ld.png", "D5"), DIRT7("dirtoverlay\\corners\\rd.png", "D7"), STONE0("rockoverlay\\corners\\lu.png", "S0"), STONE2("rockoverlay\\corners\\ru.png", "S2"), STONE5("rockoverlay\\corners\\ld.png", "S5"), STONE7("rockoverlay\\corners\\rd.png", "S7");
+	, DIRT0("dirtoverlay\\corners\\lu.png", "D0"), DIRT2("dirtoverlay\\corners\\ru.png",
+			"D2"), DIRT5("dirtoverlay\\corners\\ld.png", "D5"), DIRT7("dirtoverlay\\corners\\rd.png", "D7"), STONE0(
+					"rockoverlay\\corners\\lu.png", "S0"), STONE2("rockoverlay\\corners\\ru.png", "S2"), STONE5(
+							"rockoverlay\\corners\\ld.png", "S5"), STONE7("rockoverlay\\corners\\rd.png", "S7");
 	public static Tiletype getedge(String type, int side) {
 
 		return getTiletypeOfShortcut(type + side);
@@ -56,7 +59,7 @@ public enum Tiletype {
 	}
 
 	/**
-	 * @return shortcut for serialization. TODO: remove as not needed
+	 * @return shortcut for serialization.
 	 */
 	public String getShortcut() {
 

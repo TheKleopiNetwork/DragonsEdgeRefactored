@@ -11,6 +11,7 @@ import com.esotericsoftware.kryonet.Server;
 
 import net.kleopi.Engine.Enums.Messager;
 import net.kleopi.Engine.EventManagement.TKNListenerAdapter;
+import net.kleopi.Engine.Networking.KryoRegisterer;
 import net.kleopi.Engine.Networking.Player;
 import net.kleopi.Engine.Networking.UpdateObjects.LoginUpdate;
 import net.kleopi.Engine.Networking.UpdateObjects.TileMapUpdate;
@@ -26,7 +27,7 @@ public class NetworkServer extends Thread implements TKNListenerAdapter {
 	 * Starts itself! Also registers itself!
 	 */
 	public NetworkServer() {
-		MainServer.getServer().getEventManager().addListener(this);
+		ServerMain.getServer().getEventManager().addListener(this);
 		start();
 	}
 
@@ -41,11 +42,11 @@ public class NetworkServer extends Thread implements TKNListenerAdapter {
 
 		Player p = new Player(c);
 		players.add(p);
-		Messager.info("Player added [Server.addPlayer]");
+		Messager.info("Player added");
 		// TODO: maybe dont send the Datapack here already?
 		Messager.info("Packing TileMap for new Client");
 		TileMapUpdate tmu = new TileMapUpdate()
-				.withCompressedTilemap(MainServer.getServer().getTilemanager().getCompressedDataMap());
+				.withCompressedTilemap(ServerMain.getServer().getTilemanager().getCompressedDataMap());
 		sendUpdate(p, tmu);
 		Messager.info("Sent Tilemap");
 	}
@@ -66,7 +67,7 @@ public class NetworkServer extends Thread implements TKNListenerAdapter {
 
 		// Updated Code:
 		System.out.println("Waiting for Map to finish generating...");
-		while (!MainServer.getServer().getTilemanager().hasMap) {
+		while (!ServerMain.getServer().getTilemanager().hasMap) {
 			try {
 				sleep(100);
 			} catch (InterruptedException e) {
@@ -77,17 +78,13 @@ public class NetworkServer extends Thread implements TKNListenerAdapter {
 		Server server = new Server(buffersize, buffersize);
 
 		Kryo kryo = server.getKryo();
-		kryo.register(LoginUpdate.class);
-		kryo.register(TileMapUpdate.class);
-		kryo.register(char[][].class);
-		kryo.register(char[].class);
+		KryoRegisterer.registerClasses(kryo);
 		server.addListener(new Listener() {
 			@Override
 			public void received(Connection connection, Object object) {
 				if (object instanceof LoginUpdate) {
 					addPlayer(((LoginUpdate) object).username, connection);
-					Messager.info("received object");
-
+					Messager.info("A player tries to connect");
 				}
 			}
 		});
@@ -106,7 +103,7 @@ public class NetworkServer extends Thread implements TKNListenerAdapter {
 	 *            - Datapackage to send
 	 * @param player
 	 *            - The Player-Object which should be adressed
-	 * 
+	 *
 	 */
 	public void sendUpdate(Player player, UpdateObject object) {
 
@@ -124,6 +121,8 @@ public class NetworkServer extends Thread implements TKNListenerAdapter {
 
 	{
 
-		// TODO: sendPackage to Everyone
+		for (Player p : players) {
+			sendUpdate(p, object);
+		}
 	}
 }

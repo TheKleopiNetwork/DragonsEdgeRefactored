@@ -11,8 +11,11 @@ import net.kleopi.Engine.Enums.Messager;
 import net.kleopi.Engine.EventManagement.GameEvents.DisconnectEvent;
 import net.kleopi.Engine.EventManagement.GameEvents.DrawEvent;
 import net.kleopi.Engine.EventManagement.GameEvents.GameEvent;
+import net.kleopi.Engine.EventManagement.GameEvents.KeyPressedEvent;
 import net.kleopi.Engine.EventManagement.GameEvents.LoggedEvent;
 import net.kleopi.Engine.EventManagement.GameEvents.LoginEvent;
+import net.kleopi.Engine.EventManagement.GameEvents.MouseClickedEvent;
+import net.kleopi.Engine.EventManagement.GameEvents.MouseWheelMovedEvent;
 import net.kleopi.Engine.EventManagement.GameEvents.PackageReceivedEvent;
 import net.kleopi.Engine.EventManagement.GameEvents.PingEvent;
 import net.kleopi.Engine.EventManagement.GameEvents.StartupEvent;
@@ -49,7 +52,7 @@ public class EventManager extends Thread {
 	 * @param listener
 	 *            - the Listener to add
 	 */
-	public void addListener(TKNListenerAdapter listener) {
+	public synchronized void addListener(TKNListenerAdapter listener) {
 		listeners.add(listener);
 	}
 
@@ -79,7 +82,7 @@ public class EventManager extends Thread {
 	 *
 	 * @return List of all registered Listeners
 	 */
-	public List<TKNListenerAdapter> getListeners() {
+	public synchronized List<TKNListenerAdapter> getListeners() {
 		return listeners;
 	}
 
@@ -89,7 +92,7 @@ public class EventManager extends Thread {
 	 * @param listener
 	 *            - Listener to remove
 	 */
-	public void removeListener(TKNListenerAdapter listener) {
+	public synchronized void removeListener(TKNListenerAdapter listener) {
 		listeners.remove(listener);
 	}
 
@@ -124,6 +127,7 @@ public class EventManager extends Thread {
 	 *             to the Manager yet
 	 */
 	private synchronized void dispatch(Object object) throws UnregisteredEventException {
+
 		if (object instanceof GameEvent) {
 			if (object instanceof TickEvent) {
 				listeners.forEach(l -> l.onTick((TickEvent) object));
@@ -139,7 +143,6 @@ public class EventManager extends Thread {
 				Messager.info("Dispatched LoginEvent");
 			} else if (object instanceof DrawEvent) {
 				listeners.forEach(l -> l.onDraw((DrawEvent) object));
-				Messager.info("Dispatched DrawEvent");
 				((DrawEvent) object).getGraphics().dispose();
 			} else if (object instanceof DisconnectEvent) {
 				listeners.forEach(l -> l.onDisconnect((DisconnectEvent) object));
@@ -149,7 +152,12 @@ public class EventManager extends Thread {
 				Messager.info("Dispatched LoggedEvent");
 			} else if (object instanceof PackageReceivedEvent) {
 				listeners.forEach(l -> l.onPackageReceived((PackageReceivedEvent) object));
-				Messager.info("Dispatched PackageReceivedEvent");
+			} else if (object instanceof KeyPressedEvent) {
+				listeners.forEach(l -> l.onKeyPressed(((KeyPressedEvent) object).getKeyevent()));
+			} else if (object instanceof MouseWheelMovedEvent) {
+				listeners.forEach(l -> l.onMouseWheelAction(((MouseWheelMovedEvent) object).getEvent()));
+			} else if (object instanceof MouseClickedEvent) {
+				listeners.forEach(l -> l.onMouseClick(((MouseClickedEvent) object).getEvent()));
 			} else {
 				Messager.error("Received an Unknown Event - Not added to the EventManager?");
 				throw new UnregisteredEventException();
@@ -157,11 +165,17 @@ public class EventManager extends Thread {
 		} else {
 			Messager.error("Received an Object wihich could not be identified as GameEvent.");
 		}
-
 	}
 
 	private void queue(GameEvent e) {
-		Messager.info("Enqueued GameEvent");
+		if (e instanceof DrawEvent) {
+			for (Object ev : eventqueue) {
+				if (ev instanceof DrawEvent) {
+					ev = e;
+					return;
+				}
+			}
+		}
 		eventqueue.add(e);
 	}
 }

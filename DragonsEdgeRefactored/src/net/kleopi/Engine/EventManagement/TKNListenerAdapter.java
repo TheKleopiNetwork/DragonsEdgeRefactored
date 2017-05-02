@@ -2,6 +2,7 @@ package net.kleopi.Engine.EventManagement;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseWheelEvent;
 
 import net.kleopi.Engine.EventManagement.GameEvents.DisconnectEvent;
 import net.kleopi.Engine.EventManagement.GameEvents.DrawEvent;
@@ -30,11 +31,18 @@ public interface TKNListenerAdapter {
 	default void onLogin(LoginEvent e) {
 	}
 
-	default void onMouseAction(MouseEvent e) {
+	default void onMouseClick(MouseEvent e) {
 	}
 
-	default void onPackageReceived(PackageReceivedEvent e) {
+	/**
+	 * @param e
+	 */
+	default void onMouseWheelAction(MouseWheelEvent e) {
+
 	};
+
+	default void onPackageReceived(PackageReceivedEvent e) {
+	}
 
 	default void onPing(PingEvent e) {
 	}
