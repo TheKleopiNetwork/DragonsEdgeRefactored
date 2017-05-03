@@ -49,6 +49,7 @@ public class NetworkServer extends Thread implements TKNListenerAdapter {
 				.withCompressedTilemap(ServerMain.getServer().getTilemanager().getCompressedDataMap());
 		sendUpdate(p, tmu);
 		Messager.info("Sent Tilemap");
+		Messager.info("Creating a character for the Client...");
 	}
 
 	/**

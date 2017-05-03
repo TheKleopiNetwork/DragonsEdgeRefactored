@@ -142,8 +142,8 @@ public class EventManager extends Thread {
 				listeners.forEach(l -> l.onLogin((LoginEvent) object));
 				Messager.info("Dispatched LoginEvent");
 			} else if (object instanceof DrawEvent) {
+				listeners.forEach(l -> l.onPreDraw((DrawEvent) object));
 				listeners.forEach(l -> l.onDraw((DrawEvent) object));
-				((DrawEvent) object).getGraphics().dispose();
 			} else if (object instanceof DisconnectEvent) {
 				listeners.forEach(l -> l.onDisconnect((DisconnectEvent) object));
 				Messager.info("Dispatched DisconnectEvent");

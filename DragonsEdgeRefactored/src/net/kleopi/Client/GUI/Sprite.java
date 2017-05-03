@@ -7,11 +7,11 @@ import net.kleopi.Client.Main.ClientMain;
 public enum Sprite {
 	// TODO: set enum values and implement all sprites
 	WATER_CHARACTER_LEFT("picturepath"), EARTH_CHARACTER_LEFT("gg"), FIRE_CHARACTER_LEFT("gg"), AIR_CHARACTER_LEFT(
-			"gg"), WATER_CHARACTER_RIGHT("gg"), EARTH_CHARACTER_RIGHT("gg"), FIRE_CHARACTER_RIGHT(
-					"gg"), AIR_CHARACTER_RIGHT("gg"), WATER_CHARACTER_UP("gg"), EARTH_CHARACTER_UP(
-							"gg"), FIRE_CHARACTER_UP("gg"), AIR_CHARACTER_UP("gg"), WATER_CHARACTER_DOWN(
-									"gg"), EARTH_CHARACTER_DOWN("gg"), FIRE_CHARACTER_DOWN("gg"), AIR_CHARACTER_DOWN(
-											"gg"), NO_SPRITE("gg");
+			"gg"), WATER_CHARACTER_RIGHT("gg"), EARTH_CHARACTER_RIGHT(
+					"dragons\\earth\\28082016_DE_earthdragon10.jpg"), FIRE_CHARACTER_RIGHT("gg"), AIR_CHARACTER_RIGHT(
+							""), WATER_CHARACTER_UP("gg"), EARTH_CHARACTER_UP("gg"), FIRE_CHARACTER_UP(
+									"gg"), AIR_CHARACTER_UP("gg"), WATER_CHARACTER_DOWN("gg"), EARTH_CHARACTER_DOWN(
+											"gg"), FIRE_CHARACTER_DOWN("gg"), AIR_CHARACTER_DOWN("gg"), NO_SPRITE("");
 	public static Sprite getSpriteOfPath(String path) {
 
 		for (Sprite s : Sprite.values()) {

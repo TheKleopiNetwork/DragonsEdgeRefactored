@@ -30,10 +30,7 @@ public class TileManagerClient implements TKNListenerAdapter {
 
 	public TileManagerClient() {
 
-		try {
-			ClientMain.getClient().getEventManager().addListener(this);
-		} catch (NullPointerException e) {
-		}
+		ClientMain.getClient().getEventManager().addListener(this);
 	}
 
 	public char[][] getCompressedDataMap() {
@@ -78,6 +75,11 @@ public class TileManagerClient implements TKNListenerAdapter {
 		}
 	}
 
+	public int getTilesize() {
+
+		return tilesize;
+	}
+
 	public void moveView(int x, int y) {
 		int vxp = viewx;
 		int vyp = viewy;
@@ -104,7 +106,7 @@ public class TileManagerClient implements TKNListenerAdapter {
 				cacheMap();
 				tilesChanged = false;
 			}
-			drawCache(e.getGraphics());
+			drawCache(e.getTilelayer());
 		}
 	}
 
@@ -203,11 +205,6 @@ public class TileManagerClient implements TKNListenerAdapter {
 			g.drawImage(ClientMain.getClient().getPreloaded().getTile(tileID), (int) x, (int) y, getTilesize(),
 					getTilesize(), null);
 		}
-	}
-
-	private int getTilesize() {
-
-		return tilesize;
 	}
 
 	private void setTilesize(int tilesize) {

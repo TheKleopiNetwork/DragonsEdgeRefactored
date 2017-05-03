@@ -1,25 +1,25 @@
-package net.kleopi.Engine.Instances;
+package net.kleopi.Server;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import net.kleopi.Engine.Enums.Utilities;
 import net.kleopi.Engine.EventManagement.TKNListenerAdapter;
+import net.kleopi.Engine.EventManagement.GameEvents.StartupEvent;
 import net.kleopi.Engine.EventManagement.GameEvents.TickEvent;
+import net.kleopi.Engine.Instances.Instance;
+import net.kleopi.Engine.Instances.Rect;
 import net.kleopi.Engine.Networking.UpdateObjects.InstanceListUpdate;
-import net.kleopi.Server.ServerMain;
 
-public class Instancemanager implements TKNListenerAdapter {
+public class InstancemanagerServer implements TKNListenerAdapter {
 	private ArrayList<Instance> instances = new ArrayList<>();
 
 	int idcount = 0;
 
-	public Instancemanager() {
-		// TODO: change for client
-		try {
-			ServerMain.getServer().getEventManager().addListener(this);
-		} catch (NullPointerException e) {
-		}
+	private boolean active = false;
+
+	public InstancemanagerServer() {
+		ServerMain.getServer().getEventManager().addListener(this);
 	}
 
 	public ArrayList<Instance> getInstances() {
@@ -42,20 +42,18 @@ public class Instancemanager implements TKNListenerAdapter {
 		return true;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see
-	 * net.kleopi.Engine.EventManagement.TKNListenerAdapter#onTick(net.kleopi.
-	 * Engine.EventManagement.GameEvents.TickEvent)
-	 */
+	@Override
+	public void onStartUp(StartupEvent e) {
+		active = true;
+	}
+
 	@Override
 	public void onTick(TickEvent e) {
-		try {
+		if (active) {
+			instances.forEach(i -> i.onTick(e));
 			ServerMain.getServer().getNetwork().updateAll(new InstanceListUpdate().withInstanceList(getInstances()));
-		} catch (NullPointerException ex) {
 		}
-		;
+
 	}
 
 	/**

@@ -8,6 +8,7 @@ import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 import java.awt.Point;
 import java.awt.image.BufferStrategy;
+import java.awt.image.BufferedImage;
 
 import javax.swing.JFrame;
 
@@ -25,7 +26,6 @@ public class GUI extends Thread implements TKNListenerAdapter {
 	public final static int RESOLUTION_WIDTH = 1920;
 	public final static int RESOLUTION_HEIGTH = 1080;
 	private static final int numBuffers = 4;
-
 	private static DisplayMode[] BEST_DISPLAY_MODES = new DisplayMode[] { new DisplayMode(1920, 1080, 32, 0),
 			new DisplayMode(1920, 1080, 16, 0), new DisplayMode(1920, 1080, 8, 0), new DisplayMode(640, 480, 32, 0),
 			new DisplayMode(640, 480, 16, 0), new DisplayMode(640, 480, 8, 0) };
@@ -50,11 +50,20 @@ public class GUI extends Thread implements TKNListenerAdapter {
 		return null;
 	}
 
-	// private JPanel surface;
+	BufferedImage tileLayer = new BufferedImage(RESOLUTION_WIDTH, RESOLUTION_HEIGTH, BufferedImage.TYPE_3BYTE_BGR);
+
+	BufferedImage spritelayer = new BufferedImage(RESOLUTION_WIDTH, RESOLUTION_HEIGTH, BufferedImage.TYPE_4BYTE_ABGR);
+
+	BufferedImage shaderlayer = new BufferedImage(RESOLUTION_WIDTH, RESOLUTION_HEIGTH, BufferedImage.TYPE_4BYTE_ABGR);
+
+	BufferedImage hudlayer = new BufferedImage(RESOLUTION_WIDTH, RESOLUTION_HEIGTH, BufferedImage.TYPE_4BYTE_ABGR);
 
 	private JFrame frame;
 
+	// private JPanel surface;
+
 	private GraphicsDevice device;
+
 	private BufferStrategy bufferStrategy;
 	private double fps = 0;
 	private int fpsct = 0;
@@ -76,12 +85,30 @@ public class GUI extends Thread implements TKNListenerAdapter {
 	}
 
 	@Override
+	public void onDraw(DrawEvent e) {
+		e.getHudlayer().setColor(Color.black);
+		e.getHudlayer().drawString(String.valueOf((int) fps), 20, 20);
+	}
+
+	@Override
 	public void onPackageReceived(PackageReceivedEvent e) {
 		if (e.getUpdateObject() instanceof TileMapUpdate) {
 			Messager.info("Sucessfully downloaded the Map...");
 			ClientMain.getClient().getTilemanager()
 					.setCompressedDatamap(((TileMapUpdate) e.getUpdateObject()).getCompressedTilemap());
 		}
+	}
+
+	@Override
+	public void onPreDraw(DrawEvent e) {
+		e.getShaderlayer().setBackground(new Color(0x88000000, true));
+		e.getShaderlayer().clearRect(0, 0, RESOLUTION_WIDTH, RESOLUTION_HEIGTH);
+		// general darkness
+
+		e.getSpritelayer().setBackground(new Color(0x00FFFFFF, true));
+		e.getSpritelayer().clearRect(0, 0, RESOLUTION_WIDTH, RESOLUTION_HEIGTH);
+		e.getHudlayer().setBackground(new Color(0x00FFFFFF, true));
+		e.getHudlayer().clearRect(0, 0, RESOLUTION_WIDTH, RESOLUTION_HEIGTH);
 	}
 
 	/**
@@ -96,10 +123,6 @@ public class GUI extends Thread implements TKNListenerAdapter {
 	public void onTick(TickEvent e) {
 		fps = fps / 2 + fpsct * 30;
 		fpsct = 0;
-	}
-
-	private void preDraw(Graphics graphics) {
-		// graphics.clearRect(0, 0, RESOLUTION_WIDTH, RESOLUTION_HEIGTH);
 	};
 
 	/**
@@ -111,12 +134,20 @@ public class GUI extends Thread implements TKNListenerAdapter {
 		while (true) {
 			Graphics g = bufferStrategy.getDrawGraphics();
 			if (!bufferStrategy.contentsLost()) {
-				preDraw(g);
-				ClientMain.getClient().getEventManager().fire(new DrawEvent(g));
-				g.setColor(Color.BLACK);
-				g.drawString(String.valueOf((int) fps), 20, 20);
+
+				ClientMain.getClient().getEventManager().fire(new DrawEvent(tileLayer.createGraphics(),
+						spritelayer.createGraphics(), shaderlayer.createGraphics(), hudlayer.createGraphics()));
+				g.drawImage(tileLayer, 0, 0, null);
+				g.drawImage(spritelayer, 0, 0, null);
+				g.drawImage(shaderlayer, 0, 0, null);
+				g.drawImage(hudlayer, 0, 0, null);
 				bufferStrategy.show();
 				fpsct += 1;
+				g.dispose();
+			}
+			try {
+				sleep(10);
+			} catch (InterruptedException e) {
 			}
 		}
 	}
@@ -130,6 +161,7 @@ public class GUI extends Thread implements TKNListenerAdapter {
 			frame = new JFrame(gc);
 			frame.setUndecorated(true);
 			frame.setIgnoreRepaint(true);
+			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 			frame.addMouseListener(input);
 			frame.addKeyListener(input);
@@ -143,14 +175,6 @@ public class GUI extends Thread implements TKNListenerAdapter {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
-		// surface = new JPanel();
-		// frame.add(surface);
-		// frame.setSize(RESOLUTION_WIDTH, RESOLUTION_HEIGTH);
-		// frame.setVisible(true);
-		// frame.setLayout(null);
-		// frame.setFocusable(true);
-		// frame.setResizable(false);
 		start();
 	}
 

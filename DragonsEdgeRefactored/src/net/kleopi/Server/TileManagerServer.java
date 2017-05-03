@@ -2,7 +2,6 @@ package net.kleopi.Server;
 
 import java.util.Random;
 
-import net.kleopi.Client.Main.ClientMain;
 import net.kleopi.Engine.Enums.Tilemap;
 import net.kleopi.Engine.Enums.Tiletype;
 import net.kleopi.Engine.EventManagement.TKNListenerAdapter;
@@ -86,15 +85,7 @@ public class TileManagerServer implements TKNListenerAdapter {
 	private Tilemap datamap;
 
 	public TileManagerServer() {
-
-		try {
-			ClientMain.getClient().getEventManager().addListener(this);
-		} catch (NullPointerException e) {
-		}
-		try {
-			ServerMain.getServer().getEventManager().addListener(this);
-		} catch (NullPointerException e) {
-		}
+		ServerMain.getServer().getEventManager().addListener(this);
 		setDatamap(getDefaultMap());
 
 	}

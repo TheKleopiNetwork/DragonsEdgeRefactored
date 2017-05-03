@@ -47,6 +47,9 @@ public interface TKNListenerAdapter {
 	default void onPing(PingEvent e) {
 	}
 
+	default void onPreDraw(DrawEvent object) {
+	}
+
 	default void onStartUp(StartupEvent e) {
 	}
 
@@ -54,6 +57,6 @@ public interface TKNListenerAdapter {
 	}
 
 	default void onTick(TickEvent e) {
-	}
+	};
 
 }

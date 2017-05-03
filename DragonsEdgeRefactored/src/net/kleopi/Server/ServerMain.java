@@ -3,7 +3,6 @@ package net.kleopi.Server;
 import net.kleopi.Engine.EventManagement.EventManager;
 import net.kleopi.Engine.EventManagement.TKNListenerAdapter;
 import net.kleopi.Engine.EventManagement.GameEvents.StartupEvent;
-import net.kleopi.Engine.Instances.Instancemanager;
 
 /**
  * Contains the Main server architecture with all managers
@@ -33,7 +32,7 @@ public class ServerMain implements TKNListenerAdapter {
 		server.setEventManager(new EventManager());
 		server.getEventManager().addListener(server);
 		server.setTilemanager(new TileManagerServer());
-		server.setInstancemanager(new Instancemanager());
+		server.setInstancemanager(new InstancemanagerServer());
 		server.getEventManager().fire(new StartupEvent());
 		server.setNetwork(new NetworkServer());
 	}
@@ -53,7 +52,7 @@ public class ServerMain implements TKNListenerAdapter {
 	private EventManager eventManager;
 	private TileManagerServer tilemanager;
 
-	private Instancemanager instancemanager;
+	private InstancemanagerServer instancemanager;
 
 	/**
 	 *
@@ -67,7 +66,7 @@ public class ServerMain implements TKNListenerAdapter {
 	 *
 	 * @return InstanceManager Instance
 	 */
-	public Instancemanager getInstancemanager() {
+	public InstancemanagerServer getInstancemanager() {
 		return instancemanager;
 	}
 
@@ -99,7 +98,7 @@ public class ServerMain implements TKNListenerAdapter {
 		this.eventManager = eventManager;
 	}
 
-	public void setInstancemanager(Instancemanager instancemanager) {
+	public void setInstancemanager(InstancemanagerServer instancemanager) {
 		this.instancemanager = instancemanager;
 	}
 

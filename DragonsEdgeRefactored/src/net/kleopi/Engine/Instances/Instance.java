@@ -5,13 +5,11 @@ import java.awt.event.MouseEvent;
 import net.kleopi.Client.GUI.Sprite;
 import net.kleopi.Client.Main.ClientMain;
 import net.kleopi.Engine.Enums.Utilities;
-import net.kleopi.Engine.EventManagement.TKNListenerAdapter;
 import net.kleopi.Engine.EventManagement.GameEvents.DrawEvent;
 import net.kleopi.Engine.EventManagement.GameEvents.TickEvent;
 import net.kleopi.Engine.Networking.Player;
-import net.kleopi.Server.ServerMain;
 
-public abstract class Instance implements TKNListenerAdapter {
+public abstract class Instance {
 
 	private Player owner;
 	private Circle circle;
@@ -43,9 +41,6 @@ public abstract class Instance implements TKNListenerAdapter {
 		owner = new Player(null);
 		target_x = 0;
 		target_y = 0;
-		ClientMain.getClient().getEventManager().addListener(this);
-		ServerMain.getServer().getEventManager().addListener(this);
-
 	}
 
 	/**
@@ -86,6 +81,10 @@ public abstract class Instance implements TKNListenerAdapter {
 		return (int) (getCircle().getY() - ClientMain.getClient().getTilemanager().viewy);
 	}
 
+	public Sprite getSprite() {
+		return sprite;
+	}
+
 	/**
 	 * Check if Sprite is within a rectangle
 	 *
@@ -112,31 +111,22 @@ public abstract class Instance implements TKNListenerAdapter {
 		if (dx != 0 || dy != 0) {
 			getCircle().setX(getCircle().getX() + dx);
 			getCircle().setY(getCircle().getY() + dy);
-			// TODO: rework
-			// Main.network.updateAll(Nettype.SEND_INSTANCE_INFO,
-			// Nettype.String6List(Integer.toString(id), Integer.toString((int)
-			// circle.x),
-			// Integer.toString((int) circle.y),
-			// Integer.toString((int) direction), Integer.toString((int) speed),
-			// Sprite.getValue(sprite)));
+
 		}
 	}
 
-	@Override
 	public abstract void onDraw(DrawEvent e);
 
-	// TODO: to eventlistener
-	@Override
+	/**
+	 * @param e
+	 * @return
+	 */
 	public abstract void onMouseClick(MouseEvent e);
 
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see
-	 * net.kleopi.Engine.EventManagement.TKNListenerAdapter#onTick(net.kleopi.
-	 * Engine.EventManagement.GameEvents.TickEvent)
+	/**
+	 * @param e
+	 * @return
 	 */
-	@Override
 	public abstract void onTick(TickEvent e);
 
 	public void setCircle(Circle circle) {

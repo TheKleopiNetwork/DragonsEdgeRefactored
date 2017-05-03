@@ -2,12 +2,12 @@ package net.kleopi.Client.Main;
 
 import net.kleopi.Api.PluginManager;
 import net.kleopi.Client.GUI.GUI;
+import net.kleopi.Client.GUI.InstancemanagerClient;
 import net.kleopi.Client.GUI.PreLoaded;
 import net.kleopi.Client.GUI.TileManagerClient;
 import net.kleopi.Client.Networking.NetworkClient;
 import net.kleopi.Engine.EventManagement.EventManager;
 import net.kleopi.Engine.EventManagement.GameEvents.StartupEvent;
-import net.kleopi.Engine.Instances.Instancemanager;
 
 public class ClientMain {
 
@@ -32,7 +32,7 @@ public class ClientMain {
 		client.setTilemanager(new TileManagerClient());
 		client.setGui(new GUI());
 		client.getEventManager().fire(new StartupEvent());
-		client.setInstancemanager(new Instancemanager());
+		client.setInstancemanager(new InstancemanagerClient());
 		client.setPluginmanager(new PluginManager());
 	}
 
@@ -49,7 +49,7 @@ public class ClientMain {
 
 	private TileManagerClient tilemanager;
 
-	private Instancemanager instancemanager;
+	private InstancemanagerClient instancemanager;
 
 	private PluginManager pluginmanager;
 
@@ -61,7 +61,7 @@ public class ClientMain {
 		return gui;
 	}
 
-	public Instancemanager getInstancemanager() {
+	public InstancemanagerClient getInstancemanager() {
 		return instancemanager;
 	}
 
@@ -89,7 +89,7 @@ public class ClientMain {
 		this.gui = gui;
 	}
 
-	public void setInstancemanager(Instancemanager instancemanager) {
+	public void setInstancemanager(InstancemanagerClient instancemanager) {
 		this.instancemanager = instancemanager;
 	}
 

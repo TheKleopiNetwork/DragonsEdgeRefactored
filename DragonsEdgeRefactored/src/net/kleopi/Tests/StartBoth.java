@@ -1,14 +1,21 @@
 package net.kleopi.Tests;
 
+import javax.swing.JOptionPane;
+
 import com.esotericsoftware.minlog.Log;
 
 import net.kleopi.Client.GUI.Sprite;
 import net.kleopi.Client.Main.ClientMain;
 import net.kleopi.Engine.Enums.Messager;
+import net.kleopi.Engine.EventManagement.TKNListenerAdapter;
+import net.kleopi.Engine.EventManagement.GameEvents.TickEvent;
 import net.kleopi.Engine.Instances.Character;
 import net.kleopi.Server.ServerMain;
 
-public class StartBoth {
+public class StartBoth implements TKNListenerAdapter {
+	private static StartBoth starter;
+	private static Character c;
+
 	/**
 	 * starts both, client and server
 	 *
@@ -17,14 +24,30 @@ public class StartBoth {
 	 */
 	public static void main(String args[]) {
 
+		Thread.setDefaultUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() {
+			@Override
+			public void uncaughtException(Thread t, Throwable e) {
+				Messager.error("Crash Report:");
+				Messager.error(t + " crashed due to " + e);
+				Messager.error("The Process is being closed...");
+				JOptionPane.showMessageDialog(null,
+						"This is a crash D: Please report this crash to the Game creator and include the todays logfile which you can find in the /logs directory!");
+				System.exit(1);
+			}
+		});
+		starter = new StartBoth();
 		Messager.info("BUILD STARTED - Testing Server and Client:");
 		Log.setLogger(new Messager());
 		ClientMain.main(null);
 		ServerMain.main(null);
+		c = (Character) new Character().withData(200, 200, 0, 1, null, 0, Sprite.EARTH_CHARACTER_RIGHT);
+		ServerMain.getServer().getInstancemanager().registerInstance(c);
+		ServerMain.getServer().getEventManager().addListener(starter);
+	}
 
-		ServerMain.getServer().getInstancemanager()
-				.registerInstance(new Character().withData(0, 0, 180, 20, null, 0, Sprite.EARTH_CHARACTER_RIGHT));
-
+	@Override
+	public void onTick(TickEvent e) {
+		c.setVelocity(Math.random() * 360, Math.random() * 4);
 	}
 
 }

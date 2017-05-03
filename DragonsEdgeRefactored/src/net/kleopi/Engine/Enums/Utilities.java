@@ -1,32 +1,31 @@
 package net.kleopi.Engine.Enums;
 
-/**
- * Several Math utilities
- *
- *
- */
+import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+
 public class Utilities {
-	/**
-	 *
-	 * @param n1
-	 * @param n2
-	 * @param n3
-	 * @return true if n1 is between n2 and n3, inclusive.
-	 */
+	private static BufferedImage glow;
+
 	public static boolean between(int n1, int n2, int n3) {
 		return (n1 >= n2 && n1 <= n3);
 	}
 
-	/**
-	 *
-	 * @param x1
-	 * @param y1
-	 * @param x2
-	 * @param y2
-	 * @return Euclidical distance between Point A(x1|y1) and (x2|y2)
-	 */
 	public static double distance(double x1, double y1, double x2, double y2) {
 		return Math.hypot(x2 - x1, y2 - y1);
 	}
 
+	public static void drawGlow(int x, int y, int i, Graphics2D shaderlayer) {
+		if (glow == null) {
+			glow = new BufferedImage(128, 128, BufferedImage.TYPE_4BYTE_ABGR);
+			Graphics2D g = glow.createGraphics();
+			g.setColor(new Color(0x10FFFFFF, true));
+			g.fillOval(0, 0, 128, 128);
+			g.fillOval(32, 32, 64, 64);
+			g.fillOval(48, 48, 32, 32);
+			g.dispose();
+		}
+		shaderlayer.drawImage(glow, x - i / 2, y - i / 2, i, i, null);
+
+	}
 }
