@@ -10,7 +10,7 @@ import net.kleopi.Engine.EventManagement.GameEvents.TickEvent;
 import net.kleopi.Engine.Networking.Player;
 
 public abstract class Instance {
-	// test update
+	
 	private Player owner;
 	private Circle circle;
 	protected boolean selected = false;
