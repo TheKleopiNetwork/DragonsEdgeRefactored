@@ -10,7 +10,7 @@ import net.kleopi.Engine.EventManagement.GameEvents.TickEvent;
 import net.kleopi.Engine.Networking.Player;
 
 public abstract class Instance {
-
+	// test update
 	private Player owner;
 	private Circle circle;
 	protected boolean selected = false;
@@ -44,6 +44,11 @@ public abstract class Instance {
 	}
 
 	/**
+	 * When do I die?
+	 */
+	abstract void checkDeath();
+
+	/**
 	 * When getting damage, what should happen?
 	 *
 	 * @param amount
@@ -60,6 +65,12 @@ public abstract class Instance {
 	 * What happens when Instance gets destroyed? TODO: also throw event
 	 */
 	public abstract void destroy();
+
+	private double distanceToTarget() {
+
+		return Math.abs(
+				Math.sqrt(Math.pow(target_x - getCircle().getX(), 2) + Math.pow(target_y - getCircle().getY(), 2)));
+	}
 
 	public Circle getCircle() {
 
@@ -129,6 +140,38 @@ public abstract class Instance {
 	 */
 	public abstract void onTick(TickEvent e);
 
+	private void path() {
+
+		// TODO implement pathfinding system
+		if (targetting) {
+			if (getCircle().getX() != target_x && getCircle().getY() != target_y) {
+				double angle = Math.atan2(target_y - getCircle().getY(), target_x - getCircle().getX());
+				if (distanceToTarget() > speed) {
+					double new_x = getCircle().getX() + speed * Math.cos(angle);
+					double new_y = getCircle().getY() + speed * Math.sin(angle);
+					if (ClientMain.getClient().getInstancemanager().isPassable(new_x, new_y, this)) {
+						getCircle().setX(new_x);
+						getCircle().setY(new_y);
+					} else {
+						targetting = false;
+						target_x = getCircle().getX();
+						target_y = getCircle().getY();
+					}
+				} else {
+					if (ClientMain.getClient().getInstancemanager().isPassable(target_x, target_x, this)) {
+						getCircle().setX(target_x);
+						getCircle().setY(target_y);
+					} else {
+						targetting = false;
+						target_x = getCircle().getX();
+						target_y = getCircle().getY();
+					}
+				}
+				direction = angle;
+			}
+		}
+	}
+
 	public void setCircle(Circle circle) {
 
 		this.circle = circle;
@@ -196,48 +239,5 @@ public abstract class Instance {
 		setId(id);
 		setSprite(sprite);
 		return this;
-	}
-
-	/**
-	 * When do I die?
-	 */
-	abstract void checkDeath();
-
-	private double distanceToTarget() {
-
-		return Math.abs(
-				Math.sqrt(Math.pow(target_x - getCircle().getX(), 2) + Math.pow(target_y - getCircle().getY(), 2)));
-	}
-
-	private void path() {
-
-		// TODO implement pathfinding system
-		if (targetting) {
-			if (getCircle().getX() != target_x && getCircle().getY() != target_y) {
-				double angle = Math.atan2(target_y - getCircle().getY(), target_x - getCircle().getX());
-				if (distanceToTarget() > speed) {
-					double new_x = getCircle().getX() + speed * Math.cos(angle);
-					double new_y = getCircle().getY() + speed * Math.sin(angle);
-					if (ClientMain.getClient().getInstancemanager().isPassable(new_x, new_y, this)) {
-						getCircle().setX(new_x);
-						getCircle().setY(new_y);
-					} else {
-						targetting = false;
-						target_x = getCircle().getX();
-						target_y = getCircle().getY();
-					}
-				} else {
-					if (ClientMain.getClient().getInstancemanager().isPassable(target_x, target_x, this)) {
-						getCircle().setX(target_x);
-						getCircle().setY(target_y);
-					} else {
-						targetting = false;
-						target_x = getCircle().getX();
-						target_y = getCircle().getY();
-					}
-				}
-				direction = angle;
-			}
-		}
 	}
 }

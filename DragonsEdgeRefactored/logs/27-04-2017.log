@@ -1,0 +1,64 @@
+-----------------------------------------
+[INFO]:  BUILD STARTED - Testing Server and Client:
+[INFO]:  PreLoading Sprites
+[ERROR]: File is null. This might be a bug
+[INFO]:  Sprites had been successfully loaded
+[INFO]:  Enqueued GameEvent
+[INFO]:  Enabling Plugins
+[INFO]:  Dispatched StartupEvent
+[INFO]:  No plugins in file
+[INFO]:  Plugins loaded
+[INFO]:  Enqueued GameEvent
+[INFO]:  00:14  INFO: [kryonet] Server opened.
+[INFO]:  Enqueued GameEvent
+[INFO]:  00:16  INFO: Connecting: localhost/127.0.0.1:11833/11880
+[INFO]:  00:16  INFO: [kryonet] Connection 1 connected: /127.0.0.1
+7.0.0.1
+[INFO]:  Player added [Server.addPlayer]
+[INFO]:  Packing TileMap for new Client
+[INFO]:  Sent Tilemap
+[INFO]:  received object
+-----------------------------------------
+[INFO]:  BUILD STARTED - Testing Server and Client:
+[INFO]:  PreLoading Sprites
+[ERROR]: File is null. This might be a bug
+[INFO]:  Sprites had been successfully loaded
+[INFO]:  Enqueued GameEvent
+[INFO]:  Enabling Plugins
+[INFO]:  Dispatched StartupEvent
+[INFO]:  No plugins in file
+[INFO]:  Plugins loaded
+[INFO]:  Enqueued GameEvent
+[INFO]:  00:11  INFO: [kryonet] Server opened.
+[INFO]:  Enqueued GameEvent
+[INFO]:  00:13  INFO: Connecting: localhost/127.0.0.1:11833/11880
+[INFO]:  00:13  INFO: [kryonet] Connection 1 connected: localhost/127.0.0.1
+[INFO]:  Player added [Server.addPlayer]
+[INFO]:  Packing TileMap for new Client
+[INFO]:  Sent Tilemap
+[INFO]:  received object
+[INFO]:  Enqueued GameEvent
+-----------------------------------------
+[INFO]:  BUILD STARTED - Testing Server and Client:
+[INFO]:  PreLoading Sprites
+[ERROR]: File is null. This might be a bug
+[INFO]:  Sprites had been successfully loaded
+[INFO]:  Enqueued GameEvent
+[INFO]:  Enabling Plugins
+[INFO]:  No plugins in file
+[INFO]:  Plugins loaded
+[INFO]:  Dispatched StartupEvent
+[INFO]:  Enqueued GameEvent
+[INFO]:  00:13  INFO: [kryonet] Server opened.
+[INFO]:  Enqueued GameEvent
+[INFO]:  00:14  INFO: Connecting: localhost/127.0.0.1:11833/11880
+[INFO]:  00:14  INFO: [kryonet] Connection 1 connected: /127.0.0.1
+[INFO]:  Player added [Server.addPlayer]
+[INFO]:  Packing TileMap for new Client
+[INFO]:  Sent Tilemap
+[INFO]:  received object
+[INFO]:  Enqueued GameEvent
+[INFO]:  Dispatched LoginEvent
+[INFO]:  Sucessfully downloaded the Map...
+[INFO]:  Dispatched PackageReceivedEvent
+[INFO]:  Dispatched StartupEvent
