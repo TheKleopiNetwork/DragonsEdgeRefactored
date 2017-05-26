@@ -1,0 +1,91 @@
+-----------------------------------------
+[INFO]:  BUILD STARTED - Testing Server and Client:
+[INFO]:  PreLoading Sprites
+[ERROR]: File is null. This might be a bug
+[INFO]:  Sprites had been successfully loaded
+[INFO]:  Dispatched StartupEvent
+[INFO]:  Enabling Plugins
+[INFO]:  No plugins in file
+[INFO]:  Plugins loaded
+[INFO]:  00:07  INFO: Connecting: localhost/127.0.0.1:11833/11880
+[ERROR]: Server not up yet. Trying again...
+[INFO]:  Dispatched LoginEvent
+[INFO]:  00:08  INFO: Connecting: localhost/127.0.0.1:11833/11880
+[ERROR]: Server not up yet. Trying again...
+[INFO]:  Dispatched LoginEvent
+[INFO]:  00:09  INFO: Connecting: localhost/127.0.0.1:11833/11880
+[ERROR]: Server not up yet. Trying again...
+[INFO]:  Dispatched LoginEvent
+[INFO]:  00:10  INFO: Connecting: localhost/127.0.0.1:11833/11880
+[ERROR]: Server not up yet. Trying again...
+[INFO]:  Dispatched LoginEvent
+[INFO]:  00:11  INFO: Connecting: localhost/127.0.0.1:11833/11880
+[ERROR]: Server not up yet. Trying again...
+[INFO]:  Dispatched LoginEvent
+[INFO]:  00:12  INFO: Connecting: localhost/127.0.0.1:11833/11880
+[ERROR]: Server not up yet. Trying again...
+[INFO]:  Dispatched LoginEvent
+[INFO]:  00:13  INFO: Connecting: localhost/127.0.0.1:11833/11880
+[INFO]:  00:13  INFO: [kryonet] Server opened.
+[INFO]:  00:14  INFO: [kryonet] Connection 1 connected: /127.0.0.1
+[INFO]:  00:14  INFO: [kryonet] Connection 1 connected: localhost/127.0.0.1
+[INFO]:  Player added
+[INFO]:  Packing TileMap for new Client
+[INFO]:  Sent Tilemap
+[INFO]:  Creating a character for the Client...
+[INFO]:  A player tries to connect
+[INFO]:  Sucessfully downloaded the Map...
+[INFO]:  Dispatched LoggedEvent
+[INFO]:  Dispatched StartupEvent
+[ERROR]: Crash Report:
+[ERROR]: Thread[Timer-1,5,main] crashed due to com.esotericsoftware.kryo.KryoException: java.lang.IllegalArgumentException: Class is not registered: net.kleopi.Engine.Networking.Player
+Note: To register this class use: kryo.register(net.kleopi.Engine.Networking.Player.class);
+Serialization trace:
+owner (net.kleopi.Engine.Instances.Character)
+instancelist (net.kleopi.Engine.Networking.UpdateObjects.InstanceListUpdate)
+[ERROR]: The Process is being closed...
+[INFO]:  00:34  INFO: [kryonet] Connection 1 disconnected.
+-----------------------------------------
+[INFO]:  BUILD STARTED - Testing Server and Client:
+[INFO]:  PreLoading Sprites
+[ERROR]: File is null. This might be a bug
+[INFO]:  Sprites had been successfully loaded
+[INFO]:  Enabling Plugins
+[INFO]:  No plugins in file
+[INFO]:  Dispatched StartupEvent
+[INFO]:  00:03  INFO: Connecting: localhost/127.0.0.1:11833/11880
+[ERROR]: Server not up yet. Trying again...
+[INFO]:  Dispatched LoginEvent
+[INFO]:  00:04  INFO: Connecting: localhost/127.0.0.1:11833/11880
+[ERROR]: Server not up yet. Trying again...
+[INFO]:  Dispatched LoginEvent
+[INFO]:  00:05  INFO: Connecting: localhost/127.0.0.1:11833/11880
+[ERROR]: Server not up yet. Trying again...
+[INFO]:  Dispatched LoginEvent
+[INFO]:  00:06  INFO: Connecting: localhost/127.0.0.1:11833/11880
+[ERROR]: Server not up yet. Trying again...
+[INFO]:  Dispatched LoginEvent
+[INFO]:  00:08  INFO: Connecting: localhost/127.0.0.1:11833/11880
+[ERROR]: Server not up yet. Trying again...
+[INFO]:  Dispatched LoginEvent
+[INFO]:  00:09  INFO: Connecting: localhost/127.0.0.1:11833/11880
+[ERROR]: Server not up yet. Trying again...
+[INFO]:  Dispatched LoginEvent
+[INFO]:  00:10  INFO: Connecting: localhost/127.0.0.1:11833/11880
+[ERROR]: Server not up yet. Trying again...
+[INFO]:  Dispatched LoginEvent
+[INFO]:  00:11  INFO: Connecting: localhost/127.0.0.1:11833/11880
+[ERROR]: Server not up yet. Trying again...
+[INFO]:  Dispatched LoginEvent
+[INFO]:  00:12  INFO: [kryonet] Server opened.
+[INFO]:  00:12  INFO: [kryonet] Connection 1 connected: localhost/127.0.0.1
+[INFO]:  Dispatched LoginEvent
+Connection 1 connected: /127.0.0.1
+[INFO]:  Player added
+[INFO]:  Packing TileMap for new Client
+[INFO]:  Sent Tilemap
+[INFO]:  Creating a character for the Client...
+[INFO]:  A player tries to connect
+Map...
+[INFO]:  Dispatched LoggedEvent
+[INFO]:  Dispatched StartupEvent
