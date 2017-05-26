@@ -18,6 +18,7 @@ import net.kleopi.Engine.EventManagement.GameEvents.MouseClickedEvent;
 import net.kleopi.Engine.EventManagement.GameEvents.MouseWheelMovedEvent;
 import net.kleopi.Engine.EventManagement.GameEvents.PackageReceivedEvent;
 import net.kleopi.Engine.EventManagement.GameEvents.PingEvent;
+import net.kleopi.Engine.EventManagement.GameEvents.PlayerJoinedTheGameEvent;
 import net.kleopi.Engine.EventManagement.GameEvents.StartupEvent;
 import net.kleopi.Engine.EventManagement.GameEvents.TickEvent;
 import net.kleopi.Engine.Exceptions.UnregisteredEventException;
@@ -57,67 +58,6 @@ public class EventManager extends Thread {
 	}
 
 	/**
-	 * Dispatches next queued Event
-	 *
-	 * @throws UnregisteredEventException
-	 *             -> dispatch
-	 */
-	public void dispatchNextEvent() throws UnregisteredEventException {
-		while (!eventqueue.isEmpty()) {
-			dispatch(eventqueue.remove());
-		}
-	}
-
-	/**
-	 * Enqueue provided GameEvent to fire when possible
-	 *
-	 * @param e
-	 *            - Event to enqueue
-	 */
-	public void fire(GameEvent e) {
-		queue(e);
-	}
-
-	/**
-	 *
-	 * @return List of all registered Listeners
-	 */
-	public synchronized List<TKNListenerAdapter> getListeners() {
-		return listeners;
-	}
-
-	/**
-	 * Unregisters provided Listener
-	 *
-	 * @param listener
-	 *            - Listener to remove
-	 */
-	public synchronized void removeListener(TKNListenerAdapter listener) {
-		listeners.remove(listener);
-	}
-
-	/**
-	 * Try to dispatch the events
-	 */
-	@Override
-	public void run() {
-		while (true) {
-			if (!eventqueue.isEmpty()) {
-				try {
-					dispatchNextEvent();
-				} catch (UnregisteredEventException e1) {
-					e1.printStackTrace();
-				}
-			} else {
-				try {
-					sleep(10);
-				} catch (InterruptedException e) {
-				}
-			}
-		}
-	}
-
-	/**
 	 * Tries to dispatch the event fitting to the provided Object
 	 *
 	 * @param object
@@ -154,6 +94,8 @@ public class EventManager extends Thread {
 				listeners.forEach(l -> l.onPackageReceived((PackageReceivedEvent) object));
 			} else if (object instanceof KeyPressedEvent) {
 				listeners.forEach(l -> l.onKeyPressed(((KeyPressedEvent) object).getKeyevent()));
+			} else if (object instanceof PlayerJoinedTheGameEvent) {
+				listeners.forEach(l -> l.onPlayerJoined((PlayerJoinedTheGameEvent) object));
 			} else if (object instanceof MouseWheelMovedEvent) {
 				listeners.forEach(l -> l.onMouseWheelAction(((MouseWheelMovedEvent) object).getEvent()));
 			} else if (object instanceof MouseClickedEvent) {
@@ -167,6 +109,36 @@ public class EventManager extends Thread {
 		}
 	}
 
+	/**
+	 * Dispatches next queued Event
+	 *
+	 * @throws UnregisteredEventException
+	 *             -> dispatch
+	 */
+	public void dispatchNextEvent() throws UnregisteredEventException {
+		while (!eventqueue.isEmpty()) {
+			dispatch(eventqueue.remove());
+		}
+	}
+
+	/**
+	 * Enqueue provided GameEvent to fire when possible
+	 *
+	 * @param e
+	 *            - Event to enqueue
+	 */
+	public void fire(GameEvent e) {
+		queue(e);
+	}
+
+	/**
+	 *
+	 * @return List of all registered Listeners
+	 */
+	public synchronized List<TKNListenerAdapter> getListeners() {
+		return listeners;
+	}
+
 	private void queue(GameEvent e) {
 		if (e instanceof DrawEvent) {
 			for (Object ev : eventqueue) {
@@ -177,5 +149,36 @@ public class EventManager extends Thread {
 			}
 		}
 		eventqueue.add(e);
+	}
+
+	/**
+	 * Unregisters provided Listener
+	 *
+	 * @param listener
+	 *            - Listener to remove
+	 */
+	public synchronized void removeListener(TKNListenerAdapter listener) {
+		listeners.remove(listener);
+	}
+
+	/**
+	 * Try to dispatch the events
+	 */
+	@Override
+	public void run() {
+		while (true) {
+			if (!eventqueue.isEmpty()) {
+				try {
+					dispatchNextEvent();
+				} catch (UnregisteredEventException e1) {
+					e1.printStackTrace();
+				}
+			} else {
+				try {
+					sleep(10);
+				} catch (InterruptedException e) {
+				}
+			}
+		}
 	}
 }

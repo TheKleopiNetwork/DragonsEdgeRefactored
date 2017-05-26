@@ -10,6 +10,7 @@ import net.kleopi.Engine.EventManagement.GameEvents.LoggedEvent;
 import net.kleopi.Engine.EventManagement.GameEvents.LoginEvent;
 import net.kleopi.Engine.EventManagement.GameEvents.PackageReceivedEvent;
 import net.kleopi.Engine.EventManagement.GameEvents.PingEvent;
+import net.kleopi.Engine.EventManagement.GameEvents.PlayerJoinedTheGameEvent;
 import net.kleopi.Engine.EventManagement.GameEvents.StartupEvent;
 import net.kleopi.Engine.EventManagement.GameEvents.TickEvent;
 
@@ -47,6 +48,9 @@ public interface TKNListenerAdapter {
 	default void onPing(PingEvent e) {
 	}
 
+	default void onPlayerJoined(PlayerJoinedTheGameEvent e) {
+	}
+
 	default void onPreDraw(DrawEvent object) {
 	}
 
@@ -54,9 +58,8 @@ public interface TKNListenerAdapter {
 	}
 
 	default void onSuccessfulLoginReturn(LoggedEvent object) {
-	}
-
-	default void onTick(TickEvent e) {
 	};
 
+	default void onTick(TickEvent e) {
+	}
 }

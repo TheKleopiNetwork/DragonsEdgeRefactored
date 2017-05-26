@@ -11,6 +11,7 @@ import com.esotericsoftware.kryonet.Server;
 
 import net.kleopi.Engine.Enums.Messager;
 import net.kleopi.Engine.EventManagement.TKNListenerAdapter;
+import net.kleopi.Engine.EventManagement.GameEvents.PlayerJoinedTheGameEvent;
 import net.kleopi.Engine.Networking.KryoRegisterer;
 import net.kleopi.Engine.Networking.Player;
 import net.kleopi.Engine.Networking.UpdateObjects.LoginUpdate;
@@ -50,6 +51,7 @@ public class NetworkServer extends Thread implements TKNListenerAdapter {
 		sendUpdate(p, tmu);
 		Messager.info("Sent Tilemap");
 		Messager.info("Creating a character for the Client...");
+		ServerMain.getServer().getEventManager().fire(new PlayerJoinedTheGameEvent(p));
 	}
 
 	/**
