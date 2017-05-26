@@ -1,90 +1,21 @@
-[INFO]:  01:16  INFO: [kryonet] Connection 1 connected: localhost/127.0.0.1
-[INFO]:  Sent Tilemap
-[INFO]:  Creating a character for the Client...
-[INFO]:  A player tries to connect
-[INFO]:  Sucessfully downloaded the Map...
-[INFO]:  Dispatched LoggedEvent
 -----------------------------------------
 [INFO]:  BUILD STARTED - Testing Server and Client:
 [INFO]:  PreLoading Sprites
 [ERROR]: File is null. This might be a bug
 [INFO]:  Sprites had been successfully loaded
-[INFO]:  Dispatched StartupEvent
 [INFO]:  Enabling Plugins
 [INFO]:  No plugins in file
 [INFO]:  Plugins loaded
-[INFO]:  00:27  INFO: Connecting: localhost/127.0.0.1:11833/11880
+upEvent
+[INFO]:  00:12  INFO: Connecting: localhost/127.0.0.1:11833/11880
 [ERROR]: Server not up yet. Trying again...
 [INFO]:  Dispatched LoginEvent
-[INFO]:  00:28  INFO: Connecting: localhost/127.0.0.1:11833/11880
-[ERROR]: Server not up yet. Trying again...
+[INFO]:  00:13  INFO: Connecting: localhost/127.0.0.1:11833/11880
+[INFO]:  00:14  INFO: [kryonet] Server opened.
+[INFO]:  00:14  INFO: [kryonet] Connection 1 connected: localhost/127.0.0.1
 [INFO]:  Dispatched LoginEvent
-[INFO]:  00:29  INFO: Connecting: localhost/127.0.0.1:11833/11880
-[ERROR]: Server not up yet. Trying again...
-[INFO]:  Dispatched LoginEvent
-[INFO]:  00:31  INFO: Connecting: localhost/127.0.0.1:11833/11880
-[ERROR]: Server not up yet. Trying again...
-[INFO]:  Dispatched LoginEvent
-[INFO]:  00:32  INFO: Connecting: localhost/127.0.0.1:11833/11880
-[ERROR]: Server not up yet. Trying again...
-[INFO]:  Dispatched LoginEvent
-[INFO]:  00:33  INFO: Connecting: localhost/127.0.0.1:11833/11880
-[ERROR]: Server not up yet. Trying again...
-[INFO]:  Dispatched LoginEvent
-[INFO]:  00:35  INFO: Connecting: localhost/127.0.0.1:11833/11880
-[ERROR]: Server not up yet. Trying again...
-[INFO]:  Dispatched LoginEvent
-[INFO]:  00:37  INFO: Connecting: localhost/127.0.0.1:11833/11880
-[ERROR]: Server not up yet. Trying again...
-[INFO]:  Dispatched LoginEvent
-[INFO]:  00:38  INFO: Connecting: localhost/127.0.0.1:11833/11880
-[ERROR]: Server not up yet. Trying again...
-[INFO]:  Dispatched LoginEvent
-[INFO]:  00:40  INFO: Connecting: localhost/127.0.0.1:11833/11880
-[ERROR]: Server not up yet. Trying again...
-[INFO]:  Dispatched LoginEvent
-[INFO]:  00:42  INFO: Connecting: localhost/127.0.0.1:11833/11880
-[ERROR]: Server not up yet. Trying again...
-[INFO]:  Dispatched LoginEvent
-[INFO]:  00:44  INFO: Connecting: localhost/127.0.0.1:11833/11880
-[ERROR]: Server not up yet. Trying again...
-[INFO]:  Dispatched LoginEvent
-[INFO]:  00:47  INFO: Connecting: localhost/127.0.0.1:11833/11880
-[ERROR]: Server not up yet. Trying again...
-[INFO]:  Dispatched LoginEvent
-[INFO]:  00:48  INFO: Connecting: localhost/127.0.0.1:11833/11880
-[ERROR]: Server not up yet. Trying again...
-[INFO]:  Dispatched LoginEvent
-[INFO]:  00:49  INFO: Connecting: localhost/127.0.0.1:11833/11880
-[ERROR]: Server not up yet. Trying again...
-[INFO]:  Dispatched LoginEvent
-[INFO]:  00:51  INFO: Connecting: localhost/127.0.0.1:11833/11880
-[ERROR]: Server not up yet. Trying again...
-[INFO]:  Dispatched LoginEvent
-[INFO]:  00:52  INFO: Connecting: localhost/127.0.0.1:11833/11880
-[ERROR]: Server not up yet. Trying again...
-[INFO]:  Dispatched LoginEvent
-[INFO]:  00:54  INFO: Connecting: localhost/127.0.0.1:11833/11880
-[ERROR]: Server not up yet. Trying again...
-[INFO]:  Dispatched LoginEvent
-[INFO]:  00:56  INFO: Connecting: localhost/127.0.0.1:11833/11880
-[ERROR]: Server not up yet. Trying again...
-[INFO]:  Dispatched LoginEvent
-[INFO]:  00:58  INFO: Connecting: localhost/127.0.0.1:11833/11880
-[ERROR]: Server not up yet. Trying again...
-[INFO]:  Dispatched LoginEvent
-[INFO]:  00:59  INFO: Connecting: localhost/127.0.0.1:11833/11880
-[ERROR]: Server not up yet. Trying again...
-[INFO]:  Dispatched LoginEvent
-[INFO]:  01:10  INFO: Connecting: localhost/127.0.0.1:11833/11880
-[ERROR]: Server not up yet. Trying again...
-[INFO]:  Dispatched LoginEvent
-[INFO]:  01:11  INFO: Connecting: localhost/127.0.0.1:11833/11880
-[INFO]:  01:12  INFO: [kryonet] Server opened.
-[INFO]:  01:13  INFO: [kryonet] Connection 1 connected: localhost/127.0.0.1
 [INFO]:  Player added
 [INFO]:  Packing TileMap for new Client
-[INFO]:  Dispatched LoginEvent
 [INFO]:  Sent Tilemap
 [INFO]:  Creating a character for the Client...
 [INFO]:  A player tries to connect

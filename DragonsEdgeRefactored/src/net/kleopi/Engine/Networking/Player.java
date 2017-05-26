@@ -7,6 +7,10 @@ import com.esotericsoftware.kryonet.Connection;
 @SuppressWarnings("serial")
 public class Player implements Serializable {
 
+	public static Player getNeutralPlayer() {
+		return new Player(null);
+	}
+
 	private Connection connection;
 
 	public Player(Connection c) {
@@ -15,6 +19,6 @@ public class Player implements Serializable {
 
 	public Connection getConnection() {
 		return connection;
-		
+
 	}
 }
