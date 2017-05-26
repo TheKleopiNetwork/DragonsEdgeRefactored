@@ -13,6 +13,10 @@ public class Player implements Serializable {
 
 	private Connection connection;
 
+	public Player() {
+		// kryonet only - use the other constructor or use withData
+	}
+
 	public Player(Connection c) {
 		this.connection = c;
 	}
@@ -20,5 +24,9 @@ public class Player implements Serializable {
 	public Connection getConnection() {
 		return connection;
 
+	}
+
+	public void withData(Connection c) {
+		connection = c;
 	}
 }

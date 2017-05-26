@@ -31,6 +31,7 @@ public class KryoRegisterer {
 		kryo.register(Character.class);
 		kryo.register(Circle.class);
 		kryo.register(Sprite.class);
+		kryo.register(Player.class);
 
 	}
 
